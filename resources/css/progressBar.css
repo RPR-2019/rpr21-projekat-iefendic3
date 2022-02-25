@@ -1,0 +1,9 @@
+.crveniProgress{
+-fx-accent:red;
+}
+.zeleniProgress{
+-fx-accent:green;
+}
+.zutiProgress{
+-fx-accent:yellow;
+}
