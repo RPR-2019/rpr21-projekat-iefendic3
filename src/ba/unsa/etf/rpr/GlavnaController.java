@@ -3,6 +3,7 @@ package ba.unsa.etf.rpr;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -12,13 +13,26 @@ import javafx.stage.Stage;
 import javafx.stage.Window;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
 import static javafx.scene.layout.Region.USE_COMPUTED_SIZE;
 
 
-public class GlavnaController {
-    public MenuItem menuLogOut;
+public class GlavnaController implements Initializable {
+
     public MenuBar menuBar;
+    public Label labelDobrodosao;
+    private KorisnikDAO dao;
+
+    public GlavnaController(){dao = KorisnikDAO.getInstance();}
+
+    public void setLabelaZensko(String string){
+        labelDobrodosao.setText(labelDobrodosao.getText()+" došla, "+string);
+    }
+    public void setLabelaMusko(String string){
+        labelDobrodosao.setText(labelDobrodosao.getText()+" došao, "+string+"e");
+    }
 
     public void clickMenuLogOut(ActionEvent actionEvent) throws IOException {
         Stage stage = (Stage) menuBar.getScene().getWindow();
@@ -36,5 +50,22 @@ public class GlavnaController {
 
     public void clickMenuExit(ActionEvent actionEvent){
         System.exit(0);
+    }
+
+    public void clickMenuAbout(ActionEvent actionEvent) throws IOException {
+        Stage primaryStage = new Stage();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/about.fxml"));
+        loader.setController(new AboutController());
+        Parent root = loader.load();
+
+        primaryStage.setTitle("About");
+        primaryStage.setScene(new Scene(root, USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
+        primaryStage.setResizable(false);
+        primaryStage.show();
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+
     }
 }

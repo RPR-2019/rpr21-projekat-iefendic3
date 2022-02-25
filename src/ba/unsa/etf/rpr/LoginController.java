@@ -31,18 +31,28 @@ public class LoginController{
         Parent root = loader.load();
         secondaryStage.setTitle("Registracija");
         secondaryStage.setScene(new Scene(root, USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
+        secondaryStage.setResizable(false);
         secondaryStage.show();
     }
 
     public void clickPrijava(ActionEvent actionEvent) throws IOException {
         if(dao.nadjiKorisnika(fldKorisnickoIme.getText()) != null && dao.nadjiPasswordKorisnika(fldPassword.getText()) != null) {
 
+            Korisnik k = dao.nadjiKorisnika(fldKorisnickoIme.getText());
+
             Stage stage = (Stage) btnPrijava.getScene().getWindow();
             stage.close();
             Stage primaryStage = new Stage();
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/glavna.fxml"));
+
             loader.setController(new GlavnaController());
             Parent root = loader.load();
+            GlavnaController glavnaController = loader.getController();
+
+            if((k.getOsoba().getIme().substring(k.getOsoba().getIme().length() - 1)).equals("a"))
+            glavnaController.setLabelaZensko(k.getOsoba().getIme());
+            else
+                glavnaController.setLabelaMusko(k.getOsoba().getIme());
             primaryStage.setTitle("IE - Kupoprodaja");
             primaryStage.setScene(new Scene(root, USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
             primaryStage.show();
