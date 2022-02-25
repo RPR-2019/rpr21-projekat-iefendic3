@@ -14,7 +14,11 @@ public class RegistracijaController implements Initializable {
     public TextField fldIme, fldPrezime, fldDatum, fldKorisnicko, fldPassword;
     private boolean ispravno = false;
     public Button btnRegistrujSe;
+    private KorisnikDAO dao;
 
+    public RegistracijaController(){
+        dao = KorisnikDAO.getInstance();
+    }
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
@@ -83,6 +87,9 @@ public class RegistracijaController implements Initializable {
 
     public void clickRegistrujSe(ActionEvent actionEvent){
         if(!fldIme.getText().isBlank() && !fldPrezime.getText().isBlank() && !fldDatum.getText().isBlank() && !fldKorisnicko.getText().isBlank() && !fldPassword.getText().isBlank() && ispravno){
+            Osoba osoba = new Osoba(fldIme.getText(),fldPrezime.getText(),fldDatum.getText());
+            Korisnik korisnik = new Korisnik(osoba, fldKorisnicko.getText(), fldPassword.getText());
+            dao.dodajKorisnika(korisnik);
             Stage stage = (Stage) btnRegistrujSe.getScene().getWindow();
             stage.close();
         }

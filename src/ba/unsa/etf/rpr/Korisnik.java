@@ -11,6 +11,12 @@ public class Korisnik {
         this.password = password;
     }
 
+    public Korisnik() {
+        this.osoba = null;
+        this.korisnickoIme="";
+        this.password="";
+    }
+
     public Osoba getOsoba() {
         return osoba;
     }

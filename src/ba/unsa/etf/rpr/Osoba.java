@@ -1,23 +1,24 @@
 package ba.unsa.etf.rpr;
 
-import java.util.Date;
+
+import java.sql.Date;
 
 public class Osoba {
     private String ime;
     private String prezime;
-    private Date datumRodjenja;
+    private String datumRodjenja;
 
-    public Osoba(String ime, String prezime, Date datumRodjenja) {
+    public Osoba(String ime, String prezime, String datumRodjenja) {
         this.ime = ime;
         this.prezime = prezime;
         this.datumRodjenja = datumRodjenja;
     }
 
-    public Date getDatumRodjenja() {
+    public String getDatumRodjenja() {
         return datumRodjenja;
     }
 
-    public void setDatumRodjenja(Date datumRodjenja) {
+    public void setDatumRodjenja(String datumRodjenja) {
         this.datumRodjenja = datumRodjenja;
     }
 

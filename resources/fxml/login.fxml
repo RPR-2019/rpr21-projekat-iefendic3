@@ -36,12 +36,7 @@
             <Insets left="10.0" />
          </GridPane.margin>
       </Label>
-      <TextField maxWidth="290.0" prefWidth="250.0" GridPane.columnSpan="2" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
-         <GridPane.margin>
-            <Insets right="10.0" />
-         </GridPane.margin>
-      </TextField>
-      <TextField layoutX="110.0" layoutY="148.0" maxWidth="290.0" prefWidth="250.0" GridPane.columnSpan="2" GridPane.halignment="RIGHT" GridPane.rowIndex="2">
+      <TextField fx:id="fldKorisnickoIme" maxWidth="290.0" prefWidth="290.0" GridPane.columnSpan="2" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
          <GridPane.margin>
             <Insets right="10.0" />
          </GridPane.margin>
@@ -56,10 +51,15 @@
             <Hyperlink fx:id="btnRegistracija" onAction="#clickRegistracija" text="Registracija" />
          </children>
       </HBox>
-      <Button fx:id="btnPrijava" mnemonicParsing="false" prefHeight="26.0" prefWidth="380.0" text="Prijava" GridPane.columnSpan="2" GridPane.rowIndex="4">
+      <Button fx:id="btnPrijava" mnemonicParsing="false" onAction="#clickPrijava" prefHeight="26.0" prefWidth="380.0" text="Prijava" GridPane.columnSpan="2" GridPane.rowIndex="4">
          <GridPane.margin>
             <Insets bottom="10.0" left="10.0" right="10.0" />
          </GridPane.margin>
       </Button>
+      <PasswordField maxWidth="290.0" prefWidth="290.0" GridPane.columnSpan="2" GridPane.halignment="RIGHT" GridPane.rowIndex="2">
+         <GridPane.margin>
+            <Insets right="10.0" />
+         </GridPane.margin>
+      </PasswordField>
    </children>
 </GridPane>
