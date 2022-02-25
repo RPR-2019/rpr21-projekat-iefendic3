@@ -8,6 +8,7 @@ import javafx.stage.Stage;
 
 import java.net.URL;
 import java.time.LocalDate;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class RegistracijaController implements Initializable {
@@ -93,14 +94,50 @@ public class RegistracijaController implements Initializable {
         if(!fldIme.getText().isBlank() && !fldPrezime.getText().isBlank() && !datePicker.getValue().toString().isBlank() && !fldKorisnicko.getText().isBlank() && !fldPassword.getText().isBlank() && ispravno){
             Osoba osoba = new Osoba(fldIme.getText(),fldPrezime.getText(),datePicker.getValue().toString());
             Korisnik korisnik = new Korisnik(osoba, fldKorisnicko.getText(), fldPassword.getText());
-            dao.dodajKorisnika(korisnik);
+
             Stage stage = (Stage) btnRegistrujSe.getScene().getWindow();
             stage.close();
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-            alert.setTitle("Registracija uspješna!");
-            alert.setHeaderText("Uspješno ste se registrovali!");
-            alert.setContentText("Možete se ulogovati na vaš račun.");
-            alert.showAndWait();
+            ButtonType accept = new ButtonType("Accept", ButtonBar.ButtonData.OK_DONE);
+            ButtonType cancel = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
+            Alert alert1 = new Alert(Alert.AlertType.CONFIRMATION,"",accept,cancel);
+            alert1.setTitle("Uvjeti rada aplikacije");
+            alert1.setHeaderText("Korisnik ove aplikacije je dužan da poštuje sve moralna i zakonska pravila kupoprodaje.\n" +
+                    "Kršenjem nekog od pravila, korisnik snosi sve posljedice.\n" +
+                    "Administrator aplikacije ne odgovara za kršenje pravila.");
+            alert1.setContentText("Da li pristajete na uvjete rada aplikacije?");
+            Optional<ButtonType> result = alert1.showAndWait();
+            if(!result.isPresent()){
+                // alert is exited, no button has been pressed.
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Greška!");
+                alert.setHeaderText("Niste pristali na uvjete rada aplikacije!");
+                alert.setContentText("Račun nije kreiran.");
+                alert.showAndWait();
+                alert1.close();
+            }
+
+            else if(result.get() == accept){
+                //oke button is pressed
+                dao.dodajKorisnika(korisnik);
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Registracija uspješna!");
+                alert.setHeaderText("Uspješno ste se registrovali!");
+                alert.setContentText("Možete se ulogovati na vaš račun.");
+                alert.showAndWait();
+            }
+
+            else if(result.get() ==cancel){
+                // cancel button is pressed
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Greška!");
+                alert.setHeaderText("Niste pristali na uvjete rada aplikacije!");
+                alert.setContentText("Račun nije kreiran.");
+                alert.showAndWait();
+                alert1.close();
+            }
+
+
+
         }
         else{
             Alert alert = new Alert(Alert.AlertType.ERROR);

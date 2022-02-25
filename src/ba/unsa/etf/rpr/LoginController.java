@@ -36,6 +36,11 @@ public class LoginController{
 
     public void clickPrijava(ActionEvent actionEvent){
         if(dao.nadjiKorisnika(fldKorisnickoIme.getText()) != null && dao.nadjiPasswordKorisnika(fldPassword.getText()) != null) {
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Login uspješan");
+            alert.setHeaderText("Uspješno ste se ulogovali na vaš račun");
+
+            alert.showAndWait();
             Stage stage = (Stage) btnPrijava.getScene().getWindow();
             stage.close();
         } else{

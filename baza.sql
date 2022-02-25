@@ -5,3 +5,4 @@ CREATE TABLE IF NOT EXISTS "korisnik" (
    "korisnicko_ime" TEXT,
    "password" TEXT
 );
+
