@@ -34,15 +34,18 @@ public class LoginController{
         secondaryStage.show();
     }
 
-    public void clickPrijava(ActionEvent actionEvent){
+    public void clickPrijava(ActionEvent actionEvent) throws IOException {
         if(dao.nadjiKorisnika(fldKorisnickoIme.getText()) != null && dao.nadjiPasswordKorisnika(fldPassword.getText()) != null) {
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-            alert.setTitle("Login uspješan");
-            alert.setHeaderText("Uspješno ste se ulogovali na vaš račun");
 
-            alert.showAndWait();
             Stage stage = (Stage) btnPrijava.getScene().getWindow();
             stage.close();
+            Stage primaryStage = new Stage();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/glavna.fxml"));
+            loader.setController(new GlavnaController());
+            Parent root = loader.load();
+            primaryStage.setTitle("IE - Kupoprodaja");
+            primaryStage.setScene(new Scene(root, USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
+            primaryStage.show();
         } else{
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Greška!");

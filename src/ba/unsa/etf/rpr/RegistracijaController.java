@@ -125,6 +125,8 @@ public class RegistracijaController implements Initializable {
 
                 Stage stage = (Stage) btnRegistrujSe.getScene().getWindow();
                 stage.close();
+
+
                 ButtonType accept = new ButtonType("Accept", ButtonBar.ButtonData.OK_DONE);
                 ButtonType cancel = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
                 Alert alert1 = new Alert(Alert.AlertType.CONFIRMATION, "", accept, cancel);
@@ -133,6 +135,7 @@ public class RegistracijaController implements Initializable {
                         "Kršenjem nekog od pravila, korisnik snosi sve posljedice.\n" +
                         "Administrator aplikacije ne odgovara za kršenje pravila.");
                 alert1.setContentText("Da li pristajete na uvjete rada aplikacije?");
+
                 Optional<ButtonType> result = alert1.showAndWait();
                 if (!result.isPresent()) {
                     // alert is exited, no button has been pressed.
