@@ -9,7 +9,7 @@ import java.util.Scanner;
 public class KorisnikDAO {
     private static KorisnikDAO instance = null;
     private Connection connection;
-    private PreparedStatement dajKorisnikeUpit,dodajKorisnikaUpit, nadjiKorisnikaUpit;
+    private PreparedStatement dajKorisnikeUpit,dodajKorisnikaUpit, nadjiKorisnikaUpit, nadjiPasswordKorisnikaUpit;
 
     private KorisnikDAO() {
         String url = "jdbc:sqlite:baza.db";
@@ -24,6 +24,7 @@ public class KorisnikDAO {
            dajKorisnikeUpit = connection.prepareStatement("SELECT * FROM korisnik");
            dodajKorisnikaUpit = connection.prepareStatement("INSERT INTO korisnik VALUES (?,?,?,?,?)");
            nadjiKorisnikaUpit = connection.prepareStatement("SELECT * FROM korisnik WHERE korisnicko_ime=?");
+           nadjiPasswordKorisnikaUpit = connection.prepareStatement("SELECT * FROM korisnik WHERE password=?");
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -66,6 +67,24 @@ public class KorisnikDAO {
                 k.setOsoba(o);
                 k.setPassword(rs.getString(5));
                 k.setKorisnickoIme(korisnickoIme);
+                return k;
+            }
+        } catch(SQLException e){
+            e.printStackTrace();
+            return null;
+        }
+        return null;
+    }
+    public Korisnik nadjiPasswordKorisnika(String password){
+        try{
+            nadjiPasswordKorisnikaUpit.setString(1,password);
+            ResultSet rs = nadjiPasswordKorisnikaUpit.executeQuery();
+            if(rs.next()){
+                Korisnik k = new Korisnik();
+                Osoba o = new Osoba(rs.getString(1),rs.getString(2),rs.getString(3)); //Ime prezime datum
+                k.setOsoba(o);
+                k.setPassword(password);
+                k.setKorisnickoIme(rs.getString(4));
                 return k;
             }
         } catch(SQLException e){

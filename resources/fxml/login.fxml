@@ -56,7 +56,7 @@
             <Insets bottom="10.0" left="10.0" right="10.0" />
          </GridPane.margin>
       </Button>
-      <PasswordField maxWidth="290.0" prefWidth="290.0" GridPane.columnSpan="2" GridPane.halignment="RIGHT" GridPane.rowIndex="2">
+      <PasswordField fx:id="fldPassword" maxWidth="290.0" prefWidth="290.0" GridPane.columnSpan="2" GridPane.halignment="RIGHT" GridPane.rowIndex="2">
          <GridPane.margin>
             <Insets right="10.0" />
          </GridPane.margin>
