@@ -28,10 +28,10 @@ public class GlavnaController implements Initializable {
     public GlavnaController(){dao = KorisnikDAO.getInstance();}
 
     public void setLabelaZensko(String string){
-        labelDobrodosao.setText(labelDobrodosao.getText()+" došla, "+string);
+        labelDobrodosao.setText(labelDobrodosao.getText()+" došao/la, "+string);
     }
     public void setLabelaMusko(String string){
-        labelDobrodosao.setText(labelDobrodosao.getText()+" došao, "+string+"e");
+        labelDobrodosao.setText(labelDobrodosao.getText()+" došao/la, "+string+"e");
     }
 
     public void clickMenuLogOut(ActionEvent actionEvent) throws IOException {

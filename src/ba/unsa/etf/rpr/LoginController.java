@@ -49,7 +49,7 @@ public class LoginController{
             Parent root = loader.load();
             GlavnaController glavnaController = loader.getController();
 
-            if((k.getOsoba().getIme().substring(k.getOsoba().getIme().length() - 1)).equals("a"))
+            if((k.getOsoba().getIme().substring(k.getOsoba().getIme().length() - 1)).equals("a") || ( k.getOsoba().getIme().substring(k.getOsoba().getIme().length() - 1)).equals("k"))
             glavnaController.setLabelaZensko(k.getOsoba().getIme());
             else
                 glavnaController.setLabelaMusko(k.getOsoba().getIme());
