@@ -18,7 +18,7 @@
                 <Menu text="_Options">
                   <items>
                         <MenuItem mnemonicParsing="false" text="Language" />
-                        <MenuItem fx:id="menuLogOut" onAction="#clickMenuLogOut" text="_Log out">
+                        <MenuItem fx:id="menuLogOut" onAction="#clickLogOut" text="_Log out">
                            <accelerator>
                               <KeyCodeCombination alt="DOWN" code="L" control="UP" meta="UP" shift="UP" shortcut="UP" />
                            </accelerator>
@@ -69,7 +69,7 @@
                         </Separator>
                         <Hyperlink text="Profil" />
                         <Separator orientation="VERTICAL" prefHeight="200.0" />
-                        <Hyperlink text="Odjava" />
+                        <Hyperlink fx:id="btnOdjava" onAction="#clickLogOut" text="Odjava" />
                         <Separator orientation="VERTICAL" prefHeight="200.0" />
                      </children>
                      <BorderPane.margin>

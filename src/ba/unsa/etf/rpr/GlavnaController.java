@@ -34,7 +34,7 @@ public class GlavnaController implements Initializable {
         labelDobrodosao.setText(labelDobrodosao.getText()+" došao/la, "+string+"e");
     }
 
-    public void clickMenuLogOut(ActionEvent actionEvent) throws IOException {
+    public void clickLogOut(ActionEvent actionEvent) throws IOException {
         Stage stage = (Stage) menuBar.getScene().getWindow();
         stage.close();
 
