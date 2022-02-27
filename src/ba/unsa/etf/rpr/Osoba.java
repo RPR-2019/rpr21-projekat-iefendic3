@@ -2,6 +2,7 @@ package ba.unsa.etf.rpr;
 
 
 import java.sql.Date;
+import java.time.LocalDate;
 
 public class Osoba {
     private String ime;
@@ -36,5 +37,12 @@ public class Osoba {
 
     public void setPrezime(String prezime) {
         this.prezime = prezime;
+    }
+
+
+    public String dajDatum() {
+        LocalDate datum = LocalDate.parse(datumRodjenja);
+
+        return datum.getDayOfMonth() + "." + datum.getMonthValue()+"."+datum.getYear()+".";
     }
 }

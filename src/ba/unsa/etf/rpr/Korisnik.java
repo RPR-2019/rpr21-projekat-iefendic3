@@ -15,7 +15,7 @@ public class Korisnik {
     }
 
     public Korisnik() {
-        this.osoba = null;
+        this.osoba = new Osoba("","","");
         this.korisnickoIme="";
         this.password="";
         this.mjesto = "";

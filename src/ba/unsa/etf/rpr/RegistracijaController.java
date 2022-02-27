@@ -163,6 +163,9 @@ public class RegistracijaController implements Initializable {
                 Stage stage = (Stage) btnRegistrujSe.getScene().getWindow();
                 stage.close();
 
+                //
+                //ProfilController profilController = loader.getController();
+
 
                 ButtonType accept = new ButtonType("Accept", ButtonBar.ButtonData.OK_DONE);
                 ButtonType cancel = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);

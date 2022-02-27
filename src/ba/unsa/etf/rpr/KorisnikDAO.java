@@ -9,7 +9,7 @@ import java.util.Scanner;
 public class KorisnikDAO {
     private static KorisnikDAO instance = null;
     private Connection connection;
-    private PreparedStatement dajKorisnikeUpit,dodajKorisnikaUpit, nadjiKorisnikaUpit, nadjiPasswordKorisnikaUpit;
+    private PreparedStatement dajKorisnikeUpit,dodajKorisnikaUpit, nadjiKorisnikaUpit, nadjiPasswordKorisnikaUpit ;
 
     private KorisnikDAO() {
         String url = "jdbc:sqlite:baza.db";

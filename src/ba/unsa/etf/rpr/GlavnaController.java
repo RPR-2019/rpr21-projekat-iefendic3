@@ -24,6 +24,11 @@ public class GlavnaController implements Initializable {
     public MenuBar menuBar;
     public Label labelDobrodosao;
     private KorisnikDAO dao;
+    private String korisnickoIme;
+
+    public void setKorisnickoIme(String korisnickoIme){
+        this.korisnickoIme=korisnickoIme;
+    }
 
     public GlavnaController(){dao = KorisnikDAO.getInstance();}
 
@@ -33,6 +38,8 @@ public class GlavnaController implements Initializable {
     public void setLabelaMusko(String string){
         labelDobrodosao.setText(labelDobrodosao.getText()+" došao/la, "+string+"e");
     }
+
+
 
     public void clickLogOut(ActionEvent actionEvent) throws IOException {
         Stage stage = (Stage) menuBar.getScene().getWindow();
@@ -48,11 +55,27 @@ public class GlavnaController implements Initializable {
 
     }
     public void clickProfil(ActionEvent actionEvent) throws IOException {
+        /*ProfilController profilController = null;
         Stage primaryStage = new Stage();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/profil.fxml"));
-        loader.setController(new ProfilController());
+        loader.setController(profilController);
         Parent root = loader.load();
-        primaryStage.setTitle("Profil");
+        profilController = loader.getController();
+        profilController.setKorisnik(dao.nadjiKorisnika(korisnickoIme));
+        System.out.println(dao.nadjiKorisnika(korisnickoIme).getAdresa());*/
+        Stage primaryStage=new Stage();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/profil.fxml"));
+
+
+        loader.setController(new ProfilController());
+        Parent root=loader.load();
+        ProfilController profilController=loader.getController();
+
+        Korisnik k = dao.nadjiKorisnika(korisnickoIme);
+        profilController.setKorisnik(k);
+
+
+        primaryStage.setTitle("Profil - "+korisnickoIme);
         primaryStage.setScene(new Scene(root, USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
         primaryStage.setResizable(false);
         primaryStage.show();

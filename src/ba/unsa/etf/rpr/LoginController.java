@@ -21,6 +21,11 @@ public class LoginController{
     public Button btnPrijava;
     public LoginController(){ dao = KorisnikDAO.getInstance();}
 
+    public String getKorisnickoIme (){
+
+        return fldKorisnickoIme.getText();
+    }
+
     public void clickRegistracija(ActionEvent actionEvent) throws IOException {
         fldKorisnickoIme.setText("");
         fldPassword.setText("");
@@ -48,6 +53,7 @@ public class LoginController{
             loader.setController(new GlavnaController());
             Parent root = loader.load();
             GlavnaController glavnaController = loader.getController();
+            glavnaController.setKorisnickoIme(fldKorisnickoIme.getText());
 
             if((k.getOsoba().getIme().substring(k.getOsoba().getIme().length() - 1)).equals("a") || ( k.getOsoba().getIme().substring(k.getOsoba().getIme().length() - 1)).equals("k"))
             glavnaController.setLabelaZensko(k.getOsoba().getIme());
