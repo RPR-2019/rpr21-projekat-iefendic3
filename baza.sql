@@ -3,6 +3,10 @@ CREATE TABLE IF NOT EXISTS "korisnik" (
    "prezime" TEXT,
    "datum_rodjenja" TEXT,
    "korisnicko_ime" TEXT,
-   "password" TEXT
+   "password" TEXT,
+   "mjesto" TEXT,
+   "adresa" TEXT,
+   "broj_telefona" TEXT
+
 );
 

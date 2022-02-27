@@ -67,7 +67,7 @@
                               <Insets />
                            </HBox.margin>
                         </Separator>
-                        <Hyperlink text="Profil" />
+                        <Hyperlink fx:id="btnProfil" onAction="#clickProfil" text="Profil" />
                         <Separator orientation="VERTICAL" prefHeight="200.0" />
                         <Hyperlink fx:id="btnOdjava" onAction="#clickLogOut" text="Odjava" />
                         <Separator orientation="VERTICAL" prefHeight="200.0" />

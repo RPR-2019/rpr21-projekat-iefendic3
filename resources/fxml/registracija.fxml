@@ -39,8 +39,12 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
+            <Label text="Ime:" />
             <TextField fx:id="fldIme" maxWidth="470.0" prefWidth="100.0" GridPane.halignment="RIGHT">
                <GridPane.margin>
                   <Insets />
@@ -50,20 +54,25 @@
                <GridPane.margin>
                   <Insets />
                </GridPane.margin></DatePicker>
-            <Label text="Ime:" />
+            <Label text="Broj telefona:" GridPane.rowIndex="6" />
             <Label text="Prezime:" GridPane.rowIndex="1" />
             <Label text="Korisničko ime:" GridPane.rowIndex="3" />
             <Label text="Datum rođenja:" GridPane.rowIndex="2" />
-            <Label text="Šifra:" GridPane.rowIndex="4" />
+            <Label text="Šifra:" GridPane.rowIndex="7" />
             <TextField fx:id="fldPrezime" layoutX="118.0" layoutY="27.0" maxWidth="470.0" prefWidth="470.0" GridPane.halignment="RIGHT" GridPane.rowIndex="1" />
             <TextField fx:id="fldKorisnicko" layoutX="10.0" layoutY="144.0" maxWidth="470.0" prefWidth="100.0" GridPane.halignment="RIGHT" GridPane.rowIndex="3" />
-            <PasswordField fx:id="fldPassword" maxWidth="470.0" prefWidth="470.0" GridPane.halignment="RIGHT" GridPane.rowIndex="4" />
-            <Label text="Jačina šifre:" GridPane.rowIndex="5" />
-            <ProgressBar fx:id="progressBar" prefHeight="18.0" prefWidth="281.0" progress="0.0" GridPane.halignment="RIGHT" GridPane.rowIndex="5">
+            <PasswordField fx:id="fldPassword" maxWidth="470.0" prefWidth="470.0" GridPane.halignment="RIGHT" GridPane.rowIndex="7" />
+            <Label text="Jačina šifre:" GridPane.rowIndex="8" />
+            <ProgressBar fx:id="progressBar" prefHeight="18.0" prefWidth="281.0" progress="0.0" GridPane.halignment="RIGHT" GridPane.rowIndex="8">
                <GridPane.margin>
                   <Insets right="100.0" />
                </GridPane.margin>
             </ProgressBar>
+            <Label text="Mjesto stanovanja:" GridPane.rowIndex="4" />
+            <Label text="Adresa stanovanja:" GridPane.rowIndex="5" />
+            <TextField fx:id="fldMjesto" layoutX="119.0" layoutY="104.0" maxWidth="470.0" prefWidth="100.0" GridPane.halignment="RIGHT" GridPane.rowIndex="4" />
+            <TextField fx:id="fldAdresa" layoutX="119.0" layoutY="134.0" maxWidth="470.0" prefWidth="100.0" GridPane.halignment="RIGHT" GridPane.rowIndex="5" />
+            <TextField fx:id="fldBrojTel" layoutX="119.0" layoutY="164.0" maxWidth="470.0" prefWidth="100.0" GridPane.halignment="RIGHT" GridPane.rowIndex="6" />
          </children>
          <GridPane.margin>
             <Insets left="10.0" right="10.0" />

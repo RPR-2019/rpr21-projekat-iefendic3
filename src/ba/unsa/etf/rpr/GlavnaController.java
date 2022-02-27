@@ -47,6 +47,16 @@ public class GlavnaController implements Initializable {
         primaryStage.show();
 
     }
+    public void clickProfil(ActionEvent actionEvent) throws IOException {
+        Stage primaryStage = new Stage();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/profil.fxml"));
+        loader.setController(new ProfilController());
+        Parent root = loader.load();
+        primaryStage.setTitle("Profil");
+        primaryStage.setScene(new Scene(root, USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
+        primaryStage.setResizable(false);
+        primaryStage.show();
+    }
 
     public void clickMenuExit(ActionEvent actionEvent){
         System.exit(0);

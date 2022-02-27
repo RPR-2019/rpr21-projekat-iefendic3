@@ -12,7 +12,7 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class RegistracijaController implements Initializable {
-    public TextField fldIme, fldPrezime, fldKorisnicko;
+    public TextField fldIme, fldPrezime, fldKorisnicko, fldMjesto, fldAdresa, fldBrojTel;
     public PasswordField fldPassword;
     public DatePicker datePicker;
     private boolean ispravno = false;
@@ -95,6 +95,42 @@ public class RegistracijaController implements Initializable {
                 fldKorisnicko.getStyleClass().add("ispravno");
             }
         });
+        fldMjesto.textProperty().addListener((obs,oldValue,newValue) -> {
+            if(newValue.isBlank()){
+                ispravno = false;
+                fldMjesto.getStyleClass().removeAll("ispravno");
+                fldMjesto.getStyleClass().add("neispravno");
+            }
+            else{
+                ispravno = true;
+                fldMjesto.getStyleClass().removeAll("neispravno");
+                fldMjesto.getStyleClass().add("ispravno");
+            }
+        });
+        fldAdresa.textProperty().addListener((obs,oldValue,newValue) -> {
+            if(newValue.isBlank()){
+                ispravno = false;
+                fldAdresa.getStyleClass().removeAll("ispravno");
+                fldAdresa.getStyleClass().add("neispravno");
+            }
+            else{
+                ispravno = true;
+                fldAdresa.getStyleClass().removeAll("neispravno");
+                fldAdresa.getStyleClass().add("ispravno");
+            }
+        });
+        fldBrojTel.textProperty().addListener((obs,oldValue,newValue) -> {
+            if(newValue.isBlank()){
+                ispravno = false;
+                fldBrojTel.getStyleClass().removeAll("ispravno");
+                fldBrojTel.getStyleClass().add("neispravno");
+            }
+            else{
+                ispravno = true;
+                fldBrojTel.getStyleClass().removeAll("neispravno");
+                fldBrojTel.getStyleClass().add("ispravno");
+            }
+        });
         fldPassword.textProperty().addListener((obs,oldValue,newValue) -> {
             if(newValue.length()<5){
                 ispravanPassword = false;
@@ -111,7 +147,8 @@ public class RegistracijaController implements Initializable {
     }
 
     public void clickRegistrujSe(ActionEvent actionEvent){
-        if(!fldIme.getText().isBlank() && !fldPrezime.getText().isBlank() && !datePicker.getValue().toString().isBlank() && !fldKorisnicko.getText().isBlank() && !fldPassword.getText().isBlank() && ispravno) {
+        if(!fldIme.getText().isBlank() && !fldPrezime.getText().isBlank() && !datePicker.getValue().toString().isBlank() && !fldKorisnicko.getText().isBlank() && !fldPassword.getText().isBlank()
+                && !fldMjesto.getText().isBlank() && !fldAdresa.getText().isBlank() && !fldBrojTel.getText().isBlank() && ispravno) {
             if (ispravanPassword == false) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Greška!");
@@ -121,7 +158,7 @@ public class RegistracijaController implements Initializable {
 
             } else {
                 Osoba osoba = new Osoba(fldIme.getText(), fldPrezime.getText(), datePicker.getValue().toString());
-                Korisnik korisnik = new Korisnik(osoba, fldKorisnicko.getText(), fldPassword.getText());
+                Korisnik korisnik = new Korisnik(osoba, fldKorisnicko.getText(), fldPassword.getText(), fldMjesto.getText(),fldAdresa.getText(),fldBrojTel.getText());
 
                 Stage stage = (Stage) btnRegistrujSe.getScene().getWindow();
                 stage.close();
