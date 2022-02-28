@@ -1,27 +1,17 @@
 package ba.unsa.etf.rpr;
 
-import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
-import javafx.geometry.Rectangle2D;
-import javafx.scene.Group;
-import javafx.scene.Node;
-import javafx.scene.Scene;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.HBox;
-import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
-import javafx.stage.Stage;
 
-import javax.imageio.ImageIO;
-import java.io.*;
-import java.net.MalformedURLException;
-import java.net.URISyntaxException;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.net.URL;
-import java.sql.*;
 import java.util.ResourceBundle;
 
 
@@ -42,22 +32,16 @@ public class ProfilController implements Initializable {
         Image image = new Image(getClass().getResourceAsStream("/img/user.png"));
         slikaProfila.setImage(image);
         btnSlikaProfila.setGraphic(slikaProfila);
-
-
     }
 
 
     public void clickBtn (ActionEvent actionEvent) {
-
-
         fc.setTitle("My File Chooser");
-
         fc.setInitialDirectory(new File(System.getProperty("user.home")));
         fc.getExtensionFilters().clear();
         fc.getExtensionFilters().add(new FileChooser.ExtensionFilter("Image Files","*.*"));
 
         File file = fc.showOpenDialog(null);
-
 
         if(file != null){
             try {
@@ -71,7 +55,6 @@ public class ProfilController implements Initializable {
         } else{
             System.out.println("A file is invalid!");
         }
-
     }
 
     public void setKorisnik(Korisnik korisnik) {
