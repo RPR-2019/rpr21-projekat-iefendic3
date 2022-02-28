@@ -1,15 +1,25 @@
 package ba.unsa.etf.rpr;
 
+import javafx.embed.swing.SwingFXUtils;
+import javafx.scene.image.Image;
+
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class KorisnikDAO {
     private static KorisnikDAO instance = null;
     private Connection connection;
-    private PreparedStatement dajKorisnikeUpit,dodajKorisnikaUpit, nadjiKorisnikaUpit, nadjiPasswordKorisnikaUpit ;
+    private PreparedStatement dajKorisnikeUpit,dodajKorisnikaUpit, nadjiKorisnikaUpit, nadjiPasswordKorisnikaUpit, dodajSlikuKorisnikaUpit,
+    dajSlikuKorisnikaUpit, obrisiSlikuKorisnikaUpit;
 
     private KorisnikDAO() {
         String url = "jdbc:sqlite:baza.db";
@@ -25,10 +35,14 @@ public class KorisnikDAO {
            dodajKorisnikaUpit = connection.prepareStatement("INSERT INTO korisnik VALUES (?,?,?,?,?,?,?,?)");
            nadjiKorisnikaUpit = connection.prepareStatement("SELECT * FROM korisnik WHERE korisnicko_ime=?");
            nadjiPasswordKorisnikaUpit = connection.prepareStatement("SELECT * FROM korisnik WHERE password=?");
+           dodajSlikuKorisnikaUpit=connection.prepareStatement("INSERT INTO slikaKorisnika VALUES (?,?)");
+           dajSlikuKorisnikaUpit=connection.prepareStatement("SELECT slika FROM slikaKorisnika WHERE korisnicko_ime=?");
+           obrisiSlikuKorisnikaUpit = connection.prepareStatement("DELETE FROM slikaKorisnika WHERE korisnicko_ime=?");
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
+
 
     public static KorisnikDAO getInstance() {
         if (instance == null) instance = new KorisnikDAO();
@@ -55,11 +69,38 @@ public class KorisnikDAO {
             dodajKorisnikaUpit.setString(6,korisnik.getMjesto());
             dodajKorisnikaUpit.setString(7,korisnik.getAdresa());
             dodajKorisnikaUpit.setString(8,korisnik.getBrojTelefona());
+
             dodajKorisnikaUpit.execute();
         } catch (SQLException e){
             e.printStackTrace();
         }
     }
+
+    public void dodajSlikuKorisnika(String korisnickoIme, FileInputStream inputStream, int duzina){
+        try{
+            obrisiSlikuKorisnikaUpit.setString(1,korisnickoIme);
+            obrisiSlikuKorisnikaUpit.execute();
+            dodajSlikuKorisnikaUpit.setString(1,korisnickoIme);
+            dodajSlikuKorisnikaUpit.setBinaryStream(2,inputStream, duzina);
+            dodajSlikuKorisnikaUpit.execute();
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+    }
+
+    public ResultSet dajSlikuKorisnika(String korisnickoIme){
+
+        try {
+            dajSlikuKorisnikaUpit.setString(1, korisnickoIme);
+            ResultSet resultSet = dajSlikuKorisnikaUpit.executeQuery();
+            if(resultSet!=null) return resultSet;
+        } catch (SQLException e){
+            e.printStackTrace();
+            return null;
+        }
+return null;
+    }
+
     public Korisnik nadjiKorisnika(String korisnickoIme){
         try{
             nadjiKorisnikaUpit.setString(1,korisnickoIme);
@@ -127,3 +168,4 @@ public class KorisnikDAO {
         }
     }
 }
+

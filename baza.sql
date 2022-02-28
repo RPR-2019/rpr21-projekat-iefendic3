@@ -10,3 +10,8 @@ CREATE TABLE IF NOT EXISTS "korisnik" (
 
 );
 
+CREATE TABLE IF NOT EXISTS "slikaKorisnika" (
+"korisnicko_ime" TEXT,
+"slika" BLOB
+);
+

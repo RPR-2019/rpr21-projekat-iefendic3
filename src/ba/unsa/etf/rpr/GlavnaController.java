@@ -67,9 +67,10 @@ public class GlavnaController implements Initializable {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/profil.fxml"));
 
 
+
         loader.setController(new ProfilController());
         Parent root=loader.load();
-        ProfilController profilController=loader.getController();
+       ProfilController profilController=loader.getController();
 
         Korisnik k = dao.nadjiKorisnika(korisnickoIme);
         profilController.setKorisnik(k);
