@@ -21,6 +21,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
@@ -77,13 +78,20 @@ public class GlavnaController implements Initializable {
 
     public void clickObjaviArtikal(ActionEvent actionEvent) throws IOException {
         Stage primaryStage = new Stage();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/objava.fxml"));
+       /* FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/objava.fxml"));
         loader.setController(new ObjavaController());
-        Parent root = loader.load();
+        Parent root = loader.load();*/
+        Parent root=(new FXMLLoader(getClass().getResource("/fxml/objava.fxml"))).load();
         primaryStage.getIcons().add(new Image("/img/logo-no-bg.png"));
         primaryStage.setTitle("Objavite artikal");
         primaryStage.setScene(new Scene(root, USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
-        primaryStage.show();
+        primaryStage.showAndWait();
+        if(primaryStage.getUserData() != null) {
+            ArrayList<Kategorija> kategorije = (ArrayList<Kategorija>) primaryStage.getUserData();
+            for (Kategorija k : kategorije) {
+                lvKategorije.getItems().add(k);
+            }
+        }
     }
 
     public void clickLogOut(ActionEvent actionEvent) throws IOException {

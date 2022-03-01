@@ -1,15 +1,135 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.net.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/11.0.2">
-  <columnConstraints>
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseMoved="#promijeni" prefHeight="600.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ba.unsa.etf.rpr.ObjavaController">
+    <stylesheets>
+        <URL value="@/css/buttonStyle.css" />
+
+    </stylesheets>
+
+    <columnConstraints>
     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
   </columnConstraints>
   <rowConstraints>
-    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+    <RowConstraints maxHeight="161.4" minHeight="0.0" prefHeight="65.99999809265137" vgrow="SOMETIMES" />
+    <RowConstraints maxHeight="513.6000305175781" minHeight="0.0" prefHeight="204.6" vgrow="SOMETIMES" />
+    <RowConstraints maxHeight="550.0" minHeight="10.0" prefHeight="328.4" vgrow="SOMETIMES" />
   </rowConstraints>
+   <children>
+      <Label text="Objava artikla">
+         <font>
+            <Font size="18.0" />
+         </font>
+         <GridPane.margin>
+            <Insets left="10.0" />
+         </GridPane.margin>
+      </Label>
+      <VBox maxHeight="400.0" prefHeight="500.0" prefWidth="100.0" GridPane.columnSpan="2" GridPane.rowIndex="1" GridPane.rowSpan="2">
+         <children>
+            <HBox prefHeight="48.0" prefWidth="300.0" spacing="10.0">
+               <children>
+                  <Label text="Naslov i kategorija:">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="txtFieldNaslov" prefHeight="26.0" prefWidth="279.0" />
+                  <ChoiceBox fx:id="choiceKategorije" prefHeight="26.0" prefWidth="139.0" />
+               </children>
+            </HBox>
+            <HBox spacing="5.0">
+               <children>
+                  <TextField fx:id="txtFieldKategorija" prefHeight="26.0" prefWidth="176.0" promptText="Unesite novu kategoriju" />
+                  <Button fx:id="btnDodajKategoriju" mnemonicParsing="false" onAction="#clickDodajKategoriju" text="Dodaj" />
+               </children>
+               <VBox.margin>
+                  <Insets left="350.0" top="10.0" />
+               </VBox.margin>
+            </HBox>
+            <HBox prefHeight="28.0" prefWidth="590.0">
+               <children>
+                  <Label text="Cijena artikla:">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Label>
+                  <TextField prefHeight="26.0" prefWidth="279.0">
+                     <HBox.margin>
+                        <Insets left="50.0" />
+                     </HBox.margin>
+                  </TextField>
+               </children>
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
+            </HBox>
+            <HBox prefHeight="28.0" prefWidth="590.0">
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
+               <children>
+                  <Label text="Lokacija:">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Label>
+                  <TextField prefHeight="26.0" prefWidth="279.0">
+                     <HBox.margin>
+                        <Insets left="85.0" />
+                     </HBox.margin>
+                  </TextField>
+               </children>
+            </HBox>
+            <HBox prefHeight="23.0" prefWidth="590.0">
+               <children>
+                  <Label text="Detaljna deskripcija artikla:">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Label>
+               </children>
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
+            </HBox>
+            <HBox prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <TextArea prefHeight="125.0" prefWidth="486.0" />
+               </children>
+            </HBox>
+            <HBox prefHeight="88.0" prefWidth="590.0">
+               <children>
+                  <Label text="Slika artikla:">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Label>
+                  <ImageView fitHeight="150.0" fitWidth="481.0" pickOnBounds="true" preserveRatio="true" />
+               </children>
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
+            </HBox>
+         </children>
+         <GridPane.margin>
+            <Insets left="10.0" />
+         </GridPane.margin>
+      </VBox>
+      <ButtonBar maxHeight="50.0" maxWidth="199.0" prefHeight="50.0" prefWidth="142.0" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="2" GridPane.valignment="BOTTOM">
+         <buttons>
+            <Button fx:id="btnObjavi" defaultButton="true" mnemonicParsing="false" onAction="#clickObjavi" text="Objavi" />
+            <Button fx:id="btnOdustani" mnemonicParsing="false" text="Odustani" />
+         </buttons>
+         <GridPane.margin>
+            <Insets right="10.0" />
+         </GridPane.margin>
+      </ButtonBar>
+   </children>
 </GridPane>
