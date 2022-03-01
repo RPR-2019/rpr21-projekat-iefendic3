@@ -14,4 +14,7 @@ CREATE TABLE IF NOT EXISTS "slikaKorisnika" (
 "korisnicko_ime" TEXT,
 "slika" BLOB
 );
+CREATE TABLE IF NOT EXISTS "kategorije" (
+"naziv" TEXT
+);
 

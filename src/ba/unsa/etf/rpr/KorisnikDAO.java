@@ -19,7 +19,7 @@ public class KorisnikDAO {
     private static KorisnikDAO instance = null;
     private Connection connection;
     private PreparedStatement dajKorisnikeUpit,dodajKorisnikaUpit, nadjiKorisnikaUpit, nadjiPasswordKorisnikaUpit, dodajSlikuKorisnikaUpit,
-    dajSlikuKorisnikaUpit, obrisiSlikuKorisnikaUpit;
+    dajSlikuKorisnikaUpit, obrisiSlikuKorisnikaUpit, dodajKategorijuUpit, dajKategorijeUpit;
 
     private KorisnikDAO() {
         String url = "jdbc:sqlite:baza.db";
@@ -38,6 +38,8 @@ public class KorisnikDAO {
            dodajSlikuKorisnikaUpit=connection.prepareStatement("INSERT INTO slikaKorisnika VALUES (?,?)");
            dajSlikuKorisnikaUpit=connection.prepareStatement("SELECT slika FROM slikaKorisnika WHERE korisnicko_ime=?");
            obrisiSlikuKorisnikaUpit = connection.prepareStatement("DELETE FROM slikaKorisnika WHERE korisnicko_ime=?");
+           dodajKategorijuUpit = connection.prepareStatement("INSERT INTO kategorije VALUES (?)");
+           dajKategorijeUpit = connection.prepareStatement("SELECT * FROM kategorije");
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -75,6 +77,14 @@ public class KorisnikDAO {
             e.printStackTrace();
         }
     }
+    public void dodajKategoriju(Kategorija kategorija){
+        try{
+            dodajKategorijuUpit.setString(1,kategorija.getNazivKategorije());
+            dodajKategorijuUpit.execute();
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+    }
 
     public void dodajSlikuKorisnika(String korisnickoIme, FileInputStream inputStream, int duzina){
         try{
@@ -99,6 +109,15 @@ public class KorisnikDAO {
             return null;
         }
 return null;
+    }
+
+    public ResultSet dajKategorije(){
+        try{
+            return dajKategorijeUpit.executeQuery();
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+        return null;
     }
 
     public Korisnik nadjiKorisnika(String korisnickoIme){
