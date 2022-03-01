@@ -5,6 +5,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
@@ -16,11 +17,13 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class ObjavaController implements Initializable {
-    public TextField txtFieldNaslov,txtFieldKategorija;
+    public TextField txtFieldNaslov,txtFieldKategorija,txtFieldCijena, txtFieldLokacija;
     public ChoiceBox<Kategorija> choiceKategorije;
     private KorisnikDAO dao;
     public Button btnDodajKategoriju, btnObjavi, btnOdustani;
     private ArrayList<Kategorija> kategorije = new ArrayList<>();
+    private ArrayList<Artikal> artikli = new ArrayList<>();
+    public TextArea txtAreaDeskripcija;
 
     public ObjavaController() {dao=KorisnikDAO.getInstance();}
 
@@ -69,14 +72,23 @@ public class ObjavaController implements Initializable {
             txtFieldKategorija.setText("");
             kategorije.add(k);
         }
-    }
-
-    public void clickObjavi(ActionEvent actionEvent) {
-        for(Kategorija k : kategorije){
-            dao.dodajKategoriju(new Kategorija(k.getNazivKategorije()));
+        for(Kategorija ka : kategorije){
+            dao.dodajKategoriju(new Kategorija(ka.getNazivKategorije()));
         }
         Stage stage = (Stage) btnObjavi.getScene().getWindow();
         stage.setUserData(kategorije);
+    }
+
+    public void clickObjavi(ActionEvent actionEvent) {
+        if(!txtFieldNaslov.getText().isBlank() && choiceKategorije.getValue() != null && !txtFieldCijena.getText().isBlank() && !txtFieldLokacija.getText().isBlank()
+        && !txtAreaDeskripcija.getText().isBlank()){
+            Artikal artikal = new Artikal(txtFieldNaslov.getText(),choiceKategorije.getValue(),txtFieldCijena.getText(),txtFieldLokacija.getText(),txtAreaDeskripcija.getText());
+            artikli.add(artikal);
+        }
+
+        Stage stage = (Stage) btnObjavi.getScene().getWindow();
+
+        stage.setUserData(artikli);
         stage.close();
     }
 }

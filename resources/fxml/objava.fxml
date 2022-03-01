@@ -60,7 +60,7 @@
                         <Font size="16.0" />
                      </font>
                   </Label>
-                  <TextField prefHeight="26.0" prefWidth="279.0">
+                  <TextField fx:id="txtFieldCijena" prefHeight="26.0" prefWidth="279.0">
                      <HBox.margin>
                         <Insets left="50.0" />
                      </HBox.margin>
@@ -80,7 +80,7 @@
                         <Font size="16.0" />
                      </font>
                   </Label>
-                  <TextField prefHeight="26.0" prefWidth="279.0">
+                  <TextField fx:id="txtFieldLokacija" prefHeight="26.0" prefWidth="279.0">
                      <HBox.margin>
                         <Insets left="85.0" />
                      </HBox.margin>
@@ -101,7 +101,7 @@
             </HBox>
             <HBox prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <TextArea prefHeight="125.0" prefWidth="486.0" />
+                  <TextArea fx:id="txtAreaDeskripcija" prefHeight="125.0" prefWidth="486.0" />
                </children>
             </HBox>
             <HBox prefHeight="88.0" prefWidth="590.0">

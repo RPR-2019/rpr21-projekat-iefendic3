@@ -87,10 +87,15 @@ public class GlavnaController implements Initializable {
         primaryStage.setScene(new Scene(root, USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
         primaryStage.showAndWait();
         if(primaryStage.getUserData() != null) {
+            ArrayList<Artikal> artikli = (ArrayList<Artikal>) primaryStage.getUserData();
+            for(Artikal a: artikli){
+                lvArtikli.getItems().add(a);
+            }
             ArrayList<Kategorija> kategorije = (ArrayList<Kategorija>) primaryStage.getUserData();
             for (Kategorija k : kategorije) {
                 lvKategorije.getItems().add(k);
             }
+
         }
     }
 
