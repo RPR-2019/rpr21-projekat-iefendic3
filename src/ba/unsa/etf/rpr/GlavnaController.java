@@ -10,6 +10,8 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.stage.Window;
@@ -32,11 +34,12 @@ public class GlavnaController implements Initializable {
     private KorisnikDAO dao;
     private String korisnickoIme;
     public ListView<Kategorija> lvKategorije;
-    public Button btnDodajKategoriju;
+    public Button btnDodajKategoriju, btnObjavi;
     public TextField txtFieldKategorija;
     private boolean postoji = false;
     @FXML
     public Label labelGreska;
+    public ListView<Artikal> lvArtikli;
 
     public void setKorisnickoIme(String korisnickoIme){
         this.korisnickoIme=korisnickoIme;
@@ -72,6 +75,17 @@ public class GlavnaController implements Initializable {
         }
     }
 
+    public void clickObjaviArtikal(ActionEvent actionEvent) throws IOException {
+        Stage primaryStage = new Stage();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/objava.fxml"));
+        loader.setController(new ObjavaController());
+        Parent root = loader.load();
+        primaryStage.getIcons().add(new Image("/img/logo-no-bg.png"));
+        primaryStage.setTitle("Objavite artikal");
+        primaryStage.setScene(new Scene(root, USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
+        primaryStage.show();
+    }
+
     public void clickLogOut(ActionEvent actionEvent) throws IOException {
         Stage stage = (Stage) menuBar.getScene().getWindow();
         stage.close();
@@ -80,6 +94,7 @@ public class GlavnaController implements Initializable {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/login.fxml"));
         loader.setController(new LoginController());
         Parent root = loader.load();
+        primaryStage.getIcons().add(new Image("/img/logo-no-bg.png"));
         primaryStage.setTitle("Login");
         primaryStage.setScene(new Scene(root, USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
         primaryStage.show();
@@ -95,7 +110,7 @@ public class GlavnaController implements Initializable {
         Korisnik k = dao.nadjiKorisnika(korisnickoIme);
         profilController.setKorisnik(k);
 
-
+        primaryStage.getIcons().add(new Image("/img/logo-no-bg.png"));
         primaryStage.setTitle("Profil - "+korisnickoIme);
         primaryStage.setScene(new Scene(root, USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
         primaryStage.setResizable(false);
@@ -111,15 +126,29 @@ public class GlavnaController implements Initializable {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/about.fxml"));
         loader.setController(new AboutController());
         Parent root = loader.load();
-
+        primaryStage.getIcons().add(new Image("/img/logo-no-bg.png"));
         primaryStage.setTitle("About");
         primaryStage.setScene(new Scene(root, USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
         primaryStage.setResizable(false);
         primaryStage.show();
     }
+    public ImageView slikaObjava, slikaLogo;
+    public Button btnSlikaAbout;
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        Image img = new Image("/img/objava.png");
+        Image img1 = new Image("/img/logo-no-bg.png");
+        slikaObjava.setImage(img);
+        slikaObjava.setFitHeight(80);
+        slikaObjava.setPreserveRatio(true);
+        //Setting a graphic to the button
+        btnObjavi.setGraphic(slikaObjava);
+        slikaLogo.setImage(img1);
+        btnSlikaAbout.setGraphic(slikaLogo);
+        btnSlikaAbout.setBackground(null);
+
         labelGreska.setVisible(false);
         try {
             ResultSet rs = dao.dajKategorije();

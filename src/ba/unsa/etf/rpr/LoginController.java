@@ -8,6 +8,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -34,6 +35,7 @@ public class LoginController{
         RegistracijaController registracijaController = new RegistracijaController();
         loader.setController(registracijaController);
         Parent root = loader.load();
+        secondaryStage.getIcons().add(new Image("/img/logo-no-bg.png"));
         secondaryStage.setTitle("Registracija");
         secondaryStage.setScene(new Scene(root, USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
         secondaryStage.setResizable(false);
@@ -59,6 +61,7 @@ public class LoginController{
             glavnaController.setLabelaZensko(k.getOsoba().getIme());
             else
                 glavnaController.setLabelaMusko(k.getOsoba().getIme());
+            primaryStage.getIcons().add(new Image("/img/logo-no-bg.png"));
             primaryStage.setTitle("IE - Kupoprodaja");
             primaryStage.setScene(new Scene(root, USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
             primaryStage.show();
