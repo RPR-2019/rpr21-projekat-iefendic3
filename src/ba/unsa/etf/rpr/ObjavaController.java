@@ -2,7 +2,10 @@ package ba.unsa.etf.rpr;
 
 
 import javafx.event.ActionEvent;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextArea;
@@ -10,6 +13,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -84,11 +88,30 @@ public class ObjavaController implements Initializable {
         && !txtAreaDeskripcija.getText().isBlank()){
             Artikal artikal = new Artikal(txtFieldNaslov.getText(),choiceKategorije.getValue(),txtFieldCijena.getText(),txtFieldLokacija.getText(),txtAreaDeskripcija.getText());
             artikli.add(artikal);
+            dao.dodajArtikal(artikal);
         }
 
         Stage stage = (Stage) btnObjavi.getScene().getWindow();
 
-        stage.setUserData(artikli);
+        //stage.setUserData(artikli);
         stage.close();
+        try{
+           // FXMLLoader loader = FXMLLoader.load(getClass().getClassLoader().getResource("/fxml/glavna.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/glavna.fxml"));
+            GlavnaController controller = new GlavnaController();
+            controller.setArtikli(artikli);
+
+            loader.setController(controller);
+
+            Parent root = loader.load();
+
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.setTitle("IE - Kupoprodaja");
+            stage.show();
+        } catch (IOException e){
+            System.err.print(String.format("Error: %s", e.getMessage()));
+        }
+
     }
 }

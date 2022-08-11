@@ -2,6 +2,8 @@ package ba.unsa.etf.rpr;
 
 
 import javafx.animation.PauseTransition;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -12,6 +14,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.stage.Window;
@@ -40,7 +43,7 @@ public class GlavnaController implements Initializable {
     private boolean postoji = false;
     @FXML
     public Label labelGreska;
-    public ListView<Artikal> lvArtikli;
+    public ListView<Artikal> lvArtikli = new ListView<Artikal>();
 
     public void setKorisnickoIme(String korisnickoIme){
         this.korisnickoIme=korisnickoIme;
@@ -53,6 +56,11 @@ public class GlavnaController implements Initializable {
     }
     public void setLabelaMusko(String string){
         labelDobrodosao.setText(labelDobrodosao.getText()+" došao/la, "+string+"e");
+    }
+
+    public void setArtikli(ArrayList<Artikal> artikli){
+        ObservableList<Artikal> observableList = FXCollections.observableList(artikli);
+        lvArtikli.setItems(observableList);
     }
 
     public void clickDodajKategoriju(ActionEvent actionEvent) {
@@ -81,22 +89,28 @@ public class GlavnaController implements Initializable {
        /* FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/objava.fxml"));
         loader.setController(new ObjavaController());
         Parent root = loader.load();*/
+
+
         Parent root=(new FXMLLoader(getClass().getResource("/fxml/objava.fxml"))).load();
         primaryStage.getIcons().add(new Image("/img/logo-no-bg.png"));
         primaryStage.setTitle("Objavite artikal");
         primaryStage.setScene(new Scene(root, USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
         primaryStage.showAndWait();
+
+        Stage stage = (Stage) btnObjavi.getScene().getWindow();
+        stage.close();
         if(primaryStage.getUserData() != null) {
-            ArrayList<Artikal> artikli = (ArrayList<Artikal>) primaryStage.getUserData();
+            /*ArrayList<Artikal> artikli = (ArrayList<Artikal>) primaryStage.getUserData();
             for(Artikal a: artikli){
                 lvArtikli.getItems().add(a);
-            }
+            }*/
             ArrayList<Kategorija> kategorije = (ArrayList<Kategorija>) primaryStage.getUserData();
             for (Kategorija k : kategorije) {
                 lvKategorije.getItems().add(k);
             }
 
         }
+
     }
 
     public void clickLogOut(ActionEvent actionEvent) throws IOException {
@@ -118,7 +132,7 @@ public class GlavnaController implements Initializable {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/profil.fxml"));
         loader.setController(new ProfilController());
         Parent root=loader.load();
-       ProfilController profilController=loader.getController();
+        ProfilController profilController=loader.getController();
 
         Korisnik k = dao.nadjiKorisnika(korisnickoIme);
         profilController.setKorisnik(k);
@@ -148,9 +162,23 @@ public class GlavnaController implements Initializable {
     public ImageView slikaObjava, slikaLogo;
     public Button btnSlikaAbout;
 
+    @FXML public void handleMouseClick(MouseEvent arg0) throws IOException {
+        Stage primaryStage = new Stage();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/artikal.fxml"));
+        loader.setController(new ArtikalController());
+        ArtikalController controller = new ArtikalController();
+        //controller.setCijena("1111");
+        Parent root = loader.load();
+        primaryStage.getIcons().add(new Image("/img/logo-no-bg.png"));
+        primaryStage.setTitle("Artikal - "+lvArtikli.getSelectionModel().getSelectedItem());
+        primaryStage.setScene(new Scene(root, USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
+        primaryStage.show();
+       // System.out.println("clicked on " + lvArtikli.getSelectionModel().getSelectedItem());
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
         Image img = new Image("/img/objava.png");
         Image img1 = new Image("/img/logo-no-bg.png");
         slikaObjava.setImage(img);
@@ -164,9 +192,15 @@ public class GlavnaController implements Initializable {
 
         labelGreska.setVisible(false);
         try {
+            ResultSet rsArtikli = dao.dajArtikle();
             ResultSet rs = dao.dajKategorije();
             while (rs.next()) {
                 lvKategorije.getItems().add(new Kategorija(rs.getString(1)));
+            }
+            while(rsArtikli.next()){
+                Kategorija kategorija = new Kategorija(rsArtikli.getString(2));
+                lvArtikli.getItems().add(new Artikal(rsArtikli.getString(1), kategorija, rsArtikli.getString(3),rsArtikli.getString(4),
+                        rsArtikli.getString(5)));
             }
         } catch (SQLException e){
             e.printStackTrace();

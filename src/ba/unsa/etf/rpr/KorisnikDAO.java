@@ -19,7 +19,7 @@ public class KorisnikDAO {
     private static KorisnikDAO instance = null;
     private Connection connection;
     private PreparedStatement dajKorisnikeUpit,dodajKorisnikaUpit, nadjiKorisnikaUpit, nadjiPasswordKorisnikaUpit, dodajSlikuKorisnikaUpit,
-    dajSlikuKorisnikaUpit, obrisiSlikuKorisnikaUpit, dodajKategorijuUpit, dajKategorijeUpit;
+    dajSlikuKorisnikaUpit, obrisiSlikuKorisnikaUpit, dodajKategorijuUpit, dajKategorijeUpit, dodajArtikalUpit, dajArtikleUpit;
 
     private KorisnikDAO() {
         String url = "jdbc:sqlite:baza.db";
@@ -40,6 +40,8 @@ public class KorisnikDAO {
            obrisiSlikuKorisnikaUpit = connection.prepareStatement("DELETE FROM slikaKorisnika WHERE korisnicko_ime=?");
            dodajKategorijuUpit = connection.prepareStatement("INSERT INTO kategorije VALUES (?)");
            dajKategorijeUpit = connection.prepareStatement("SELECT * FROM kategorije");
+           dodajArtikalUpit = connection.prepareStatement("INSERT INTO artikli VALUES (?,?,?,?,?)");
+           dajArtikleUpit = connection.prepareStatement("SELECT * FROM artikli");
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -85,6 +87,18 @@ public class KorisnikDAO {
             e.printStackTrace();
         }
     }
+    public void dodajArtikal(Artikal artikal){
+        try{
+            dodajArtikalUpit.setString(1,artikal.getNaziv());
+            dodajArtikalUpit.setString(2,artikal.getKategorija().getNazivKategorije());
+            dodajArtikalUpit.setString(3,artikal.getCijena());
+            dodajArtikalUpit.setString(4,artikal.getLokacija());
+            dodajArtikalUpit.setString(5,artikal.getDeskripcija());
+            dodajArtikalUpit.execute();
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+    }
 
     public void dodajSlikuKorisnika(String korisnickoIme, FileInputStream inputStream, int duzina){
         try{
@@ -114,6 +128,14 @@ return null;
     public ResultSet dajKategorije(){
         try{
             return dajKategorijeUpit.executeQuery();
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+        return null;
+    }
+    public ResultSet dajArtikle(){
+        try{
+            return dajArtikleUpit.executeQuery();
         } catch (SQLException e){
             e.printStackTrace();
         }
