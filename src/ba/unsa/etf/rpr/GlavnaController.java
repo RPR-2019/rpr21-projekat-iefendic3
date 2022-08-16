@@ -41,6 +41,10 @@ public class GlavnaController implements Initializable {
     public Button btnDodajKategoriju, btnObjavi;
     public TextField txtFieldKategorija;
     private boolean postoji = false;
+    /*private final DataModel model ;
+    public GlavnaController(DataModel model){
+        this.model = model;
+    }*/
     @FXML
     public Label labelGreska;
     public ListView<Artikal> lvArtikli = new ListView<Artikal>();
@@ -162,17 +166,27 @@ public class GlavnaController implements Initializable {
     public ImageView slikaObjava, slikaLogo;
     public Button btnSlikaAbout;
 
+
+
     @FXML public void handleMouseClick(MouseEvent arg0) throws IOException {
+        DataModel model1 = new DataModel();
         Stage primaryStage = new Stage();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/artikal.fxml"));
-        loader.setController(new ArtikalController());
-        ArtikalController controller = new ArtikalController();
-        //controller.setCijena("1111");
+        ArtikalController controller = new ArtikalController(model1);
+        loader.setController(controller);
+        model1.setNaziv(lvArtikli.getSelectionModel().getSelectedItem().toString());
+        model1.setKategorija(lvArtikli.getSelectionModel().getSelectedItem().getKategorija().toString());
+        model1.setCijena(lvArtikli.getSelectionModel().getSelectedItem().getCijena().toString());
+        model1.setLokacija(lvArtikli.getSelectionModel().getSelectedItem().getLokacija().toString());
+        model1.setDeskripcija(lvArtikli.getSelectionModel().getSelectedItem().getDeskripcija().toString());
+
         Parent root = loader.load();
         primaryStage.getIcons().add(new Image("/img/logo-no-bg.png"));
         primaryStage.setTitle("Artikal - "+lvArtikli.getSelectionModel().getSelectedItem());
         primaryStage.setScene(new Scene(root, USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
         primaryStage.show();
+
+
        // System.out.println("clicked on " + lvArtikli.getSelectionModel().getSelectedItem());
     }
 

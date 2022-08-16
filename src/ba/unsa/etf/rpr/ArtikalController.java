@@ -11,54 +11,39 @@ import java.util.ResourceBundle;
 
 public class ArtikalController implements Initializable {
     @FXML
-    Label naziv, kategorija, cijena, lokacija, deskripcija;
+    Label naziv;
+    @FXML
+    Label kategorija;
+    @FXML
+    Label cijena;
+    @FXML
+    Label lokacija;
+    @FXML
+    Label deskripcija;
 
+    private final DataModel model ;
 
-    public Label getNaziv() {
-        return naziv;
+    public ArtikalController(DataModel model){
+        this.model = model;
     }
 
-    public void setNaziv(String naziv) {
-        this.naziv.setText(naziv);
-    }
+//    public ArtikalController() {
+//        this.naziv.setText("");
+//        this.kategorija.setText("");
+//        this.cijena.setText("");
+//        this.lokacija.setText("");
+//        this.deskripcija.setText("");
+//
+//    }
 
-    public Label getKategorija() {
-        return kategorija;
-    }
-
-    public void setKategorija(String kategorija) {
-        this.kategorija.setText(kategorija);
-    }
-
-    public Label getCijena() {
-        return cijena;
-    }
-
-    public void setCijena(String cijena) {
-        this.cijena.setText(cijena);
-    }
-
-    public Label getLokacija() {
-        return lokacija;
-    }
-
-    public void setLokacija(String lokacija) {
-        this.lokacija.setText(lokacija);
-    }
-
-    public Label getDeskripcija() {
-        return deskripcija;
-    }
-
-    public void setDeskripcija(String deskripcija) {
-        this.deskripcija.setText(deskripcija);
-    }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-       // Image slika = new Image(getClass().getResourceAsStream("/img/aboutPicture.jpg"));
-       // imageView.setImage(slika);
-       // imageView.setOpacity(0.3);
+        naziv.textProperty().bind(model.nazivProperty());
+        kategorija.textProperty().bind(model.kategorijaProperty());
+        cijena.textProperty().bind(model.cijenaProperty());
+        lokacija.textProperty().bind(model.lokacijaProperty());
+        deskripcija.textProperty().bind(model.deskripcijaProperty());
     }
 }
 
