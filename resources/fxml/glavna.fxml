@@ -49,7 +49,7 @@
                 </Menu>
               </menus>
             </MenuBar>
-            <Label fx:id="labelDobrodosao" text="Dobro">
+            <Label fx:id="labelDobrodosao" text="">
                <font>
                   <Font size="18.0" />
                </font>

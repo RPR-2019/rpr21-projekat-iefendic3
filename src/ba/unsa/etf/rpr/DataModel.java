@@ -10,6 +10,19 @@ public class DataModel {
     private final StringProperty cijena = new SimpleStringProperty();
     private final StringProperty lokacija = new SimpleStringProperty();
     private final StringProperty deskripcija = new SimpleStringProperty();
+    private final StringProperty korisnik = new SimpleStringProperty();
+
+    public String getKorisnik() {
+        return korisnik.get();
+    }
+
+    public StringProperty korisnikProperty() {
+        return korisnik;
+    }
+
+    public void setKorisnik(String korisnik) {
+        this.korisnik.set(korisnik);
+    }
 
     public String getKategorija() {
         return kategorija.get();

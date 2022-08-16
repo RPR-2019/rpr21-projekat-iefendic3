@@ -4,8 +4,11 @@
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 
-<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" >
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1">
     <columnConstraints>
+        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -19,11 +22,19 @@
       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
     </rowConstraints>
    <children>
-      <Label fx:id="naziv" text="Label" GridPane.rowIndex="1" />
-      <Label fx:id="kategorija" text="Label" GridPane.rowIndex="2" />
-      <Label fx:id="cijena" text="Label" GridPane.rowIndex="3" />
-      <Label fx:id="lokacija" text="Label" GridPane.rowIndex="4" />
+       <Label text="Naziv: " GridPane.rowIndex="0" />
+       <Label text="Kategorija: " GridPane.rowIndex="1" />
+       <Label text="Cijena: " GridPane.rowIndex="2" />
+       <Label text="Lokacija: " GridPane.rowIndex="3" />
+       <Label text="Deskripcija: " GridPane.rowIndex="4" />
+       <Label text="Objavio korisnik: " GridPane.rowIndex="5" />
+       <Label fx:id="korisnik" text="" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+
+      <Label fx:id="naziv" text="Label" GridPane.columnIndex="1" GridPane.columnSpan="6" GridPane.rowIndex="0" />
+      <Label fx:id="kategorija" text="Label" GridPane.columnIndex="1" GridPane.columnSpan="6" GridPane.rowIndex="1" />
+      <Label fx:id="cijena" text="Label" GridPane.columnIndex="1" GridPane.columnSpan="6" GridPane.rowIndex="2" />
+      <Label fx:id="lokacija" text="Label" GridPane.columnIndex="1" GridPane.columnSpan="6" GridPane.rowIndex="3" />
       <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
-      <Label fx:id="deskripcija" text="Label" GridPane.rowIndex="5" />
+      <Label fx:id="deskripcija" text="Label" GridPane.columnIndex="1" GridPane.columnSpan="6" GridPane.rowIndex="4" />
    </children>
 </GridPane>

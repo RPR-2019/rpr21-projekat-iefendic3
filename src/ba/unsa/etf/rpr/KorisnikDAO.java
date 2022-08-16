@@ -40,7 +40,7 @@ public class KorisnikDAO {
            obrisiSlikuKorisnikaUpit = connection.prepareStatement("DELETE FROM slikaKorisnika WHERE korisnicko_ime=?");
            dodajKategorijuUpit = connection.prepareStatement("INSERT INTO kategorije VALUES (?)");
            dajKategorijeUpit = connection.prepareStatement("SELECT * FROM kategorije");
-           dodajArtikalUpit = connection.prepareStatement("INSERT INTO artikli VALUES (?,?,?,?,?)");
+           dodajArtikalUpit = connection.prepareStatement("INSERT INTO artikli VALUES (?,?,?,?,?,?)");
            dajArtikleUpit = connection.prepareStatement("SELECT * FROM artikli");
         } catch (SQLException e) {
             e.printStackTrace();
@@ -94,6 +94,7 @@ public class KorisnikDAO {
             dodajArtikalUpit.setString(3,artikal.getCijena());
             dodajArtikalUpit.setString(4,artikal.getLokacija());
             dodajArtikalUpit.setString(5,artikal.getDeskripcija());
+            dodajArtikalUpit.setString(6,artikal.getKorisnik());
             dodajArtikalUpit.execute();
         } catch (SQLException e){
             e.printStackTrace();

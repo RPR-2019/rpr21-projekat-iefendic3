@@ -20,6 +20,8 @@ public class ArtikalController implements Initializable {
     Label lokacija;
     @FXML
     Label deskripcija;
+    @FXML
+    Label korisnik;
 
     private final DataModel model ;
 
@@ -44,6 +46,7 @@ public class ArtikalController implements Initializable {
         cijena.textProperty().bind(model.cijenaProperty());
         lokacija.textProperty().bind(model.lokacijaProperty());
         deskripcija.textProperty().bind(model.deskripcijaProperty());
+        korisnik.textProperty().bind(model.korisnikProperty());
     }
 }
 

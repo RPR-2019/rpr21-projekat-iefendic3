@@ -8,13 +8,26 @@ public class Artikal {
     private String cijena;
     private String lokacija;
     private String deskripcija;
+    private String korisnik;
 
-    public Artikal(String naziv, Kategorija kategorija, String cijena, String lokacija, String deskripcija) {
+    public Artikal() {
+    }
+
+    public Artikal(String naziv, Kategorija kategorija, String cijena, String lokacija, String deskripcija, String korisnik) {
         this.naziv = naziv;
         this.kategorija = kategorija;
         this.cijena = cijena;
         this.lokacija = lokacija;
         this.deskripcija = deskripcija;
+        this.korisnik = korisnik;
+    }
+
+    public String getKorisnik() {
+        return korisnik;
+    }
+
+    public void setKorisnik(String korisnik) {
+        this.korisnik = korisnik;
     }
 
     public String getNaziv() {

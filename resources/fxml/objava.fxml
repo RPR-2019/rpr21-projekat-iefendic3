@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseMoved="#promijeni" prefHeight="600.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ba.unsa.etf.rpr.ObjavaController">
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseMoved="#promijeni" prefHeight="600.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1">
     <stylesheets>
         <URL value="@/css/buttonStyle.css" />
 
@@ -125,7 +125,7 @@
       <ButtonBar maxHeight="50.0" maxWidth="199.0" prefHeight="50.0" prefWidth="142.0" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="2" GridPane.valignment="BOTTOM">
          <buttons>
             <Button fx:id="btnObjavi" defaultButton="true" mnemonicParsing="false" onAction="#clickObjavi" text="Objavi" />
-            <Button fx:id="btnOdustani" mnemonicParsing="false" text="Odustani" />
+            <Button fx:id="btnOdustani" mnemonicParsing="false" onAction="#clickOdustani" text="Odustani" />
          </buttons>
          <GridPane.margin>
             <Insets right="10.0" />

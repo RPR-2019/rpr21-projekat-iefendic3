@@ -24,13 +24,19 @@ public class ObjavaController implements Initializable {
     public TextField txtFieldNaslov,txtFieldKategorija,txtFieldCijena, txtFieldLokacija;
     public ChoiceBox<Kategorija> choiceKategorije;
     private KorisnikDAO dao;
+    private String korisnickoIme;
     public Button btnDodajKategoriju, btnObjavi, btnOdustani;
     private ArrayList<Kategorija> kategorije = new ArrayList<>();
     private ArrayList<Artikal> artikli = new ArrayList<>();
     public TextArea txtAreaDeskripcija;
+    ProfilController profilController = new ProfilController();
 
     public ObjavaController() {dao=KorisnikDAO.getInstance();}
 
+
+    public void setKorisnickoIme(Korisnik korisnik) {
+        korisnickoIme = korisnik.getKorisnickoIme();
+    }
 
 
     @Override
@@ -86,7 +92,7 @@ public class ObjavaController implements Initializable {
     public void clickObjavi(ActionEvent actionEvent) {
         if(!txtFieldNaslov.getText().isBlank() && choiceKategorije.getValue() != null && !txtFieldCijena.getText().isBlank() && !txtFieldLokacija.getText().isBlank()
         && !txtAreaDeskripcija.getText().isBlank()){
-            Artikal artikal = new Artikal(txtFieldNaslov.getText(),choiceKategorije.getValue(),txtFieldCijena.getText(),txtFieldLokacija.getText(),txtAreaDeskripcija.getText());
+            Artikal artikal = new Artikal(txtFieldNaslov.getText(),choiceKategorije.getValue(),txtFieldCijena.getText(),txtFieldLokacija.getText(),txtAreaDeskripcija.getText(),korisnickoIme);
             artikli.add(artikal);
             dao.dodajArtikal(artikal);
         }
@@ -95,7 +101,7 @@ public class ObjavaController implements Initializable {
 
         //stage.setUserData(artikli);
         stage.close();
-        try{
+        /*try{
            // FXMLLoader loader = FXMLLoader.load(getClass().getClassLoader().getResource("/fxml/glavna.fxml"));
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/glavna.fxml"));
             GlavnaController controller = new GlavnaController();
@@ -111,7 +117,29 @@ public class ObjavaController implements Initializable {
             stage.show();
         } catch (IOException e){
             System.err.print(String.format("Error: %s", e.getMessage()));
-        }
+        }*/
 
+    }
+
+    public void clickOdustani(ActionEvent actionEvent){
+        Stage stage = (Stage) btnObjavi.getScene().getWindow();
+        stage.close();
+        /*try{
+            // FXMLLoader loader = FXMLLoader.load(getClass().getClassLoader().getResource("/fxml/glavna.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/glavna.fxml"));
+            GlavnaController controller = new GlavnaController();
+            controller.setArtikli(artikli);
+
+            loader.setController(controller);
+
+            Parent root = loader.load();
+
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.setTitle("IE - Kupoprodaja");
+            stage.show();
+        } catch (IOException e){
+            System.err.print(String.format("Error: %s", e.getMessage()));
+        }*/
     }
 }

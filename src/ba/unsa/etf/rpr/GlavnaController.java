@@ -56,10 +56,10 @@ public class GlavnaController implements Initializable {
     public GlavnaController(){dao = KorisnikDAO.getInstance();}
 
     public void setLabelaZensko(String string){
-        labelDobrodosao.setText(labelDobrodosao.getText()+" došao/la, "+string);
+        labelDobrodosao.setText(labelDobrodosao.getText()+"Dobrodošao/la, "+string);
     }
     public void setLabelaMusko(String string){
-        labelDobrodosao.setText(labelDobrodosao.getText()+" došao/la, "+string+"e");
+        labelDobrodosao.setText(labelDobrodosao.getText()+"Dobrodošao/la, "+string+"e");
     }
 
     public void setArtikli(ArrayList<Artikal> artikli){
@@ -94,15 +94,24 @@ public class GlavnaController implements Initializable {
         loader.setController(new ObjavaController());
         Parent root = loader.load();*/
 
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/objava.fxml"));
+        loader.setController(new ObjavaController());
+        Parent root=loader.load();
+        ObjavaController objavaController=loader.getController();
 
-        Parent root=(new FXMLLoader(getClass().getResource("/fxml/objava.fxml"))).load();
+        Korisnik korisnik = dao.nadjiKorisnika(korisnickoIme);
+        objavaController.setKorisnickoIme(korisnik);
+
+
+        //Parent root=(new FXMLLoader(getClass().getResource("/fxml/objava.fxml"))).load();
         primaryStage.getIcons().add(new Image("/img/logo-no-bg.png"));
         primaryStage.setTitle("Objavite artikal");
-        primaryStage.setScene(new Scene(root, USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
+        Scene scene = new Scene(root, USE_COMPUTED_SIZE, USE_COMPUTED_SIZE);
+        primaryStage.setScene(scene);
         primaryStage.showAndWait();
 
-        Stage stage = (Stage) btnObjavi.getScene().getWindow();
-        stage.close();
+        //Stage stage = (Stage) btnObjavi.getScene().getWindow();
+        //stage.close();
         if(primaryStage.getUserData() != null) {
             /*ArrayList<Artikal> artikli = (ArrayList<Artikal>) primaryStage.getUserData();
             for(Artikal a: artikli){
@@ -114,6 +123,32 @@ public class GlavnaController implements Initializable {
             }
 
         }
+        try {
+            ResultSet rsArtikli = dao.dajArtikle();
+            ResultSet rs = dao.dajKategorije();
+            Artikal zadnjiArtikal = new Artikal();
+            //Zadnji element
+            while(rs.next()){
+                Kategorija kategorija1 = new Kategorija(rsArtikli.getString(2));
+                zadnjiArtikal.setNaziv(rsArtikli.getString(1));
+                zadnjiArtikal.setKategorija(kategorija1);
+                zadnjiArtikal.setCijena(rsArtikli.getString(3));
+                zadnjiArtikal.setLokacija(rsArtikli.getString(4));
+                zadnjiArtikal.setDeskripcija(rsArtikli.getString(5));
+                zadnjiArtikal.setKorisnik(rsArtikli.getString(6));
+            }
+
+            if(!lvArtikli.getItems().contains(zadnjiArtikal)){
+                lvArtikli.getItems().add(zadnjiArtikal);
+            }
+            /*while (rs.next()) {
+                lvKategorije.getItems().add(new Kategorija(rs.getString(1)));
+            }*/
+
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+        primaryStage.setWidth(USE_COMPUTED_SIZE-0.0001);
 
     }
 
@@ -174,12 +209,13 @@ public class GlavnaController implements Initializable {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/artikal.fxml"));
         ArtikalController controller = new ArtikalController(model1);
         loader.setController(controller);
+
         model1.setNaziv(lvArtikli.getSelectionModel().getSelectedItem().toString());
         model1.setKategorija(lvArtikli.getSelectionModel().getSelectedItem().getKategorija().toString());
         model1.setCijena(lvArtikli.getSelectionModel().getSelectedItem().getCijena().toString());
         model1.setLokacija(lvArtikli.getSelectionModel().getSelectedItem().getLokacija().toString());
         model1.setDeskripcija(lvArtikli.getSelectionModel().getSelectedItem().getDeskripcija().toString());
-
+        model1.setKorisnik(lvArtikli.getSelectionModel().getSelectedItem().getKorisnik());
         Parent root = loader.load();
         primaryStage.getIcons().add(new Image("/img/logo-no-bg.png"));
         primaryStage.setTitle("Artikal - "+lvArtikli.getSelectionModel().getSelectedItem());
@@ -214,7 +250,7 @@ public class GlavnaController implements Initializable {
             while(rsArtikli.next()){
                 Kategorija kategorija = new Kategorija(rsArtikli.getString(2));
                 lvArtikli.getItems().add(new Artikal(rsArtikli.getString(1), kategorija, rsArtikli.getString(3),rsArtikli.getString(4),
-                        rsArtikli.getString(5)));
+                        rsArtikli.getString(5), rsArtikli.getString(6)));
             }
         } catch (SQLException e){
             e.printStackTrace();

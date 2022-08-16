@@ -23,7 +23,8 @@ CREATE TABLE IF NOT EXISTS "artikli" (
 "kategorija" TEXT,
 "cijena" TEXT,
 "lokacija" TEXT,
-"deskripcija" TEXT
+"deskripcija" TEXT,
+"korisnik" TEXT
 );
 
 INSERT INTO "kategorije" VALUES("Vozila");
@@ -34,5 +35,5 @@ INSERT INTO "kategorije" VALUES("Mobilni uređaji");
 INSERT INTO "kategorije" VALUES("Odjeća i obuća");
 INSERT INTO "kategorije" VALUES("Moj dom");
 
-INSERT INTO "artikli" VALUES("Artikal1","Vozila","12345","Sarajevo","Deskripcija1");
+
 
