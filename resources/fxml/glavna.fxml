@@ -87,7 +87,7 @@
                               <Insets />
                            </HBox.margin>
                         </TextField>
-                        <Button fx:id="searchBtn" mnemonicParsing="false" text="Search" />
+                        <Button fx:id="searchBtn" mnemonicParsing="false" onAction="#search" text="Search" />
                      </children>
                   </HBox>
                </left>

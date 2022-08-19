@@ -23,15 +23,20 @@ import javafx.util.Duration;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Locale;
-import java.util.ResourceBundle;
+import java.util.*;
+import java.util.stream.Collectors;
 
 import static javafx.scene.layout.Region.USE_COMPUTED_SIZE;
 
 
 public class GlavnaController implements Initializable {
+
+    @FXML
+    public TextField searchBar;
+    @FXML
+    public Button searchBtn;
 
     public MenuBar menuBar;
     public Label labelDobrodosao;
@@ -48,6 +53,36 @@ public class GlavnaController implements Initializable {
     @FXML
     public Label labelGreska;
     public ListView<Artikal> lvArtikli = new ListView<Artikal>();
+    public ArrayList<Artikal> words = new ArrayList<>();
+
+    public void populateArrayList() {
+        try {
+            ResultSet rs = dao.dajArtikle();
+            while (rs.next()) {
+                Kategorija kategorija = new Kategorija(rs.getString(2));
+                words.add(new Artikal(rs.getString(1), kategorija, rs.getString(3),rs.getString(4),
+                       rs.getString(5), rs.getString(6)));
+
+            }
+        } catch (SQLException e){
+            System.out.println(e);
+        }
+    }
+
+
+    @FXML
+    public void search(ActionEvent event){
+        lvArtikli.getItems().clear();
+        lvArtikli.getItems().addAll(searchList(searchBar.getText(),words));
+    }
+
+    private List<Artikal> searchList(String searchWords, List<Artikal> listOfStrings){
+        List<String> searchWordsArray = Arrays.asList(searchWords.trim().split(" "));
+        return listOfStrings.stream().filter(input -> {
+            return searchWordsArray.stream().allMatch(word ->
+                    input.getNaziv().toLowerCase().contains(word.toLowerCase()));
+        }).collect(Collectors.toList());
+    }
 
     public void setKorisnickoIme(String korisnickoIme){
         this.korisnickoIme=korisnickoIme;
@@ -141,9 +176,7 @@ public class GlavnaController implements Initializable {
             if(!lvArtikli.getItems().contains(zadnjiArtikal)){
                 lvArtikli.getItems().add(zadnjiArtikal);
             }
-            /*while (rs.next()) {
-                lvKategorije.getItems().add(new Kategorija(rs.getString(1)));
-            }*/
+
 
         } catch (SQLException e){
             e.printStackTrace();
@@ -228,7 +261,7 @@ public class GlavnaController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
+        populateArrayList();
         Image img = new Image("/img/objava.png");
         Image img1 = new Image("/img/logo-no-bg.png");
         slikaObjava.setImage(img);
