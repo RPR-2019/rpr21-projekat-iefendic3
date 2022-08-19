@@ -54,7 +54,8 @@ public class ArtikalController implements Initializable {
         alert.show();
         dao.obrisiArtikal(naziv.getText(),deskripcija.getText());
 
-
+        dao.dodajKupljeniArtikal(korisnickoIme,naziv.getText());
+        dao.dodajProdaniArtikal(korisnik.getText(),naziv.getText());
 
         Stage stage = (Stage) kupiBtn.getScene().getWindow();
         stage.close();
