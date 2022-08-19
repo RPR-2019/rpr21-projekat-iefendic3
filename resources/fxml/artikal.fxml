@@ -12,6 +12,7 @@
         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+      <ColumnConstraints />
     </columnConstraints>
     <rowConstraints>
         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -36,5 +37,7 @@
       <Label fx:id="lokacija" text="Label" GridPane.columnIndex="1" GridPane.columnSpan="6" GridPane.rowIndex="3" />
       <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
       <Label fx:id="deskripcija" text="Label" GridPane.columnIndex="1" GridPane.columnSpan="6" GridPane.rowIndex="4" />
+      <Button fx:id="kupiBtn" mnemonicParsing="false" onAction="#clickKupi" prefHeight="26.0" prefWidth="90.0" text="Kupi" GridPane.columnIndex="5" GridPane.rowIndex="5" />
+      <Button fx:id="obrisiBtn" mnemonicParsing="false" onAction="#clickObrisi" prefHeight="26.0" prefWidth="90.0" text="Obrisi" GridPane.columnIndex="4" GridPane.rowIndex="5" />
    </children>
 </GridPane>

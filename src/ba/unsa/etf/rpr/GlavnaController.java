@@ -20,6 +20,7 @@ import javafx.stage.Stage;
 import javafx.stage.Window;
 import javafx.util.Duration;
 
+import javax.xml.transform.Result;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.ResultSet;
@@ -145,13 +146,8 @@ public class GlavnaController implements Initializable {
         primaryStage.setScene(scene);
         primaryStage.showAndWait();
 
-        //Stage stage = (Stage) btnObjavi.getScene().getWindow();
-        //stage.close();
         if(primaryStage.getUserData() != null) {
-            /*ArrayList<Artikal> artikli = (ArrayList<Artikal>) primaryStage.getUserData();
-            for(Artikal a: artikli){
-                lvArtikli.getItems().add(a);
-            }*/
+
             ArrayList<Kategorija> kategorije = (ArrayList<Kategorija>) primaryStage.getUserData();
             for (Kategorija k : kategorije) {
                 lvKategorije.getItems().add(k);
@@ -160,7 +156,6 @@ public class GlavnaController implements Initializable {
         }
         try {
             ResultSet rsArtikli = dao.dajArtikle();
-            ResultSet rs = dao.dajKategorije();
             Artikal zadnjiArtikal = new Artikal();
             //Zadnji element
             while(rsArtikli.next()){
@@ -243,12 +238,20 @@ public class GlavnaController implements Initializable {
         ArtikalController controller = new ArtikalController(model1);
         loader.setController(controller);
 
+        Korisnik korisnik = dao.nadjiKorisnika(korisnickoIme);
+        controller.setKorisnickoIme(korisnik);
+
         model1.setNaziv(lvArtikli.getSelectionModel().getSelectedItem().toString());
         model1.setKategorija(lvArtikli.getSelectionModel().getSelectedItem().getKategorija().toString());
         model1.setCijena(lvArtikli.getSelectionModel().getSelectedItem().getCijena().toString());
         model1.setLokacija(lvArtikli.getSelectionModel().getSelectedItem().getLokacija().toString());
         model1.setDeskripcija(lvArtikli.getSelectionModel().getSelectedItem().getDeskripcija().toString());
         model1.setKorisnik(lvArtikli.getSelectionModel().getSelectedItem().getKorisnik());
+
+        lvArtikli.getItems().removeAll();
+        Stage stage = (Stage) btnObjavi.getScene().getWindow();
+        stage.setWidth(USE_COMPUTED_SIZE-0.0001);
+
         Parent root = loader.load();
         primaryStage.getIcons().add(new Image("/img/logo-no-bg.png"));
         primaryStage.setTitle("Artikal - "+lvArtikli.getSelectionModel().getSelectedItem());
@@ -272,6 +275,7 @@ public class GlavnaController implements Initializable {
         slikaLogo.setImage(img1);
         btnSlikaAbout.setGraphic(slikaLogo);
         btnSlikaAbout.setBackground(null);
+
 
         labelGreska.setVisible(false);
         try {

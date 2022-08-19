@@ -19,7 +19,7 @@ public class KorisnikDAO {
     private static KorisnikDAO instance = null;
     private Connection connection;
     private PreparedStatement dajKorisnikeUpit,dodajKorisnikaUpit, nadjiKorisnikaUpit, nadjiPasswordKorisnikaUpit, dodajSlikuKorisnikaUpit,
-    dajSlikuKorisnikaUpit, obrisiSlikuKorisnikaUpit, dodajKategorijuUpit, dajKategorijeUpit, dodajArtikalUpit, dajArtikleUpit;
+    dajSlikuKorisnikaUpit, obrisiSlikuKorisnikaUpit, dodajKategorijuUpit, dajKategorijeUpit, dodajArtikalUpit, dajArtikleUpit, obrisiArtikalUpit;
 
     private KorisnikDAO() {
         String url = "jdbc:sqlite:baza.db";
@@ -42,6 +42,7 @@ public class KorisnikDAO {
            dajKategorijeUpit = connection.prepareStatement("SELECT * FROM kategorije");
            dodajArtikalUpit = connection.prepareStatement("INSERT INTO artikli VALUES (?,?,?,?,?,?)");
            dajArtikleUpit = connection.prepareStatement("SELECT * FROM artikli");
+           obrisiArtikalUpit = connection.prepareStatement("DELETE from artikli WHERE naziv=? AND deskripcija=?");
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -61,6 +62,16 @@ public class KorisnikDAO {
             } catch (SQLException e) {
                 e.printStackTrace();
             }
+        }
+    }
+
+    public void obrisiArtikal(String naziv, String deskripcija){
+        try{
+            obrisiArtikalUpit.setString(1,naziv);
+            obrisiArtikalUpit.setString(2,deskripcija);
+            obrisiArtikalUpit.execute();
+        } catch (SQLException e){
+            e.printStackTrace();
         }
     }
     public void dodajKorisnika(Korisnik korisnik){

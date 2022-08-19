@@ -11,7 +11,11 @@ import javafx.stage.FileChooser;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URL;
+import java.sql.Blob;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 
@@ -29,7 +33,20 @@ public class ProfilController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        Image image = new Image(getClass().getResourceAsStream("/img/user.png"));
+        ResultSet rs = dao.dajSlikuKorisnika(korisnickoIme);
+        Image image = null;
+
+        try{
+            while(rs.next()){
+                Blob blob = rs.getBlob(2);
+                InputStream is = blob.getBinaryStream();
+                image = new Image(is);
+            }
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+
+       // Image image = new Image(getClass().getResourceAsStream("/img/user.png"));
         slikaProfila.setImage(image);
         btnSlikaProfila.setGraphic(slikaProfila);
     }

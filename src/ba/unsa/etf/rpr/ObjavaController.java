@@ -99,47 +99,15 @@ public class ObjavaController implements Initializable {
 
         Stage stage = (Stage) btnObjavi.getScene().getWindow();
 
-        //stage.setUserData(artikli);
+
         stage.close();
-        /*try{
-           // FXMLLoader loader = FXMLLoader.load(getClass().getClassLoader().getResource("/fxml/glavna.fxml"));
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/glavna.fxml"));
-            GlavnaController controller = new GlavnaController();
-            controller.setArtikli(artikli);
 
-            loader.setController(controller);
-
-            Parent root = loader.load();
-
-            Scene scene = new Scene(root);
-            stage.setScene(scene);
-            stage.setTitle("IE - Kupoprodaja");
-            stage.show();
-        } catch (IOException e){
-            System.err.print(String.format("Error: %s", e.getMessage()));
-        }*/
 
     }
 
     public void clickOdustani(ActionEvent actionEvent){
         Stage stage = (Stage) btnObjavi.getScene().getWindow();
         stage.close();
-        /*try{
-            // FXMLLoader loader = FXMLLoader.load(getClass().getClassLoader().getResource("/fxml/glavna.fxml"));
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/glavna.fxml"));
-            GlavnaController controller = new GlavnaController();
-            controller.setArtikli(artikli);
 
-            loader.setController(controller);
-
-            Parent root = loader.load();
-
-            Scene scene = new Scene(root);
-            stage.setScene(scene);
-            stage.setTitle("IE - Kupoprodaja");
-            stage.show();
-        } catch (IOException e){
-            System.err.print(String.format("Error: %s", e.getMessage()));
-        }*/
     }
 }
