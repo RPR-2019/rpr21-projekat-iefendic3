@@ -1,12 +1,16 @@
 package ba.unsa.etf.rpr;
 
 import javafx.event.ActionEvent;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -18,6 +22,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
+import static javafx.scene.layout.Region.USE_COMPUTED_SIZE;
 
 
 public class ProfilController implements Initializable {
@@ -30,6 +35,29 @@ public class ProfilController implements Initializable {
     final FileChooser fc = new FileChooser();
 
     public ProfilController(){ dao = KorisnikDAO.getInstance();}
+
+    public void clickKupljeniArtikli(ActionEvent actionEvent) throws IOException{
+        Stage primaryStage = new Stage();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/kupljeni.fxml"));
+        loader.setController(new KupljeniController());
+        Parent root = loader.load();
+        primaryStage.getIcons().add(new Image("/img/logo-no-bg.png"));
+        primaryStage.setTitle("Kupljeni artikli");
+        primaryStage.setScene(new Scene(root, USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
+        primaryStage.setResizable(false);
+        primaryStage.show();
+    }
+    public void clickProdaniArtikli(ActionEvent actionEvent) throws IOException{
+        Stage primaryStage = new Stage();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/prodani.fxml"));
+        loader.setController(new ProdaniController());
+        Parent root = loader.load();
+        primaryStage.getIcons().add(new Image("/img/logo-no-bg.png"));
+        primaryStage.setTitle("Prodani artikli");
+        primaryStage.setScene(new Scene(root, USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
+        primaryStage.setResizable(false);
+        primaryStage.show();
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
