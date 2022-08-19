@@ -128,7 +128,7 @@ public class GlavnaController implements Initializable {
             ResultSet rs = dao.dajKategorije();
             Artikal zadnjiArtikal = new Artikal();
             //Zadnji element
-            while(rs.next()){
+            while(rsArtikli.next()){
                 Kategorija kategorija1 = new Kategorija(rsArtikli.getString(2));
                 zadnjiArtikal.setNaziv(rsArtikli.getString(1));
                 zadnjiArtikal.setKategorija(kategorija1);
