@@ -54,6 +54,8 @@ public class ArtikalController implements Initializable {
         alert.show();
         dao.obrisiArtikal(naziv.getText(),deskripcija.getText());
 
+
+
         Stage stage = (Stage) kupiBtn.getScene().getWindow();
         stage.close();
     }
@@ -73,7 +75,7 @@ public class ArtikalController implements Initializable {
         deskripcija.textProperty().bind(model.deskripcijaProperty());
         korisnik.textProperty().bind(model.korisnikProperty());
 
-        System.out.println(korisnik.getText());
+
 
         if(korisnickoIme.equals(korisnik.getText())){
             kupiBtn.setVisible(false);

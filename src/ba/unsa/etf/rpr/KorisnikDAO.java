@@ -19,7 +19,8 @@ public class KorisnikDAO {
     private static KorisnikDAO instance = null;
     private Connection connection;
     private PreparedStatement dajKorisnikeUpit,dodajKorisnikaUpit, nadjiKorisnikaUpit, nadjiPasswordKorisnikaUpit, dodajSlikuKorisnikaUpit,
-    dajSlikuKorisnikaUpit, obrisiSlikuKorisnikaUpit, dodajKategorijuUpit, dajKategorijeUpit, dodajArtikalUpit, dajArtikleUpit, obrisiArtikalUpit;
+    dajSlikuKorisnikaUpit, obrisiSlikuKorisnikaUpit, dodajKategorijuUpit, dajKategorijeUpit, dodajArtikalUpit, dajArtikleUpit, obrisiArtikalUpit, dodajKupljeniArtikal,
+    dajKupljeneArtikle, dajProdaneArtikle, dodajProdaniArtikal;
 
     private KorisnikDAO() {
         String url = "jdbc:sqlite:baza.db";
@@ -43,6 +44,10 @@ public class KorisnikDAO {
            dodajArtikalUpit = connection.prepareStatement("INSERT INTO artikli VALUES (?,?,?,?,?,?)");
            dajArtikleUpit = connection.prepareStatement("SELECT * FROM artikli");
            obrisiArtikalUpit = connection.prepareStatement("DELETE from artikli WHERE naziv=? AND deskripcija=?");
+           dodajKupljeniArtikal = connection.prepareStatement("INSERT INTO kupljeni_artikli VALUES (?,?)");
+           dodajProdaniArtikal = connection.prepareStatement("INSERT INTO prodani_artikli VALUES (?,?)");
+           dajKupljeneArtikle = connection.prepareStatement("SELECT * FROM kupljeni_artikli");
+           dajProdaneArtikle = connection.prepareStatement("SELECT * FROM prodani_artikli");
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -70,6 +75,25 @@ public class KorisnikDAO {
             obrisiArtikalUpit.setString(1,naziv);
             obrisiArtikalUpit.setString(2,deskripcija);
             obrisiArtikalUpit.execute();
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+    }
+
+    public void dodajKupljeniArtikal(String korisnickoIme, String nazivArtikla){
+        try{
+            dodajKupljeniArtikal.setString(1,korisnickoIme);
+            dodajKupljeniArtikal.setString(2,nazivArtikla);
+            dodajKupljeniArtikal.execute();
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+    }
+    public void dodajProdaniArtikal(String korisnickoIme, String nazivArtikla){
+        try{
+            dodajProdaniArtikal.setString(1,korisnickoIme);
+            dodajProdaniArtikal.setString(2,nazivArtikla);
+            dodajProdaniArtikal.execute();
         } catch (SQLException e){
             e.printStackTrace();
         }
@@ -135,6 +159,23 @@ public class KorisnikDAO {
             return null;
         }
 return null;
+    }
+
+    public ResultSet dajKupljeneArtikle(){
+        try{
+            return dajKupljeneArtikle.executeQuery();
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+        return null;
+    }
+    public ResultSet dajProdaneArtikle(){
+        try{
+            return dajProdaneArtikle.executeQuery();
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+        return null;
     }
 
     public ResultSet dajKategorije(){

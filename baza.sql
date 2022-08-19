@@ -27,6 +27,16 @@ CREATE TABLE IF NOT EXISTS "artikli" (
 "korisnik" TEXT
 );
 
+CREATE TABLE IF NOT EXISTS "kupljeni_artikli" (
+"korisnik" TEXT,
+"artikal" TEXT
+);
+
+CREATE TABLE IF NOT EXISTS "prodani_artikli" (
+"korisnik" TEXT,
+"artikal" TEXT
+);
+
 INSERT INTO "kategorije" VALUES("Vozila");
 INSERT INTO "kategorije" VALUES("Nekretnine");
 INSERT INTO "kategorije" VALUES("Kompjuteri i laptopi");
