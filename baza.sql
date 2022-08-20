@@ -28,13 +28,21 @@ CREATE TABLE IF NOT EXISTS "artikli" (
 );
 
 CREATE TABLE IF NOT EXISTS "kupljeni_artikli" (
-"korisnik" TEXT,
-"artikal" TEXT
+"naziv" TEXT,
+"kategorija" TEXT,
+"cijena" TEXT,
+"lokacija" TEXT,
+"deskripcija" TEXT,
+"korisnik" TEXT
 );
 
 CREATE TABLE IF NOT EXISTS "prodani_artikli" (
-"korisnik" TEXT,
-"artikal" TEXT
+"naziv" TEXT,
+"kategorija" TEXT,
+"cijena" TEXT,
+"lokacija" TEXT,
+"deskripcija" TEXT,
+"korisnik" TEXT
 );
 
 INSERT INTO "kategorije" VALUES("Vozila");

@@ -39,7 +39,9 @@ public class ProfilController implements Initializable {
     public void clickKupljeniArtikli(ActionEvent actionEvent) throws IOException{
         Stage primaryStage = new Stage();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/kupljeni.fxml"));
-        loader.setController(new KupljeniController());
+        KupljeniController controller = new KupljeniController();
+        loader.setController(controller);
+        controller.setKorisnickoIme(korisnik);
         Parent root = loader.load();
         primaryStage.getIcons().add(new Image("/img/logo-no-bg.png"));
         primaryStage.setTitle("Kupljeni artikli");
@@ -50,7 +52,9 @@ public class ProfilController implements Initializable {
     public void clickProdaniArtikli(ActionEvent actionEvent) throws IOException{
         Stage primaryStage = new Stage();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/prodani.fxml"));
-        loader.setController(new ProdaniController());
+        ProdaniController controller = new ProdaniController();
+        loader.setController(controller);
+        controller.setKorisnickoIme(korisnik);
         Parent root = loader.load();
         primaryStage.getIcons().add(new Image("/img/logo-no-bg.png"));
         primaryStage.setTitle("Prodani artikli");
