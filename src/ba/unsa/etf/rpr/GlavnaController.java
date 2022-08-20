@@ -47,14 +47,14 @@ public class GlavnaController implements Initializable {
     public Button btnDodajKategoriju, btnObjavi;
     public TextField txtFieldKategorija;
     private boolean postoji = false;
-    /*private final DataModel model ;
-    public GlavnaController(DataModel model){
-        this.model = model;
-    }*/
     @FXML
     public Label labelGreska;
     public ListView<Artikal> lvArtikli = new ListView<Artikal>();
     public ArrayList<Artikal> words = new ArrayList<>();
+    private Artikal artikalZaBrisanje ;
+    public void setArtikal(Artikal artikal){
+        lvArtikli.getItems().remove(artikal);
+    }
 
     public void populateArrayList() {
         try {
@@ -232,34 +232,45 @@ public class GlavnaController implements Initializable {
 
 
     @FXML public void handleMouseClick(MouseEvent arg0) throws IOException {
-        DataModel model1 = new DataModel();
-        Stage primaryStage = new Stage();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/artikal.fxml"));
-        ArtikalController controller = new ArtikalController(model1);
-        loader.setController(controller);
+        try {
+            if (lvArtikli.getSelectionModel().getSelectedItem() != null) {
+                DataModel model1 = new DataModel();
+                Stage primaryStage = new Stage();
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/artikal.fxml"));
+                ArtikalController controller = new ArtikalController(model1);
+                loader.setController(controller);
 
-        Korisnik korisnik = dao.nadjiKorisnika(korisnickoIme);
-        controller.setKorisnickoIme(korisnik);
+                Korisnik korisnik = dao.nadjiKorisnika(korisnickoIme);
+                controller.setKorisnickoIme(korisnik);
 
-        model1.setNaziv(lvArtikli.getSelectionModel().getSelectedItem().toString());
-        model1.setKategorija(lvArtikli.getSelectionModel().getSelectedItem().getKategorija().toString());
-        model1.setCijena(lvArtikli.getSelectionModel().getSelectedItem().getCijena().toString());
-        model1.setLokacija(lvArtikli.getSelectionModel().getSelectedItem().getLokacija().toString());
-        model1.setDeskripcija(lvArtikli.getSelectionModel().getSelectedItem().getDeskripcija().toString());
-        model1.setKorisnik(lvArtikli.getSelectionModel().getSelectedItem().getKorisnik());
-
-        lvArtikli.getItems().removeAll();
-        Stage stage = (Stage) btnObjavi.getScene().getWindow();
-        stage.setWidth(USE_COMPUTED_SIZE-0.0001);
-
-        Parent root = loader.load();
-        primaryStage.getIcons().add(new Image("/img/logo-no-bg.png"));
-        primaryStage.setTitle("Artikal - "+lvArtikli.getSelectionModel().getSelectedItem());
-        primaryStage.setScene(new Scene(root, USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
-        primaryStage.show();
+                model1.setNaziv(lvArtikli.getSelectionModel().getSelectedItem().toString());
+                model1.setKategorija(lvArtikli.getSelectionModel().getSelectedItem().getKategorija().toString());
+                model1.setCijena(lvArtikli.getSelectionModel().getSelectedItem().getCijena().toString());
+                model1.setLokacija(lvArtikli.getSelectionModel().getSelectedItem().getLokacija().toString());
+                model1.setDeskripcija(lvArtikli.getSelectionModel().getSelectedItem().getDeskripcija().toString());
+                model1.setKorisnik(lvArtikli.getSelectionModel().getSelectedItem().getKorisnik());
 
 
-       // System.out.println("clicked on " + lvArtikli.getSelectionModel().getSelectedItem());
+                Stage stage = (Stage) btnObjavi.getScene().getWindow();
+                stage.setWidth(USE_COMPUTED_SIZE - 0.0001);
+
+                Parent root = loader.load();
+                primaryStage.getIcons().add(new Image("/img/logo-no-bg.png"));
+                primaryStage.setTitle("Artikal - " + lvArtikli.getSelectionModel().getSelectedItem());
+                primaryStage.setScene(new Scene(root, USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
+                primaryStage.show();
+            } else {
+                throw new IncorrectArticleException("Niste odabrali validan artikal!");
+            }
+        } catch (IncorrectArticleException e){
+            System.out.println(e);
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setHeaderText("Greška!");
+            alert.setContentText("Kliknuli ste na nepostojeći artikal!");
+            alert.show();
+        }
+
+
     }
 
     @Override

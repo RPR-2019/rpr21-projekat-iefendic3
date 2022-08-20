@@ -65,6 +65,10 @@ public class ArtikalController implements Initializable {
     }
 
     public void clickObrisi(ActionEvent actionEvent){
+        Kategorija kategorija1 = new Kategorija(kategorija.getText());
+        Artikal artikal = new Artikal(naziv.getText(),kategorija1,cijena.getText(),lokacija.getText(),deskripcija.getText(),korisnickoIme);
+        GlavnaController glavnaController = new GlavnaController();
+        glavnaController.setArtikal(artikal);
         dao.obrisiArtikal(naziv.getText(),deskripcija.getText());
         Stage stage = (Stage) obrisiBtn.getScene().getWindow();
         stage.close();
