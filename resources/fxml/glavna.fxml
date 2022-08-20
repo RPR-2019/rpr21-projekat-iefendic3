@@ -82,12 +82,11 @@
                <left>
                   <HBox prefHeight="86.0" prefWidth="579.0" spacing="10.0" BorderPane.alignment="CENTER">
                      <children>
-                        <TextField fx:id="searchBar" prefHeight="26.0" prefWidth="299.0" promptText="Ukucajte naziv aritkla (npr. Golf 5)">
+                        <TextField fx:id="searchBar" onKeyReleased="#search" prefHeight="26.0" prefWidth="299.0" promptText="Ukucajte naziv aritkla (npr. Golf 5)">
                            <HBox.margin>
                               <Insets />
                            </HBox.margin>
                         </TextField>
-                        <Button fx:id="searchBtn" mnemonicParsing="false" onAction="#search" text="Search" />
                      </children>
                   </HBox>
                </left>

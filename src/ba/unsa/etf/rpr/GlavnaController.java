@@ -14,6 +14,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -80,7 +81,7 @@ public class GlavnaController implements Initializable {
 
 
     @FXML
-    public void search(ActionEvent event){
+    public void search(KeyEvent event){
         lvArtikli.getItems().clear();
         lvArtikli.getItems().addAll(searchList(searchBar.getText(),words));
     }
