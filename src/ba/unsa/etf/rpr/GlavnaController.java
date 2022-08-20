@@ -173,9 +173,23 @@ public class GlavnaController implements Initializable {
                 zadnjiArtikal.setKorisnik(rsArtikli.getString(6));
             }
 
-            if(!lvArtikli.getItems().contains(zadnjiArtikal)){
-                lvArtikli.getItems().add(zadnjiArtikal);
+            boolean tmp = false;
+            for(int i = 0; i<lvArtikli.getItems().size();i++){
+                if(lvArtikli.getItems().get(i).getNaziv().equals(zadnjiArtikal.getNaziv())
+                && lvArtikli.getItems().get(i).getKategorija().toString().equals(zadnjiArtikal.getKategorija().toString())
+                && lvArtikli.getItems().get(i).getDeskripcija().equals(zadnjiArtikal.getDeskripcija())
+                && lvArtikli.getItems().get(i).getLokacija().equals(zadnjiArtikal.getLokacija())
+                && lvArtikli.getItems().get(i).getCijena().equals(zadnjiArtikal.getCijena())
+                && lvArtikli.getItems().get(i).getKorisnik().equals(zadnjiArtikal.getKorisnik())
+                ) {
+                    tmp=true;
+                }
             }
+            if(!tmp)
+                lvArtikli.getItems().add(zadnjiArtikal);
+           /* if(!lvArtikli.getItems().contains(zadnjiArtikal)){
+                lvArtikli.getItems().add(zadnjiArtikal);
+            }*/
 
 
         } catch (SQLException e){
