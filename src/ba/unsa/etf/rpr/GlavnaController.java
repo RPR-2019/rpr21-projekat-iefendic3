@@ -52,6 +52,14 @@ public class GlavnaController implements Initializable {
     public ListView<Artikal> lvArtikli = new ListView<Artikal>();
     public ArrayList<Artikal> words = new ArrayList<>();
     private Artikal artikalZaBrisanje ;
+
+    @FXML
+    private ChoiceBox<String> filterChoice;
+
+    ObservableList<String> options = FXCollections.observableArrayList("Filter","Naziv (a-z)", "Naziv (z-a)", "Cijena (najjeftinije prvo)", "Cijena (najskuplje prvo)","Lokacija (a-z)","Lokacija (z-a)");
+
+
+
     public void setArtikal(Artikal artikal){
         lvArtikli.getItems().remove(artikal);
     }
@@ -126,9 +134,6 @@ public class GlavnaController implements Initializable {
 
     public void clickObjaviArtikal(ActionEvent actionEvent) throws IOException {
         Stage primaryStage = new Stage();
-       /* FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/objava.fxml"));
-        loader.setController(new ObjavaController());
-        Parent root = loader.load();*/
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/objava.fxml"));
         loader.setController(new ObjavaController());
@@ -139,7 +144,7 @@ public class GlavnaController implements Initializable {
         objavaController.setKorisnickoIme(korisnik);
 
 
-        //Parent root=(new FXMLLoader(getClass().getResource("/fxml/objava.fxml"))).load();
+
         primaryStage.getIcons().add(new Image("/img/logo-no-bg.png"));
         primaryStage.setTitle("Objavite artikal");
         Scene scene = new Scene(root, USE_COMPUTED_SIZE, USE_COMPUTED_SIZE);
@@ -176,6 +181,7 @@ public class GlavnaController implements Initializable {
         } catch (SQLException e){
             e.printStackTrace();
         }
+
         primaryStage.setWidth(USE_COMPUTED_SIZE-0.0001);
 
     }
@@ -273,8 +279,71 @@ public class GlavnaController implements Initializable {
 
     }
 
+    public void setFilter(ActionEvent actionEvent){
+        String choice = filterChoice.getValue();
+        if(choice.equals("Naziv (a-z)")){
+            lvArtikli.getItems().sort((o1,o2)->{
+                if(o1.getNaziv().equals(o2.getNaziv())) return 0;
+                if(o1.getNaziv().compareTo(o2.getNaziv()) > 0)
+                    return 1;
+                else
+                    return -1;
+            });
+        }
+        else if(choice.equals("Naziv (z-a)")){
+            lvArtikli.getItems().sort((o1,o2)->{
+                if(o1.getNaziv().equals(o2.getNaziv())) return 0;
+                if(o1.getNaziv().compareTo(o2.getNaziv()) < 0)
+                    return 1;
+                else
+                    return -1;
+            });
+        }
+        else if(choice.equals("Cijena (najjeftinije prvo)")){
+            lvArtikli.getItems().sort((o1,o2)->{
+                if(o1.getCijena().equals(o2.getCijena())) return 0;
+                if(o1.getCijena().compareTo(o2.getCijena()) > 0)
+                    return 1;
+                else
+                    return -1;
+            });
+        }
+        else if(choice.equals("Cijena (najskuplje prvo)")){
+            lvArtikli.getItems().sort((o1,o2)->{
+                if(o1.getCijena().equals(o2.getCijena())) return 0;
+                if(o1.getCijena().compareTo(o2.getCijena()) < 0)
+                    return 1;
+                else
+                    return -1;
+            });
+        }
+        else if(choice.equals("Lokacija (a-z)")){
+            lvArtikli.getItems().sort((o1,o2)->{
+                if(o1.getLokacija().equals(o2.getLokacija())) return 0;
+                if(o1.getLokacija().compareTo(o2.getLokacija()) > 0)
+                    return 1;
+                else
+                    return -1;
+            });
+        }
+        else if(choice.equals("Lokacija (z-a)")){
+            lvArtikli.getItems().sort((o1,o2)->{
+                if(o1.getLokacija().equals(o2.getLokacija())) return 0;
+                if(o1.getLokacija().compareTo(o2.getLokacija()) < 0)
+                    return 1;
+                else
+                    return -1;
+            });
+        }
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
+        filterChoice.setValue("Filter");
+        filterChoice.setItems(options);
+        filterChoice.setOnAction(this::setFilter);
+
         populateArrayList();
         Image img = new Image("/img/objava.png");
         Image img1 = new Image("/img/logo-no-bg.png");
@@ -303,5 +372,6 @@ public class GlavnaController implements Initializable {
         } catch (SQLException e){
             e.printStackTrace();
         }
+
     }
 }

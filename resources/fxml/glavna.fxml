@@ -142,6 +142,7 @@
                   <ImageView fx:id="slikaLogo" fitHeight="115.0" fitWidth="139.0" pickOnBounds="true" preserveRatio="true" />
                </graphic>
             </Button>
+            <ChoiceBox fx:id="filterChoice" prefWidth="150.0" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="4" />
          </children>
          <BorderPane.margin>
             <Insets left="10.0" />
