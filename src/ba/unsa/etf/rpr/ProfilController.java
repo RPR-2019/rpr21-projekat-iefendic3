@@ -62,6 +62,19 @@ public class ProfilController implements Initializable {
         primaryStage.setResizable(false);
         primaryStage.show();
     }
+    public void clickAktivniArtikli(ActionEvent actionEvent) throws IOException{
+        Stage primaryStage = new Stage();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/aktivni.fxml"));
+        AktivniController controller = new AktivniController();
+        loader.setController(controller);
+        controller.setKorisnickoIme(korisnik);
+        Parent root = loader.load();
+        primaryStage.getIcons().add(new Image("/img/logo-no-bg.png"));
+        primaryStage.setTitle("Aktivni artikli");
+        primaryStage.setScene(new Scene(root, USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
+        primaryStage.setResizable(false);
+        primaryStage.show();
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {

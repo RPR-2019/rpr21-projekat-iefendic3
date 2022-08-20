@@ -1,26 +1,16 @@
 package ba.unsa.etf.rpr;
 
-import javafx.embed.swing.SwingFXUtils;
-import javafx.scene.image.Image;
-
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.URL;
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 public class KorisnikDAO {
     private static KorisnikDAO instance = null;
     private Connection connection;
     private PreparedStatement dajKorisnikeUpit,dodajKorisnikaUpit, nadjiKorisnikaUpit, nadjiPasswordKorisnikaUpit, dodajSlikuKorisnikaUpit,
-    dajSlikuKorisnikaUpit, obrisiSlikuKorisnikaUpit, dodajKategorijuUpit, dajKategorijeUpit, dodajArtikalUpit, dajArtikleUpit, obrisiArtikalUpit, dodajKupljeniArtikal,
-    dajKupljeneArtikleZaKorisnika, dajProdaneArtikleZaKorisnika, dodajProdaniArtikal, dajOdredjeneArtikle;
+    dajSlikuKorisnikaUpit, obrisiSlikuKorisnikaUpit, dodajKategorijuUpit, dajKategorijeUpit, dodajArtikalUpit, dajArtikleUpit, obrisiArtikalUpit, dodajKupljeniArtikalUpit,
+            dajKupljeneArtikleZaKorisnikaUpit, dajProdaneArtikleZaKorisnikaUpit, dajProdaniArtikalUpit, dajArtikleKorisnikaUpit;
 
     private KorisnikDAO() {
         String url = "jdbc:sqlite:baza.db";
@@ -44,11 +34,11 @@ public class KorisnikDAO {
            dodajArtikalUpit = connection.prepareStatement("INSERT INTO artikli VALUES (?,?,?,?,?,?)");
            dajArtikleUpit = connection.prepareStatement("SELECT * FROM artikli");
            obrisiArtikalUpit = connection.prepareStatement("DELETE from artikli WHERE naziv=? AND deskripcija=?");
-           dodajKupljeniArtikal = connection.prepareStatement("INSERT INTO kupljeni_artikli VALUES (?,?,?,?,?,?)");
-           dodajProdaniArtikal = connection.prepareStatement("INSERT INTO prodani_artikli VALUES (?,?,?,?,?,?)");
-           dajKupljeneArtikleZaKorisnika = connection.prepareStatement("SELECT * FROM kupljeni_artikli WHERE korisnik=?");
-           dajProdaneArtikleZaKorisnika = connection.prepareStatement("SELECT * FROM prodani_artikli WHERE korisnik=?");
-           dajOdredjeneArtikle = connection.prepareStatement("SELECT * FROM artikli WHERE naziv=? AND deskripcija=?");
+           dodajKupljeniArtikalUpit = connection.prepareStatement("INSERT INTO kupljeni_artikli VALUES (?,?,?,?,?,?)");
+           dajProdaniArtikalUpit = connection.prepareStatement("INSERT INTO prodani_artikli VALUES (?,?,?,?,?,?)");
+           dajKupljeneArtikleZaKorisnikaUpit = connection.prepareStatement("SELECT * FROM kupljeni_artikli WHERE korisnik=?");
+           dajProdaneArtikleZaKorisnikaUpit = connection.prepareStatement("SELECT * FROM prodani_artikli WHERE korisnik=?");
+           dajArtikleKorisnikaUpit = connection.prepareStatement("SELECT * FROM artikli WHERE korisnik=?");
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -83,26 +73,26 @@ public class KorisnikDAO {
 
     public void dodajKupljeniArtikal(Artikal artikal){
         try{
-            dodajKupljeniArtikal.setString(1,artikal.getNaziv());
-            dodajKupljeniArtikal.setString(2,artikal.getKategorija().getNazivKategorije());
-            dodajKupljeniArtikal.setString(3,artikal.getCijena());
-            dodajKupljeniArtikal.setString(4,artikal.getLokacija());
-            dodajKupljeniArtikal.setString(5,artikal.getDeskripcija());
-            dodajKupljeniArtikal.setString(6,artikal.getKorisnik());
-            dodajKupljeniArtikal.execute();
+            dodajKupljeniArtikalUpit.setString(1,artikal.getNaziv());
+            dodajKupljeniArtikalUpit.setString(2,artikal.getKategorija().getNazivKategorije());
+            dodajKupljeniArtikalUpit.setString(3,artikal.getCijena());
+            dodajKupljeniArtikalUpit.setString(4,artikal.getLokacija());
+            dodajKupljeniArtikalUpit.setString(5,artikal.getDeskripcija());
+            dodajKupljeniArtikalUpit.setString(6,artikal.getKorisnik());
+            dodajKupljeniArtikalUpit.execute();
         } catch (SQLException e){
             e.printStackTrace();
         }
     }
     public void dodajProdaniArtikal(Artikal artikal){
         try{
-            dodajProdaniArtikal.setString(1,artikal.getNaziv());
-            dodajProdaniArtikal.setString(2,artikal.getKategorija().getNazivKategorije());
-            dodajProdaniArtikal.setString(3,artikal.getCijena());
-            dodajProdaniArtikal.setString(4,artikal.getLokacija());
-            dodajProdaniArtikal.setString(5,artikal.getDeskripcija());
-            dodajProdaniArtikal.setString(6,artikal.getKorisnik());
-            dodajProdaniArtikal.execute();
+            dajProdaniArtikalUpit.setString(1,artikal.getNaziv());
+            dajProdaniArtikalUpit.setString(2,artikal.getKategorija().getNazivKategorije());
+            dajProdaniArtikalUpit.setString(3,artikal.getCijena());
+            dajProdaniArtikalUpit.setString(4,artikal.getLokacija());
+            dajProdaniArtikalUpit.setString(5,artikal.getDeskripcija());
+            dajProdaniArtikalUpit.setString(6,artikal.getKorisnik());
+            dajProdaniArtikalUpit.execute();
         } catch (SQLException e){
             e.printStackTrace();
         }
@@ -175,8 +165,8 @@ return null;
 
     public ResultSet dajKupljeneArtikle(String korisnik){
         try{
-            dajKupljeneArtikleZaKorisnika.setString(1,korisnik);
-            return dajKupljeneArtikleZaKorisnika.executeQuery();
+            dajKupljeneArtikleZaKorisnikaUpit.setString(1,korisnik);
+            return dajKupljeneArtikleZaKorisnikaUpit.executeQuery();
         } catch (SQLException e){
             e.printStackTrace();
         }
@@ -184,8 +174,8 @@ return null;
     }
     public ResultSet dajProdaneArtikle(String korisnik){
         try{
-            dajProdaneArtikleZaKorisnika.setString(1,korisnik);
-            return dajProdaneArtikleZaKorisnika.executeQuery();
+            dajProdaneArtikleZaKorisnikaUpit.setString(1,korisnik);
+            return dajProdaneArtikleZaKorisnikaUpit.executeQuery();
         } catch (SQLException e){
             e.printStackTrace();
         }
@@ -195,6 +185,15 @@ return null;
     public ResultSet dajKategorije(){
         try{
             return dajKategorijeUpit.executeQuery();
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+        return null;
+    }
+    public ResultSet dajArtikleKorisnika(String korisnik){
+        try{
+            dajArtikleKorisnikaUpit.setString(1, korisnik);
+            return dajArtikleKorisnikaUpit.executeQuery();
         } catch (SQLException e){
             e.printStackTrace();
         }
