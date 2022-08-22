@@ -68,8 +68,9 @@
             <Insets left="10.0" />
          </GridPane.margin>
       </VBox>
-      <Button fx:id="kupljeniBtn" mnemonicParsing="false" onAction="#clickKupljeniArtikli" prefHeight="56.0" prefWidth="202.0" text="Kupljeni artikli" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
-      <Button fx:id="prodaniBtn" layoutX="359.0" layoutY="132.0" mnemonicParsing="false" onAction="#clickProdaniArtikli" prefHeight="56.0" prefWidth="202.0" text="Prodani artikli" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
-      <Button fx:id="aktivniBtn" layoutX="359.0" layoutY="233.0" mnemonicParsing="false" onAction="#clickAktivniArtikli" prefHeight="56.0" prefWidth="202.0" text="Aktivni artikli" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
+      <Button fx:id="kupljeniBtn" mnemonicParsing="false" onAction="#clickKupljeniArtikli" prefHeight="56.0" prefWidth="202.0" text="Kupljeni artikli" GridPane.columnIndex="1" GridPane.halignment="CENTER" />
+      <Button fx:id="prodaniBtn" layoutX="359.0" layoutY="132.0" mnemonicParsing="false" onAction="#clickProdaniArtikli" prefHeight="56.0" prefWidth="202.0" text="Prodani artikli" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+      <Button fx:id="aktivniBtn" layoutX="359.0" layoutY="233.0" mnemonicParsing="false" onAction="#clickAktivniArtikli" prefHeight="56.0" prefWidth="202.0" text="Aktivni artikli" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
+      <Button fx:id="aktivniBtn1" layoutX="359.0" layoutY="233.0" mnemonicParsing="false" onAction="#clickKomentari" prefHeight="56.0" prefWidth="202.0" text="Komentari" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
    </children>
 </GridPane>

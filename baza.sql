@@ -45,6 +45,12 @@ CREATE TABLE IF NOT EXISTS "prodani_artikli" (
 "korisnik" TEXT
 );
 
+CREATE TABLE IF NOT EXISTS "komentari"(
+"korisnik" TEXT,
+"tekst" TEXT,
+"recenzija" TEXT
+);
+
 INSERT INTO "kategorije" VALUES("Vozila");
 INSERT INTO "kategorije" VALUES("Nekretnine");
 INSERT INTO "kategorije" VALUES("Kompjuteri i laptopi");

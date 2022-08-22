@@ -76,6 +76,20 @@ public class ProfilController implements Initializable {
         primaryStage.show();
     }
 
+    public void clickKomentari(ActionEvent actionEvent) throws IOException{
+        Stage primaryStage = new Stage();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/komentari.fxml"));
+        KomentariController controller = new KomentariController();
+        loader.setController(controller);
+        controller.setKorisnickoIme(korisnik);
+        Parent root = loader.load();
+        primaryStage.getIcons().add(new Image("/img/logo-no-bg.png"));
+        primaryStage.setTitle("Komentari");
+        primaryStage.setScene(new Scene(root, USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
+        primaryStage.setResizable(false);
+        primaryStage.show();
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         ResultSet rs = dao.dajSlikuKorisnika(korisnickoIme);
