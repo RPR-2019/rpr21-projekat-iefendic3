@@ -186,8 +186,10 @@ public class GlavnaController implements Initializable {
                     tmp=true;
                 }
             }
-            if(!tmp)
+            if(!tmp) {
+                words.add(zadnjiArtikal);
                 lvArtikli.getItems().add(zadnjiArtikal);
+            }
            /* if(!lvArtikli.getItems().contains(zadnjiArtikal)){
                 lvArtikli.getItems().add(zadnjiArtikal);
             }*/

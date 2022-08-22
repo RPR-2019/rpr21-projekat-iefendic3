@@ -53,7 +53,6 @@ public class KomentarController implements Initializable {
         dao.dodajKomentar(komentar);
         System.out.println(komentar.getKorisnickoIme());
         System.out.println(komentar.getTekstKomentara());
-        System.out.println(komentar.getRecenzija().toString
-                ());
+        System.out.println(komentar.getRecenzija().toString());
     }
 }
