@@ -24,7 +24,7 @@ public class AktivniController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        ResultSet rs = dao.dajArtikle();
+        ResultSet rs = dao.dajArtikleKorisnika(korisnickoIme);
 
         try {
             while (rs.next()){
