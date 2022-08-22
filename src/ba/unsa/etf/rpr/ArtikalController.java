@@ -2,7 +2,10 @@ package ba.unsa.etf.rpr;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -11,8 +14,11 @@ import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+
+import static javafx.scene.layout.Region.USE_COMPUTED_SIZE;
 
 public class ArtikalController implements Initializable {
     @FXML
@@ -72,6 +78,22 @@ public class ArtikalController implements Initializable {
         dao.obrisiArtikal(naziv.getText(),deskripcija.getText());
         Stage stage = (Stage) obrisiBtn.getScene().getWindow();
         stage.close();
+    }
+    public void clickProfil(ActionEvent actionEvent) throws IOException {
+        Stage primaryStage=new Stage();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/profil.fxml"));
+        loader.setController(new ProfilController());
+        Parent root=loader.load();
+        ProfilController profilController=loader.getController();
+
+        Korisnik k = dao.nadjiKorisnika(korisnik.getText());
+        profilController.setKorisnik(k);
+
+        primaryStage.getIcons().add(new Image("/img/logo-no-bg.png"));
+        primaryStage.setTitle("Profil - "+korisnik.getText());
+        primaryStage.setScene(new Scene(root, USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
+        primaryStage.setResizable(false);
+        primaryStage.show();
     }
 
     @Override
