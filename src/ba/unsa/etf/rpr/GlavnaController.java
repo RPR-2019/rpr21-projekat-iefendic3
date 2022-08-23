@@ -178,24 +178,35 @@ public class GlavnaController implements Initializable {
                 zadnjiArtikal.setKorisnik(rsArtikli.getString(6));
             }
 
-            boolean tmp = false;
-            for(int i = 0; i<lvArtikli.getItems().size();i++){
-                if(lvArtikli.getItems().get(i).getNaziv().equals(zadnjiArtikal.getNaziv())
-                && lvArtikli.getItems().get(i).getKategorija().toString().equals(zadnjiArtikal.getKategorija().toString())
-                && lvArtikli.getItems().get(i).getDeskripcija().equals(zadnjiArtikal.getDeskripcija())
-                && lvArtikli.getItems().get(i).getLokacija().equals(zadnjiArtikal.getLokacija())
-                && lvArtikli.getItems().get(i).getCijena().equals(zadnjiArtikal.getCijena())
-                && lvArtikli.getItems().get(i).getKorisnik().equals(zadnjiArtikal.getKorisnik())
-                ) {
-                    tmp=true;
+            if(zadnjiArtikal.getNaziv()!=null && zadnjiArtikal.getKategorija().toString()!=null
+            && zadnjiArtikal.getCijena()!=null && zadnjiArtikal.getLokacija()!=null
+            && zadnjiArtikal.getDeskripcija()!=null && zadnjiArtikal.getKorisnik()!=null) {
+
+                boolean tmp = false;
+                for (int i = 0; i < lvArtikli.getItems().size(); i++) {
+                    if (lvArtikli.getItems().get(i).getNaziv() != null &&
+                            lvArtikli.getItems().get(i).getKategorija().toString() != null &&
+                            lvArtikli.getItems().get(i).getDeskripcija() != null &&
+                            lvArtikli.getItems().get(i).getLokacija() != null &&
+                            lvArtikli.getItems().get(i).getCijena() != null &&
+                            lvArtikli.getItems().get(i).getKorisnik() != null
+                    )
+                        if (lvArtikli.getItems().get(i).getNaziv().equals(zadnjiArtikal.getNaziv())
+                                && lvArtikli.getItems().get(i).getKategorija().toString().equals(zadnjiArtikal.getKategorija().toString())
+                                && lvArtikli.getItems().get(i).getDeskripcija().equals(zadnjiArtikal.getDeskripcija())
+                                && lvArtikli.getItems().get(i).getLokacija().equals(zadnjiArtikal.getLokacija())
+                                && lvArtikli.getItems().get(i).getCijena().equals(zadnjiArtikal.getCijena())
+                                && lvArtikli.getItems().get(i).getKorisnik().equals(zadnjiArtikal.getKorisnik())
+                        ) {
+                            tmp = true;
+                        }
                 }
-            }
-            if(!tmp) {
-                words.add(zadnjiArtikal);
-                lvArtikli.getItems().add(zadnjiArtikal);
-            }
+                if (!tmp) {
+                    words.add(zadnjiArtikal);
+                    lvArtikli.getItems().add(zadnjiArtikal);
+                }
 
-
+            }
         } catch (SQLException e){
             e.printStackTrace();
         }
@@ -258,6 +269,7 @@ public class GlavnaController implements Initializable {
 
 
     @FXML public void handleMouseClick(MouseEvent arg0) throws IOException {
+
         try {
             if (lvArtikli.getSelectionModel().getSelectedItem() != null) {
                 DataModel model1 = new DataModel();
@@ -286,6 +298,8 @@ public class GlavnaController implements Initializable {
                 primaryStage.setTitle("Artikal - " + lvArtikli.getSelectionModel().getSelectedItem());
                 primaryStage.setScene(new Scene(root, USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
                 primaryStage.show();
+
+
             } else {
                 throw new IncorrectArticleException("Niste odabrali validan artikal!");
             }
@@ -297,7 +311,35 @@ public class GlavnaController implements Initializable {
             alert.show();
         }
 
+        ResultSet rs = dao.dajArtikle();
+        boolean t = false;
+        int j=0;
+        try {
+            while (rs.next()) {
+                for (int i = 0; i < lvArtikli.getItems().size(); i++) {
+                    if(lvArtikli.getItems().get(i).getNaziv().equals(rs.getString(1))
+                            && lvArtikli.getItems().get(i).getKategorija().toString().equals(rs.getString(2))
+                            && lvArtikli.getItems().get(i).getDeskripcija().equals(rs.getString(3))
+                            && lvArtikli.getItems().get(i).getLokacija().equals(rs.getString(4))
+                            && lvArtikli.getItems().get(i).getCijena().equals(rs.getString(5))
+                            && lvArtikli.getItems().get(i).getKorisnik().equals(rs.getString(6))
+                    ) t=true;
+                    else {
+                        t=false;
+                        j=i;
 
+                    }
+                }
+            }
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+        if(t==false) {
+            Artikal artikal = lvArtikli.getItems().get(j);
+            System.out.println(artikal.getNaziv());
+            lvArtikli.getItems().remove(artikal);
+        }
+        //
     }
 
     public void setFilter(ActionEvent actionEvent){
@@ -395,4 +437,6 @@ public class GlavnaController implements Initializable {
         }
 
     }
+
+
 }
