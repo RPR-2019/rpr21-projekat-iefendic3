@@ -12,6 +12,59 @@ public class DataModel {
     private final StringProperty deskripcija = new SimpleStringProperty();
     private final StringProperty korisnik = new SimpleStringProperty();
 
+    private final StringProperty korisnickoIme = new SimpleStringProperty();
+    private final StringProperty tekstKomentara = new SimpleStringProperty();
+    private final StringProperty recenzija = new SimpleStringProperty();
+    private final StringProperty autor = new SimpleStringProperty();
+
+    public String getKorisnickoIme() {
+        return korisnickoIme.get();
+    }
+
+    public StringProperty korisnickoImeProperty() {
+        return korisnickoIme;
+    }
+
+    public void setKorisnickoIme(String korisnickoIme) {
+        this.korisnickoIme.set(korisnickoIme);
+    }
+
+    public String getTekstKomentara() {
+        return tekstKomentara.get();
+    }
+
+    public StringProperty tekstKomentaraProperty() {
+        return tekstKomentara;
+    }
+
+    public void setTekstKomentara(String tekstKomentara) {
+        this.tekstKomentara.set(tekstKomentara);
+    }
+
+    public String getRecenzija() {
+        return recenzija.get();
+    }
+
+    public StringProperty recenzijaProperty() {
+        return recenzija;
+    }
+
+    public void setRecenzija(String recenzija) {
+        this.recenzija.set(recenzija);
+    }
+
+    public String getAutor() {
+        return autor.get();
+    }
+
+    public StringProperty autorProperty() {
+        return autor;
+    }
+
+    public void setAutor(String autor) {
+        this.autor.set(autor);
+    }
+
     public String getKorisnik() {
         return korisnik.get();
     }

@@ -6,8 +6,10 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.ListView;
 import javafx.scene.image.Image;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -103,5 +105,45 @@ public class KomentariController implements Initializable {
         }
 
         primaryStage.setWidth(USE_COMPUTED_SIZE-0.0001);
+    }
+
+    @FXML public void handleMouseClick(MouseEvent arg0) throws IOException {
+        try {
+            if (lvKomentari.getSelectionModel().getSelectedItem() != null) {
+                DataModel model1 = new DataModel();
+                Stage primaryStage = new Stage();
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/komentar-detalji.fxml"));
+                KomentarDetaljiController controller = new KomentarDetaljiController(model1);
+                loader.setController(controller);
+
+                Korisnik korisnik = dao.nadjiKorisnika(korisnickoIme);
+                controller.setKorisnickoIme(korisnik);
+                controller.setAutor(autor);
+
+                model1.setTekstKomentara(lvKomentari.getSelectionModel().getSelectedItem().toString());
+                model1.setKorisnickoIme(lvKomentari.getSelectionModel().getSelectedItem().getKorisnickoIme());
+                model1.setRecenzija(lvKomentari.getSelectionModel().getSelectedItem().getRecenzija().toString());
+                model1.setAutor(lvKomentari.getSelectionModel().getSelectedItem().getAutor());
+
+                Stage stage = (Stage) lvKomentari.getScene().getWindow();
+                stage.setWidth(USE_COMPUTED_SIZE - 0.0001);
+
+                Parent root = loader.load();
+                primaryStage.getIcons().add(new Image("/img/logo-no-bg.png"));
+                primaryStage.setTitle("Komentar - " + lvKomentari.getSelectionModel().getSelectedItem());
+                primaryStage.setScene(new Scene(root, USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
+                primaryStage.show();
+            } else {
+                throw new IncorrectArticleException("Niste odabrali validan komentar!");
+            }
+        } catch (IncorrectArticleException e){
+            System.out.println(e);
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setHeaderText("Greška!");
+            alert.setContentText("Kliknuli ste na nepostojeći komentar!");
+            alert.show();
+        }
+
+
     }
 }
