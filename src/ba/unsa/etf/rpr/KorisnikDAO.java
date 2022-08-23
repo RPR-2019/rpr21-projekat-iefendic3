@@ -40,7 +40,7 @@ public class KorisnikDAO {
            dajKupljeneArtikleZaKorisnikaUpit = connection.prepareStatement("SELECT * FROM kupljeni_artikli WHERE korisnik=?");
            dajProdaneArtikleZaKorisnikaUpit = connection.prepareStatement("SELECT * FROM prodani_artikli WHERE korisnik=?");
            dajArtikleKorisnikaUpit = connection.prepareStatement("SELECT * FROM artikli WHERE korisnik=?");
-           dodajKomentarUpit = connection.prepareStatement("INSERT INTO komentari VALUES (?,?,?)");
+           dodajKomentarUpit = connection.prepareStatement("INSERT INTO komentari VALUES (?,?,?,?)");
            dajKomentareKorisnikaUpit = connection.prepareStatement("SELECT * FROM komentari WHERE korisnik=?");
         } catch (SQLException e) {
             e.printStackTrace();
@@ -92,6 +92,7 @@ public class KorisnikDAO {
             dodajKomentarUpit.setString(1,komentar.getKorisnickoIme());
             dodajKomentarUpit.setString(2,komentar.getTekstKomentara());
             dodajKomentarUpit.setString(3,komentar.getRecenzija().toString());
+            dodajKomentarUpit.setString(4,komentar.getAutor());
             dodajKomentarUpit.execute();
         } catch (SQLException e){
             e.printStackTrace();

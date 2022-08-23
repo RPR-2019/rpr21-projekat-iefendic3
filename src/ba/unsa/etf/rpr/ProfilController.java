@@ -30,6 +30,7 @@ public class ProfilController implements Initializable {
     public Hyperlink btnSlikaProfila;
     public Label  labelaIme, labelaPrezime, labelaDatum, labelaMjesto, labelaAdresa, labelaBrojTel;
     private String korisnickoIme;
+    private String autor;
     private Korisnik korisnik;
     private KorisnikDAO dao;
     final FileChooser fc = new FileChooser();
@@ -82,6 +83,8 @@ public class ProfilController implements Initializable {
         KomentariController controller = new KomentariController();
         loader.setController(controller);
         controller.setKorisnickoIme(korisnik);
+        controller.setAutor(autor);
+
         Parent root = loader.load();
         primaryStage.getIcons().add(new Image("/img/logo-no-bg.png"));
         primaryStage.setTitle("Komentari");
@@ -142,5 +145,9 @@ public class ProfilController implements Initializable {
         labelaMjesto.setText(labelaMjesto.getText()+" "+korisnik.getMjesto());
         labelaAdresa.setText(labelaAdresa.getText()+" "+korisnik.getAdresa());
         labelaBrojTel.setText(labelaBrojTel.getText()+" "+korisnik.getBrojTelefona());
+    }
+
+    public void setAutor(String autor1){
+        this.autor = autor1;
     }
 }

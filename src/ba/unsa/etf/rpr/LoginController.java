@@ -56,6 +56,7 @@ public class LoginController{
             Parent root = loader.load();
             GlavnaController glavnaController = loader.getController();
             glavnaController.setKorisnickoIme(fldKorisnickoIme.getText());
+            glavnaController.setAutorKomentara(fldKorisnickoIme.getText());
 
             if((k.getOsoba().getIme().substring(k.getOsoba().getIme().length() - 1)).equals("a") || ( k.getOsoba().getIme().substring(k.getOsoba().getIme().length() - 1)).equals("k"))
             glavnaController.setLabelaZensko(k.getOsoba().getIme());

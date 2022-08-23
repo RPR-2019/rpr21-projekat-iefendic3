@@ -6,6 +6,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.ListView;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextArea;
+import javafx.stage.Stage;
 
 import java.net.URL;
 import java.sql.ResultSet;
@@ -15,7 +16,8 @@ import java.util.ResourceBundle;
 public class KomentarController implements Initializable {
     private KorisnikDAO dao;
     private String korisnickoIme;
-    private Komentar komentar = new Komentar("","",Recenzija.POZITIVNA);
+    private String autor;
+    private Komentar komentar = new Komentar("","",Recenzija.POZITIVNA,"");
 
     @FXML
     TextArea txtArea;
@@ -28,6 +30,9 @@ public class KomentarController implements Initializable {
 
     public void setKorisnickoIme(String korisnik) {
         korisnickoIme = korisnik;
+    }
+    public void setAutorKomentara(String autor1){
+        autor=autor1;
     }
 
 
@@ -48,11 +53,13 @@ public class KomentarController implements Initializable {
             else if(radioNegativna.isSelected()){
                 komentar.setRecenzija(Recenzija.NEGATIVNA);
             }
+            komentar.setAutor(autor);
+            dao.dodajKomentar(komentar);
+            Stage stage = (Stage) radioPozitivna.getScene().getWindow();
+            stage.close();
         }
 
-        dao.dodajKomentar(komentar);
-        System.out.println(komentar.getKorisnickoIme());
-        System.out.println(komentar.getTekstKomentara());
-        System.out.println(komentar.getRecenzija().toString());
+
+
     }
 }

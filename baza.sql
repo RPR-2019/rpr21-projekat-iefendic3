@@ -48,7 +48,8 @@ CREATE TABLE IF NOT EXISTS "prodani_artikli" (
 CREATE TABLE IF NOT EXISTS "komentari"(
 "korisnik" TEXT,
 "tekst" TEXT,
-"recenzija" TEXT
+"recenzija" TEXT,
+"autor" TEXT
 );
 
 INSERT INTO "kategorije" VALUES("Vozila");

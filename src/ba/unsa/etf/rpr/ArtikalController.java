@@ -39,6 +39,7 @@ public class ArtikalController implements Initializable {
     Button obrisiBtn;
 
     private String korisnickoIme;
+    private String autor;
 
     private final DataModel model ;
     private KorisnikDAO dao = KorisnikDAO.getInstance();
@@ -49,7 +50,9 @@ public class ArtikalController implements Initializable {
     public void setKorisnickoIme(Korisnik korisnik) {
         korisnickoIme = korisnik.getKorisnickoIme();
     }
-
+    public void setAutor(String korisnik) {
+        autor = korisnik;
+    }
 
 
 
@@ -88,7 +91,8 @@ public class ArtikalController implements Initializable {
 
         Korisnik k = dao.nadjiKorisnika(korisnik.getText());
         profilController.setKorisnik(k);
-
+        profilController.setAutor(autor);
+        System.out.println(autor);
         primaryStage.getIcons().add(new Image("/img/logo-no-bg.png"));
         primaryStage.setTitle("Profil - "+korisnik.getText());
         primaryStage.setScene(new Scene(root, USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));

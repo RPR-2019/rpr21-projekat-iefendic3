@@ -44,6 +44,7 @@ public class GlavnaController implements Initializable {
     public Label labelDobrodosao;
     private KorisnikDAO dao;
     private String korisnickoIme;
+    private String autor;
     public ListView<Kategorija> lvKategorije;
     public Button btnDodajKategoriju, btnObjavi;
     public TextField txtFieldKategorija;
@@ -96,6 +97,9 @@ public class GlavnaController implements Initializable {
 
     public void setKorisnickoIme(String korisnickoIme){
         this.korisnickoIme=korisnickoIme;
+    }
+    public void setAutorKomentara(String korisnickoIme){
+        this.autor=korisnickoIme;
     }
 
     public GlavnaController(){dao = KorisnikDAO.getInstance();}
@@ -190,9 +194,6 @@ public class GlavnaController implements Initializable {
                 words.add(zadnjiArtikal);
                 lvArtikli.getItems().add(zadnjiArtikal);
             }
-           /* if(!lvArtikli.getItems().contains(zadnjiArtikal)){
-                lvArtikli.getItems().add(zadnjiArtikal);
-            }*/
 
 
         } catch (SQLException e){
@@ -226,6 +227,8 @@ public class GlavnaController implements Initializable {
 
         Korisnik k = dao.nadjiKorisnika(korisnickoIme);
         profilController.setKorisnik(k);
+        profilController.setAutor(autor);
+
 
         primaryStage.getIcons().add(new Image("/img/logo-no-bg.png"));
         primaryStage.setTitle("Profil - "+korisnickoIme);
@@ -265,6 +268,7 @@ public class GlavnaController implements Initializable {
 
                 Korisnik korisnik = dao.nadjiKorisnika(korisnickoIme);
                 controller.setKorisnickoIme(korisnik);
+                controller.setAutor(autor);
 
                 model1.setNaziv(lvArtikli.getSelectionModel().getSelectedItem().toString());
                 model1.setKategorija(lvArtikli.getSelectionModel().getSelectedItem().getKategorija().toString());

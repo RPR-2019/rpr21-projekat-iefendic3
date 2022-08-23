@@ -21,15 +21,19 @@ import static javafx.scene.layout.Region.USE_COMPUTED_SIZE;
 public class KomentariController implements Initializable {
     private KorisnikDAO dao;
     private String korisnickoIme;
+    private String autor;
 
     public KomentariController(){ dao = KorisnikDAO.getInstance();}
 
     public void setKorisnickoIme(Korisnik korisnik) {
         korisnickoIme = korisnik.getKorisnickoIme();
     }
+    public void setAutor(String korisnik) {
+        autor = korisnik;
+    }
 
     @FXML
-    ListView lvKomentari;
+    ListView<Komentar> lvKomentari;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -40,7 +44,7 @@ public class KomentariController implements Initializable {
                 if(rs.getString(3).equals("Pozitivno")) recenzija = Recenzija.POZITIVNA;
                 else
                     recenzija = Recenzija.NEGATIVNA;
-                lvKomentari.getItems().add(new Komentar(rs.getString(1),rs.getString(2),recenzija));
+                lvKomentari.getItems().add(new Komentar(rs.getString(1),rs.getString(2),recenzija,rs.getString(4)));
             }
 
         } catch(SQLException e){
@@ -54,11 +58,50 @@ public class KomentariController implements Initializable {
         KomentarController controller = new KomentarController();
         loader.setController(controller);
         controller.setKorisnickoIme(korisnickoIme);
+        controller.setAutorKomentara(autor);
+
         Parent root = loader.load();
         primaryStage.getIcons().add(new Image("/img/logo-no-bg.png"));
         primaryStage.setTitle("Dodaj novi komentar");
         primaryStage.setScene(new Scene(root, USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
         primaryStage.setResizable(false);
-        primaryStage.show();
+        primaryStage.showAndWait();
+
+        try {
+            ResultSet rsKomentari = dao.dajKomentareKorisnika(korisnickoIme);
+            Komentar zadnjiKomentar = new Komentar();
+            Recenzija recenzija;
+            //Zadnji element
+            while(rsKomentari.next()){
+                if(rsKomentari.getString(3).equals("Pozitivno")) recenzija = Recenzija.POZITIVNA;
+                else
+                    recenzija = Recenzija.NEGATIVNA;
+                zadnjiKomentar.setKorisnickoIme(rsKomentari.getString(1));
+                zadnjiKomentar.setTekstKomentara(rsKomentari.getString(2));
+                zadnjiKomentar.setRecenzija(recenzija);
+                zadnjiKomentar.setAutor(rsKomentari.getString(4));
+            }
+
+            boolean tmp = false;
+            for(int i = 0; i<lvKomentari.getItems().size();i++){
+                if(lvKomentari.getItems().get(i).getKorisnickoIme().equals(zadnjiKomentar.getKorisnickoIme())
+                        && lvKomentari.getItems().get(i).getTekstKomentara().equals(zadnjiKomentar.getTekstKomentara())
+                        && lvKomentari.getItems().get(i).getRecenzija().toString().equals(zadnjiKomentar.getRecenzija().toString())
+                        && lvKomentari.getItems().get(i).getAutor().equals(zadnjiKomentar.getAutor())
+                ) {
+                    tmp=true;
+                }
+            }
+            if(!tmp) {
+
+                lvKomentari.getItems().add(zadnjiKomentar);
+            }
+
+
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+
+        primaryStage.setWidth(USE_COMPUTED_SIZE-0.0001);
     }
 }
