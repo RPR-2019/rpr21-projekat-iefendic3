@@ -1,6 +1,7 @@
 package ba.unsa.etf.rpr;
 
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
@@ -12,10 +13,7 @@ import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.net.URL;
 import java.sql.Blob;
 import java.sql.ResultSet;
@@ -26,16 +24,26 @@ import static javafx.scene.layout.Region.USE_COMPUTED_SIZE;
 
 
 public class ProfilController implements Initializable {
-    public ImageView slikaProfila;
-    public Hyperlink btnSlikaProfila;
+
+
     public Label  labelaIme, labelaPrezime, labelaDatum, labelaMjesto, labelaAdresa, labelaBrojTel;
     private String korisnickoIme;
+    private String korisnickoIme1;
     private String autor;
     private Korisnik korisnik;
     private KorisnikDAO dao;
     final FileChooser fc = new FileChooser();
 
+    @FXML
+    ImageView slikaProfila;
+    @FXML
+    Hyperlink btnSlikaProfila;
+
     public ProfilController(){ dao = KorisnikDAO.getInstance();}
+
+    public void setKorisnickoIme(String korisnickoIme){
+        korisnickoIme1=korisnickoIme;
+    }
 
     public void clickKupljeniArtikli(ActionEvent actionEvent) throws IOException{
         Stage primaryStage = new Stage();
@@ -75,6 +83,8 @@ public class ProfilController implements Initializable {
         primaryStage.setScene(new Scene(root, USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
         primaryStage.setResizable(false);
         primaryStage.show();
+
+
     }
 
     public void clickKomentari(ActionEvent actionEvent) throws IOException{
@@ -95,22 +105,7 @@ public class ProfilController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        ResultSet rs = dao.dajSlikuKorisnika(korisnickoIme);
-        Image image = null;
 
-        try{
-            while(rs.next()){
-                Blob blob = rs.getBlob(2);
-                InputStream is = blob.getBinaryStream();
-                image = new Image(is);
-            }
-        } catch (SQLException e){
-            e.printStackTrace();
-        }
-
-       // Image image = new Image(getClass().getResourceAsStream("/img/user.png"));
-        slikaProfila.setImage(image);
-        btnSlikaProfila.setGraphic(slikaProfila);
     }
 
 
@@ -136,7 +131,8 @@ public class ProfilController implements Initializable {
         }
     }
 
-    public void setKorisnik(Korisnik korisnik) {
+
+    public void setKorisnik(Korisnik korisnik) throws IOException{
         this.korisnik = korisnik;
         korisnickoIme = korisnik.getKorisnickoIme();
         labelaIme.setText(labelaIme.getText()+" "+korisnik.getOsoba().getIme());
@@ -145,6 +141,26 @@ public class ProfilController implements Initializable {
         labelaMjesto.setText(labelaMjesto.getText()+" "+korisnik.getMjesto());
         labelaAdresa.setText(labelaAdresa.getText()+" "+korisnik.getAdresa());
         labelaBrojTel.setText(labelaBrojTel.getText()+" "+korisnik.getBrojTelefona());
+
+        ResultSet rs = dao.dajSlikuKorisnika(korisnickoIme);
+
+        InputStream inputStream;
+        try{
+            while(rs.next()){
+                inputStream = rs.getBinaryStream("slika");
+                if (inputStream != null && inputStream.available() > 1) {
+                    System.out.println("image available");
+                    Image imge = new Image(inputStream);
+                    slikaProfila.setImage(imge);
+
+                }
+            }
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+
+
+        btnSlikaProfila.setGraphic(slikaProfila);
     }
 
     public void setAutor(String autor1){

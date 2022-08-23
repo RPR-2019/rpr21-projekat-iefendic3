@@ -167,13 +167,14 @@ public class KorisnikDAO {
 
         try {
             dajSlikuKorisnikaUpit.setString(1, korisnickoIme);
-            ResultSet resultSet = dajSlikuKorisnikaUpit.executeQuery();
-            if(resultSet!=null) return resultSet;
+            //ResultSet resultSet = dajSlikuKorisnikaUpit.executeQuery();
+            //if(resultSet!=null) return resultSet;
+            return dajSlikuKorisnikaUpit.executeQuery();
         } catch (SQLException e){
             e.printStackTrace();
-            return null;
+
         }
-return null;
+        return null;
     }
 
 

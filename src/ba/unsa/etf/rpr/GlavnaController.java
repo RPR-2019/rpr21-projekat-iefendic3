@@ -239,6 +239,7 @@ public class GlavnaController implements Initializable {
         Korisnik k = dao.nadjiKorisnika(korisnickoIme);
         profilController.setKorisnik(k);
         profilController.setAutor(autor);
+        profilController.setKorisnickoIme(korisnickoIme);
 
 
         primaryStage.getIcons().add(new Image("/img/logo-no-bg.png"));
