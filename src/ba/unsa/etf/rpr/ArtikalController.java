@@ -72,6 +72,7 @@ public class ArtikalController implements Initializable {
         dao.obrisiArtikal(naziv.getText(),deskripcija.getText());
 
         ResultSet rsArtikli = dao.dajArtikle();
+        lvArtikli2.getItems().clear();
         try{
             while(rsArtikli.next()){
                 Kategorija kategorija = new Kategorija(rsArtikli.getString(2));
@@ -100,6 +101,7 @@ public class ArtikalController implements Initializable {
 
         dao.obrisiArtikal(naziv.getText(),deskripcija.getText());
         ResultSet rsArtikli = dao.dajArtikle();
+        lvArtikli2.getItems().clear();
         try{
             while(rsArtikli.next()){
                 Kategorija kategorija = new Kategorija(rsArtikli.getString(2));
@@ -172,11 +174,6 @@ public class ArtikalController implements Initializable {
         } catch (SQLException e){
             e.printStackTrace();
         }
-
-
-
-
-
 
         if(korisnickoIme.equals(korisnik.getText())){
             kupiBtn.setVisible(false);

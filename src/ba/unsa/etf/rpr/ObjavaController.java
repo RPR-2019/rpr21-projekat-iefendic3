@@ -7,10 +7,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -104,12 +101,19 @@ public class ObjavaController implements Initializable {
             Artikal artikal = new Artikal(txtFieldNaslov.getText(),choiceKategorije.getValue(),txtFieldCijena.getText(),txtFieldLokacija.getText(),txtAreaDeskripcija.getText(),korisnickoIme);
             artikli.add(artikal);
             dao.dodajArtikal(artikal);
+
+            Stage stage = (Stage) btnObjavi.getScene().getWindow();
+
+
+            stage.close();
+        } else{
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setHeaderText("Greška pri objavljivanju");
+            alert.setContentText("Morate popuniti sva polja!");
+            alert.show();
         }
 
-        Stage stage = (Stage) btnObjavi.getScene().getWindow();
 
-
-        stage.close();
 
 
     }
