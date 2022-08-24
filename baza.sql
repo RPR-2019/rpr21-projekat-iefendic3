@@ -14,6 +14,15 @@ CREATE TABLE IF NOT EXISTS "slikaKorisnika" (
 "korisnicko_ime" TEXT,
 "slika" BLOB
 );
+CREATE TABLE IF NOT EXISTS "slikaArtikla" (
+"naziv" TEXT,
+"kategorija" TEXT,
+"cijena" TEXT,
+"lokacija" TEXT,
+"deskripcija" TEXT,
+"korisnik" TEXT,
+"slika" BLOB
+);
 CREATE TABLE IF NOT EXISTS "kategorije" (
 "naziv" TEXT
 );

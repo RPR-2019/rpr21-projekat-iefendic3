@@ -10,8 +10,8 @@ public class KorisnikDAO {
     private Connection connection;
     private PreparedStatement dajKorisnikeUpit,dodajKorisnikaUpit, nadjiKorisnikaUpit, nadjiPasswordKorisnikaUpit, dodajSlikuKorisnikaUpit,
     dajSlikuKorisnikaUpit, obrisiSlikuKorisnikaUpit, dodajKategorijuUpit, dajKategorijeUpit, dodajArtikalUpit, dajArtikleUpit, obrisiArtikalUpit, dodajKupljeniArtikalUpit,
-            dajKupljeneArtikleZaKorisnikaUpit, dajProdaneArtikleZaKorisnikaUpit, dajProdaniArtikalUpit, dajArtikleKorisnikaUpit,
-    dodajKomentarUpit, dajKomentareKorisnikaUpit;
+            dajKupljeneArtikleZaKorisnikaUpit, dajProdaneArtikleZaKorisnikaUpit, dodajProdaniArtikal, dajArtikleKorisnikaUpit,
+    dodajKomentarUpit, dajKomentareKorisnikaUpit,dodajSlikuArtiklaUpit,dajSlikuArtiklaUpit;
 
     private KorisnikDAO() {
         String url = "jdbc:sqlite:baza.db";
@@ -36,12 +36,15 @@ public class KorisnikDAO {
            dajArtikleUpit = connection.prepareStatement("SELECT * FROM artikli");
            obrisiArtikalUpit = connection.prepareStatement("DELETE from artikli WHERE naziv=? AND deskripcija=?");
            dodajKupljeniArtikalUpit = connection.prepareStatement("INSERT INTO kupljeni_artikli VALUES (?,?,?,?,?,?)");
-           dajProdaniArtikalUpit = connection.prepareStatement("INSERT INTO prodani_artikli VALUES (?,?,?,?,?,?)");
+           dodajProdaniArtikal = connection.prepareStatement("INSERT INTO prodani_artikli VALUES (?,?,?,?,?,?)");
            dajKupljeneArtikleZaKorisnikaUpit = connection.prepareStatement("SELECT * FROM kupljeni_artikli WHERE korisnik=?");
            dajProdaneArtikleZaKorisnikaUpit = connection.prepareStatement("SELECT * FROM prodani_artikli WHERE korisnik=?");
            dajArtikleKorisnikaUpit = connection.prepareStatement("SELECT * FROM artikli WHERE korisnik=?");
            dodajKomentarUpit = connection.prepareStatement("INSERT INTO komentari VALUES (?,?,?,?)");
            dajKomentareKorisnikaUpit = connection.prepareStatement("SELECT * FROM komentari WHERE korisnik=?");
+           dodajSlikuArtiklaUpit = connection.prepareStatement("INSERT INTO slikaArtikla VALUES (?,?,?,?,?,?,?)");
+           dajSlikuArtiklaUpit=connection.prepareStatement("SELECT slika FROM slikaArtikla WHERE naziv=? AND kategorija=?" +
+                   "AND cijena=? AND lokacija=? AND deskripcija=? AND korisnik=?");
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -82,6 +85,7 @@ public class KorisnikDAO {
             dodajKupljeniArtikalUpit.setString(4,artikal.getLokacija());
             dodajKupljeniArtikalUpit.setString(5,artikal.getDeskripcija());
             dodajKupljeniArtikalUpit.setString(6,artikal.getKorisnik());
+
             dodajKupljeniArtikalUpit.execute();
         } catch (SQLException e){
             e.printStackTrace();
@@ -100,13 +104,14 @@ public class KorisnikDAO {
     }
     public void dodajProdaniArtikal(Artikal artikal){
         try{
-            dajProdaniArtikalUpit.setString(1,artikal.getNaziv());
-            dajProdaniArtikalUpit.setString(2,artikal.getKategorija().getNazivKategorije());
-            dajProdaniArtikalUpit.setString(3,artikal.getCijena());
-            dajProdaniArtikalUpit.setString(4,artikal.getLokacija());
-            dajProdaniArtikalUpit.setString(5,artikal.getDeskripcija());
-            dajProdaniArtikalUpit.setString(6,artikal.getKorisnik());
-            dajProdaniArtikalUpit.execute();
+            dodajProdaniArtikal.setString(1,artikal.getNaziv());
+            dodajProdaniArtikal.setString(2,artikal.getKategorija().getNazivKategorije());
+            dodajProdaniArtikal.setString(3,artikal.getCijena());
+            dodajProdaniArtikal.setString(4,artikal.getLokacija());
+            dodajProdaniArtikal.setString(5,artikal.getDeskripcija());
+            dodajProdaniArtikal.setString(6,artikal.getKorisnik());
+
+            dodajProdaniArtikal.execute();
         } catch (SQLException e){
             e.printStackTrace();
         }
@@ -143,6 +148,7 @@ public class KorisnikDAO {
             dodajArtikalUpit.setString(4,artikal.getLokacija());
             dodajArtikalUpit.setString(5,artikal.getDeskripcija());
             dodajArtikalUpit.setString(6,artikal.getKorisnik());
+
             dodajArtikalUpit.execute();
         } catch (SQLException e){
             e.printStackTrace();
@@ -163,6 +169,39 @@ public class KorisnikDAO {
         }
     }
 
+    public void dodajSlikuArtikla(Artikal artikal, FileInputStream inputStream, int duzina){
+        try{
+            dodajSlikuArtiklaUpit.setString(1,artikal.getNaziv());
+            dodajSlikuArtiklaUpit.setString(2,artikal.getKategorija().getNazivKategorije());
+            dodajSlikuArtiklaUpit.setString(3,artikal.getCijena());
+            dodajSlikuArtiklaUpit.setString(4,artikal.getLokacija());
+            dodajSlikuArtiklaUpit.setString(5,artikal.getDeskripcija());
+            dodajSlikuArtiklaUpit.setString(6,artikal.getKorisnik());
+            dodajSlikuArtiklaUpit.setBinaryStream(7,inputStream, duzina);
+            dodajSlikuArtiklaUpit.execute();
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+    }
+    public ResultSet dajSlikuArtikla(Artikal artikal){
+
+        try {
+            dajSlikuArtiklaUpit.setString(1,artikal.getNaziv());
+            dajSlikuArtiklaUpit.setString(2,artikal.getKategorija().getNazivKategorije());
+            dajSlikuArtiklaUpit.setString(3,artikal.getCijena());
+            dajSlikuArtiklaUpit.setString(4,artikal.getLokacija());
+            dajSlikuArtiklaUpit.setString(5,artikal.getDeskripcija());
+            dajSlikuArtiklaUpit.setString(6,artikal.getKorisnik());
+            //ResultSet resultSet = dajSlikuKorisnikaUpit.executeQuery();
+            //if(resultSet!=null) return resultSet;
+            return dajSlikuArtiklaUpit.executeQuery();
+        } catch (SQLException e){
+            e.printStackTrace();
+
+        }
+        return null;
+    }
+
     public ResultSet dajSlikuKorisnika(String korisnickoIme){
 
         try {
@@ -176,6 +215,7 @@ public class KorisnikDAO {
         }
         return null;
     }
+
 
 
     public ResultSet dajKupljeneArtikle(String korisnik){

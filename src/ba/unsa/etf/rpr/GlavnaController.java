@@ -2,7 +2,10 @@ package ba.unsa.etf.rpr;
 
 
 import javafx.animation.PauseTransition;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -63,7 +66,9 @@ public class GlavnaController implements Initializable {
 
 
     public void setArtikal(Artikal artikal){
-        lvArtikli.getItems().remove(artikal);
+        //lvArtikli.getItems().remove(artikal);
+        System.out.println(artikal.getNaziv());
+        lvArtikli.getItems().clear();
     }
 
     public void populateArrayList() {
@@ -237,7 +242,7 @@ public class GlavnaController implements Initializable {
         ProfilController profilController=loader.getController();
 
         Korisnik k = dao.nadjiKorisnika(korisnickoIme);
-        profilController.setKorisnik(k);
+        profilController.setKorisnik(k,autor);
         profilController.setAutor(autor);
         profilController.setKorisnickoIme(korisnickoIme);
 
@@ -273,11 +278,14 @@ public class GlavnaController implements Initializable {
 
         try {
             if (lvArtikli.getSelectionModel().getSelectedItem() != null) {
+
+
                 DataModel model1 = new DataModel();
                 Stage primaryStage = new Stage();
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/artikal.fxml"));
                 ArtikalController controller = new ArtikalController(model1);
                 loader.setController(controller);
+
 
                 Korisnik korisnik = dao.nadjiKorisnika(korisnickoIme);
                 controller.setKorisnickoIme(korisnik);
@@ -298,9 +306,66 @@ public class GlavnaController implements Initializable {
                 primaryStage.getIcons().add(new Image("/img/logo-no-bg.png"));
                 primaryStage.setTitle("Artikal - " + lvArtikli.getSelectionModel().getSelectedItem());
                 primaryStage.setScene(new Scene(root, USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
-                primaryStage.show();
+                primaryStage.showAndWait();
 
+                    lvArtikli.getItems().clear();
+                    lvArtikli.getItems().addAll(controller.lvArtikli2.getItems());
 
+                /*int index = lvArtikli.getSelectionModel().getSelectedIndex();
+                ArrayList<Artikal> list = new ArrayList<>();
+
+                try {
+                    ResultSet rs = dao.dajArtikle();
+                    while (rs.next()) {
+                        Kategorija kategorija = new Kategorija(rs.getString(2));
+                        list.add(new Artikal(rs.getString(1), kategorija, rs.getString(3),rs.getString(4),
+                                rs.getString(5), rs.getString(6)));
+
+                    }
+                } catch (SQLException e){
+                    System.out.println(e);
+                }
+                for(int i =0; i< list.size();i++)
+                System.out.println(list.get(i) + " ");
+                //lvArtikli.getItems().clear();
+                //lvArtikli.getItems().addAll(list);
+
+                if (index >= 0) {
+                   // lvArtikli.getItems().clear();
+
+                }*/
+               /* ResultSet rs = dao.dajArtikle();
+                boolean t = false;
+
+                int i=0;
+                try {
+                    while (rs.next()) {
+
+                            if(lvArtikli.getItems().get(i).getNaziv().equals(rs.getString(1))
+                                    && lvArtikli.getItems().get(i).getKategorija().toString().equals(rs.getString(2))
+                                    && lvArtikli.getItems().get(i).getDeskripcija().equals(rs.getString(3))
+                                    && lvArtikli.getItems().get(i).getLokacija().equals(rs.getString(4))
+                                    && lvArtikli.getItems().get(i).getCijena().equals(rs.getString(5))
+                                    && lvArtikli.getItems().get(i).getKorisnik().equals(rs.getString(6))
+                            ) {
+                                t = true;
+                                i++;
+                            }
+                            else {
+                                t=false;
+
+                                break;
+                            }
+                        }
+
+                } catch (SQLException e){
+                    e.printStackTrace();
+                }
+                if(!t) {
+                    Artikal artikal = lvArtikli.getItems().get(i);
+                    System.out.println(artikal.getNaziv());
+                    lvArtikli.getItems().remove(artikal);
+                }*/
             } else {
                 throw new IncorrectArticleException("Niste odabrali validan artikal!");
             }
@@ -312,34 +377,13 @@ public class GlavnaController implements Initializable {
             alert.show();
         }
 
-        ResultSet rs = dao.dajArtikle();
-        boolean t = false;
-        int j=0;
-        try {
-            while (rs.next()) {
-                for (int i = 0; i < lvArtikli.getItems().size(); i++) {
-                    if(lvArtikli.getItems().get(i).getNaziv().equals(rs.getString(1))
-                            && lvArtikli.getItems().get(i).getKategorija().toString().equals(rs.getString(2))
-                            && lvArtikli.getItems().get(i).getDeskripcija().equals(rs.getString(3))
-                            && lvArtikli.getItems().get(i).getLokacija().equals(rs.getString(4))
-                            && lvArtikli.getItems().get(i).getCijena().equals(rs.getString(5))
-                            && lvArtikli.getItems().get(i).getKorisnik().equals(rs.getString(6))
-                    ) t=true;
-                    else {
-                        t=false;
-                        j=i;
 
-                    }
-                }
-            }
-        } catch (SQLException e){
-            e.printStackTrace();
-        }
-        if(t==false) {
-            Artikal artikal = lvArtikli.getItems().get(j);
-            System.out.println(artikal.getNaziv());
-            lvArtikli.getItems().remove(artikal);
-        }
+
+
+
+
+
+
         //
     }
 
@@ -407,8 +451,16 @@ public class GlavnaController implements Initializable {
         filterChoice.setValue("Filter");
         filterChoice.setItems(options);
         filterChoice.setOnAction(this::setFilter);
-
+        if(lvArtikli.getItems()!=null)
+        lvArtikli.getItems().clear();
+        if(words!=null){
+            words.removeAll(words);
+        }
         populateArrayList();
+        lvArtikli.getItems().addAll(words);
+        lvArtikli.refresh();
+
+
         Image img = new Image("/img/objava.png");
         Image img1 = new Image("/img/logo-no-bg.png");
         slikaObjava.setImage(img);
@@ -428,16 +480,20 @@ public class GlavnaController implements Initializable {
             while (rs.next()) {
                 lvKategorije.getItems().add(new Kategorija(rs.getString(1)));
             }
-            while(rsArtikli.next()){
+           /* while(rsArtikli.next()){
                 Kategorija kategorija = new Kategorija(rsArtikli.getString(2));
                 lvArtikli.getItems().add(new Artikal(rsArtikli.getString(1), kategorija, rsArtikli.getString(3),rsArtikli.getString(4),
                         rsArtikli.getString(5), rsArtikli.getString(6)));
-            }
+            }*/
         } catch (SQLException e){
             e.printStackTrace();
         }
 
+
+
     }
+
+
 
 
 }

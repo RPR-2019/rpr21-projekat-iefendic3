@@ -35,7 +35,7 @@
       <Label fx:id="kategorija" text="Label" GridPane.columnIndex="1" GridPane.columnSpan="6" GridPane.rowIndex="1" />
       <Label fx:id="cijena" text="Label" GridPane.columnIndex="1" GridPane.columnSpan="6" GridPane.rowIndex="2" />
       <Label fx:id="lokacija" text="Label" GridPane.columnIndex="1" GridPane.columnSpan="6" GridPane.rowIndex="3" />
-      <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="slikaArtikla" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.rowIndex="1" />
       <Label fx:id="deskripcija" text="Label" GridPane.columnIndex="1" GridPane.columnSpan="6" GridPane.rowIndex="4" />
       <Button fx:id="kupiBtn" mnemonicParsing="false" onAction="#clickKupi" prefHeight="26.0" prefWidth="90.0" text="Kupi" GridPane.columnIndex="5" GridPane.rowIndex="5" />
       <Button fx:id="obrisiBtn" mnemonicParsing="false" onAction="#clickObrisi" prefHeight="26.0" prefWidth="90.0" text="Obrisi" GridPane.columnIndex="4" GridPane.rowIndex="5" />

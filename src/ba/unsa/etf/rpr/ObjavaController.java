@@ -2,6 +2,7 @@ package ba.unsa.etf.rpr;
 
 
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
@@ -10,9 +11,14 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.ResultSet;
@@ -29,6 +35,9 @@ public class ObjavaController implements Initializable {
     private ArrayList<Kategorija> kategorije = new ArrayList<>();
     private ArrayList<Artikal> artikli = new ArrayList<>();
     public TextArea txtAreaDeskripcija;
+    final FileChooser fc = new FileChooser();
+    @FXML
+    ImageView slikaArtikla;
     ProfilController profilController = new ProfilController();
 
     public ObjavaController() {dao=KorisnikDAO.getInstance();}
@@ -109,5 +118,29 @@ public class ObjavaController implements Initializable {
         Stage stage = (Stage) btnObjavi.getScene().getWindow();
         stage.close();
 
+    }
+
+    public void clickBtn (ActionEvent actionEvent) {
+        fc.setTitle("My File Chooser");
+        fc.setInitialDirectory(new File(System.getProperty("user.home")));
+        fc.getExtensionFilters().clear();
+        fc.getExtensionFilters().add(new FileChooser.ExtensionFilter("Image Files","*.*"));
+
+        File file = fc.showOpenDialog(null);
+        Artikal artikal = new Artikal(txtFieldNaslov.getText(),choiceKategorije.getValue(),txtFieldCijena.getText(),txtFieldLokacija.getText(),
+                txtAreaDeskripcija.getText(),korisnickoIme);
+
+        if(file != null){
+            try {
+                Image img = new Image(file.toURI().toString());
+                slikaArtikla.setImage(img);
+                FileInputStream fileInputStream = new FileInputStream(file);
+                dao.dodajSlikuArtikla(artikal, fileInputStream, fileInputStream.available());
+            } catch (IOException e){
+                e.printStackTrace();
+            }
+        } else{
+            System.out.println("A file is invalid!");
+        }
     }
 }

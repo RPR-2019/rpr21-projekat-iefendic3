@@ -106,12 +106,8 @@
             </HBox>
             <HBox prefHeight="88.0" prefWidth="590.0">
                <children>
-                  <Label text="Slika artikla:">
-                     <font>
-                        <Font size="16.0" />
-                     </font>
-                  </Label>
-                  <ImageView fitHeight="150.0" fitWidth="481.0" pickOnBounds="true" preserveRatio="true" />
+                  <Hyperlink fx:id="btnSlikaProfila" onAction="#clickBtn" text="Slika artikla" />
+                  <ImageView fx:id="slikaArtikla" fitHeight="150.0" fitWidth="481.0" pickOnBounds="true" preserveRatio="true" />
                </children>
                <VBox.margin>
                   <Insets top="10.0" />

@@ -9,13 +9,17 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URL;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 import static javafx.scene.layout.Region.USE_COMPUTED_SIZE;
@@ -37,6 +41,10 @@ public class ArtikalController implements Initializable {
     Button kupiBtn;
     @FXML
     Button obrisiBtn;
+    @FXML
+    ImageView slikaArtikla;
+
+    public ListView<Artikal> lvArtikli2 = new ListView<>();
 
     private String korisnickoIme;
     private String autor;
@@ -63,6 +71,17 @@ public class ArtikalController implements Initializable {
         alert.show();
         dao.obrisiArtikal(naziv.getText(),deskripcija.getText());
 
+        ResultSet rsArtikli = dao.dajArtikle();
+        try{
+            while(rsArtikli.next()){
+                Kategorija kategorija = new Kategorija(rsArtikli.getString(2));
+                lvArtikli2.getItems().add(new Artikal(rsArtikli.getString(1), kategorija, rsArtikli.getString(3),rsArtikli.getString(4),
+                        rsArtikli.getString(5), rsArtikli.getString(6)));
+            }
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+
         Kategorija kategorija1 = new Kategorija(kategorija.getText());
         Artikal kupljeniArtikal = new Artikal(naziv.getText(),kategorija1,cijena.getText(),lokacija.getText(),deskripcija.getText(),korisnickoIme);
         Artikal prodaniArtikal = new Artikal(naziv.getText(),kategorija1,cijena.getText(),lokacija.getText(),deskripcija.getText(),korisnik.getText());
@@ -77,8 +96,20 @@ public class ArtikalController implements Initializable {
         Kategorija kategorija1 = new Kategorija(kategorija.getText());
         Artikal artikal = new Artikal(naziv.getText(),kategorija1,cijena.getText(),lokacija.getText(),deskripcija.getText(),korisnickoIme);
         GlavnaController glavnaController = new GlavnaController();
-        glavnaController.setArtikal(artikal);
+        //glavnaController.setArtikal(artikal);
+
         dao.obrisiArtikal(naziv.getText(),deskripcija.getText());
+        ResultSet rsArtikli = dao.dajArtikle();
+        try{
+            while(rsArtikli.next()){
+                Kategorija kategorija = new Kategorija(rsArtikli.getString(2));
+                lvArtikli2.getItems().add(new Artikal(rsArtikli.getString(1), kategorija, rsArtikli.getString(3),rsArtikli.getString(4),
+                        rsArtikli.getString(5), rsArtikli.getString(6)));
+            }
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+
         Stage stage = (Stage) obrisiBtn.getScene().getWindow();
         stage.close();
     }
@@ -90,9 +121,9 @@ public class ArtikalController implements Initializable {
         ProfilController profilController=loader.getController();
 
         Korisnik k = dao.nadjiKorisnika(korisnik.getText());
-        profilController.setKorisnik(k);
-        profilController.setAutor(autor);
-        System.out.println(autor);
+        profilController.setKorisnik(k,autor);
+        //profilController.setAutor(autor);
+
         primaryStage.getIcons().add(new Image("/img/logo-no-bg.png"));
         primaryStage.setTitle("Profil - "+korisnik.getText());
         primaryStage.setScene(new Scene(root, USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
@@ -101,13 +132,49 @@ public class ArtikalController implements Initializable {
     }
 
     @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
+    public void initialize(URL url, ResourceBundle resourceBundle){
         naziv.textProperty().bind(model.nazivProperty());
         kategorija.textProperty().bind(model.kategorijaProperty());
         cijena.textProperty().bind(model.cijenaProperty());
         lokacija.textProperty().bind(model.lokacijaProperty());
         deskripcija.textProperty().bind(model.deskripcijaProperty());
         korisnik.textProperty().bind(model.korisnikProperty());
+
+
+        Kategorija kategorija1 = new Kategorija(kategorija.getText());
+        Artikal artikal = new Artikal(naziv.getText(),kategorija1,cijena.getText(),
+                lokacija.getText(),deskripcija.getText(),korisnik.getText());
+        ResultSet rs = dao.dajSlikuArtikla(artikal);
+
+        InputStream inputStream;
+        try{
+            while(rs.next()){
+                inputStream = rs.getBinaryStream("slika");
+                if (inputStream != null && inputStream.available() > 1) {
+
+                    Image imge = new Image(inputStream);
+                    slikaArtikla.setImage(imge);
+
+                }
+            }
+        } catch (SQLException | IOException e){
+            e.printStackTrace();
+
+        }
+
+        ResultSet rsArtikli = dao.dajArtikle();
+        try{
+            while(rsArtikli.next()){
+                Kategorija kategorija = new Kategorija(rsArtikli.getString(2));
+                lvArtikli2.getItems().add(new Artikal(rsArtikli.getString(1), kategorija, rsArtikli.getString(3),rsArtikli.getString(4),
+                        rsArtikli.getString(5), rsArtikli.getString(6)));
+            }
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+
+
+
 
 
 

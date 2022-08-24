@@ -132,7 +132,8 @@ public class ProfilController implements Initializable {
     }
 
 
-    public void setKorisnik(Korisnik korisnik) throws IOException{
+    public void setKorisnik(Korisnik korisnik, String autor1) throws IOException{
+        this.autor = autor1;
         this.korisnik = korisnik;
         korisnickoIme = korisnik.getKorisnickoIme();
         labelaIme.setText(labelaIme.getText()+" "+korisnik.getOsoba().getIme());
@@ -142,6 +143,14 @@ public class ProfilController implements Initializable {
         labelaAdresa.setText(labelaAdresa.getText()+" "+korisnik.getAdresa());
         labelaBrojTel.setText(labelaBrojTel.getText()+" "+korisnik.getBrojTelefona());
 
+        System.out.println(autor);
+        System.out.println(korisnickoIme);
+        if(autor!=null){
+            if(!autor.equals(korisnickoIme)){
+                btnSlikaProfila.setDisable(true);
+            }
+        }
+
         ResultSet rs = dao.dajSlikuKorisnika(korisnickoIme);
 
         InputStream inputStream;
@@ -149,7 +158,7 @@ public class ProfilController implements Initializable {
             while(rs.next()){
                 inputStream = rs.getBinaryStream("slika");
                 if (inputStream != null && inputStream.available() > 1) {
-                    System.out.println("image available");
+
                     Image imge = new Image(inputStream);
                     slikaProfila.setImage(imge);
 
