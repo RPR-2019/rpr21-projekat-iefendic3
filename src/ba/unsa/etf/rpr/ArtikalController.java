@@ -9,7 +9,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
@@ -44,7 +43,7 @@ public class ArtikalController implements Initializable {
     @FXML
     ImageView slikaArtikla;
 
-    public ListView<Artikal> lvArtikli2 = new ListView<>();
+
 
     private String korisnickoIme;
     private String autor;
@@ -71,18 +70,6 @@ public class ArtikalController implements Initializable {
         alert.show();
         dao.obrisiArtikal(naziv.getText(),deskripcija.getText());
 
-        ResultSet rsArtikli = dao.dajArtikle();
-        lvArtikli2.getItems().clear();
-        try{
-            while(rsArtikli.next()){
-                Kategorija kategorija = new Kategorija(rsArtikli.getString(2));
-                lvArtikli2.getItems().add(new Artikal(rsArtikli.getString(1), kategorija, rsArtikli.getString(3),rsArtikli.getString(4),
-                        rsArtikli.getString(5), rsArtikli.getString(6)));
-            }
-        } catch (SQLException e){
-            e.printStackTrace();
-        }
-
         Kategorija kategorija1 = new Kategorija(kategorija.getText());
         Artikal kupljeniArtikal = new Artikal(naziv.getText(),kategorija1,cijena.getText(),lokacija.getText(),deskripcija.getText(),korisnickoIme);
         Artikal prodaniArtikal = new Artikal(naziv.getText(),kategorija1,cijena.getText(),lokacija.getText(),deskripcija.getText(),korisnik.getText());
@@ -97,21 +84,9 @@ public class ArtikalController implements Initializable {
         Kategorija kategorija1 = new Kategorija(kategorija.getText());
         Artikal artikal = new Artikal(naziv.getText(),kategorija1,cijena.getText(),lokacija.getText(),deskripcija.getText(),korisnickoIme);
         GlavnaController glavnaController = new GlavnaController();
-        //glavnaController.setArtikal(artikal);
+
 
         dao.obrisiArtikal(naziv.getText(),deskripcija.getText());
-        ResultSet rsArtikli = dao.dajArtikle();
-        lvArtikli2.getItems().clear();
-        try{
-            while(rsArtikli.next()){
-                Kategorija kategorija = new Kategorija(rsArtikli.getString(2));
-                lvArtikli2.getItems().add(new Artikal(rsArtikli.getString(1), kategorija, rsArtikli.getString(3),rsArtikli.getString(4),
-                        rsArtikli.getString(5), rsArtikli.getString(6)));
-            }
-        } catch (SQLException e){
-            e.printStackTrace();
-        }
-
         Stage stage = (Stage) obrisiBtn.getScene().getWindow();
         stage.close();
     }
@@ -164,16 +139,7 @@ public class ArtikalController implements Initializable {
 
         }
 
-        ResultSet rsArtikli = dao.dajArtikle();
-        try{
-            while(rsArtikli.next()){
-                Kategorija kategorija = new Kategorija(rsArtikli.getString(2));
-                lvArtikli2.getItems().add(new Artikal(rsArtikli.getString(1), kategorija, rsArtikli.getString(3),rsArtikli.getString(4),
-                        rsArtikli.getString(5), rsArtikli.getString(6)));
-            }
-        } catch (SQLException e){
-            e.printStackTrace();
-        }
+
 
         if(korisnickoIme.equals(korisnik.getText())){
             kupiBtn.setVisible(false);
