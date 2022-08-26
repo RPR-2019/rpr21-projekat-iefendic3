@@ -65,10 +65,11 @@ class LoginControllerTest {
         Parent root3 = loader3.load();
         stage2.setTitle("Registracija");
         stage2.setScene(new Scene(root3, USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
+
         stageRegistracija=stage2;
     }
 
-    @Test
+   @Test
     public void testLogin1Valid(FxRobot robot){
         robot.clickOn("#fldKorisnickoIme");
         robot.write("test1");
@@ -93,9 +94,10 @@ class LoginControllerTest {
     }
 
     @Test
-    public void testLogin3Registracija(FxRobot robot){
+    public void testLogin0Registracija(FxRobot robot){
 
         robot.clickOn("#btnRegistracija");
+
 
         assertTrue(stageRegistracija.getTitle().equals("Registracija"));
     }
