@@ -45,28 +45,12 @@ class LoginControllerTest {
         stage.toFront();
 
         theStage = stage;
-        Stage stage1 = new Stage();
-        FXMLLoader loader2 = new FXMLLoader(getClass().getResource("/fxml/glavna.fxml"));
-        glavnaController = new GlavnaController();
-        loader2.setController(glavnaController);
-        Parent root2 = loader2.load();
-        stage1.setTitle("IE - Kupoprodaja");
-        stage1.setScene(new Scene(root2, USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
 
-        stageGlavna=stage1;
+
 
         alert = new Alert(Alert.AlertType.ERROR);
         alert.setHeaderText("Greška");
 
-        Stage stage2 = new Stage();
-        FXMLLoader loader3 = new FXMLLoader(getClass().getResource("/fxml/registracija.fxml"));
-        registracijaController = new RegistracijaController();
-        loader3.setController(registracijaController);
-        Parent root3 = loader3.load();
-        stage2.setTitle("Registracija");
-        stage2.setScene(new Scene(root3, USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
-
-        stageRegistracija=stage2;
     }
 
    @Test
@@ -77,7 +61,7 @@ class LoginControllerTest {
         robot.write("test1");
         robot.clickOn("#btnPrijava");
         assertFalse(theStage.isShowing());
-        assertTrue(stageGlavna.getTitle().equals("IE - Kupoprodaja"));
+        assertTrue(robot.lookup("#lvArtikli").tryQuery().isPresent());
 
     }
 
@@ -99,7 +83,7 @@ class LoginControllerTest {
         robot.clickOn("#btnRegistracija");
 
 
-        assertTrue(stageRegistracija.getTitle().equals("Registracija"));
+        assertTrue(robot.lookup("#btnRegistrujSe").tryQuery().isPresent());
     }
 
 
