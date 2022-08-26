@@ -8,6 +8,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.testfx.api.FxRobot;
@@ -15,6 +16,7 @@ import org.testfx.framework.junit5.ApplicationExtension;
 import org.testfx.framework.junit5.Start;
 
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import static javafx.scene.layout.Region.USE_COMPUTED_SIZE;
@@ -42,6 +44,11 @@ class GlavnaControllerTest {
 
         theStage = stage;
 
+    }
+
+    @BeforeEach
+    public void resetujBazu() throws SQLException {
+        dao.vratiBazuNaDefault();
     }
 
     @Test
@@ -101,7 +108,7 @@ class GlavnaControllerTest {
         robot.clickOn("#btnObjavi");
 
         ListView<Artikal> lvArtikli = robot.lookup("#lvArtikli").queryAs(ListView.class);
-        assertEquals(2, lvArtikli.getItems().size());
+        assertEquals(1, lvArtikli.getItems().size());
 
         ResultSet rsArtikli = dao.dajArtikle();
         ArrayList<Artikal> listaArtikala = new ArrayList<>();
@@ -110,6 +117,6 @@ class GlavnaControllerTest {
             listaArtikala.add(new Artikal(rsArtikli.getString(1), kategorija, rsArtikli.getString(3),rsArtikli.getString(4),
                     rsArtikli.getString(5), rsArtikli.getString(6)));
         }
-        assertEquals(2, listaArtikala.size());
+        assertEquals(1, listaArtikala.size());
     }
 }

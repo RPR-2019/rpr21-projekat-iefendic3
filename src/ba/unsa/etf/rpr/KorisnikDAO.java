@@ -56,10 +56,10 @@ public class KorisnikDAO {
         stmt.executeUpdate("DELETE FROM prodani_artikli");
         stmt.executeUpdate("DELETE FROM kupljeni_artikli");
         stmt.executeUpdate("DELETE FROM kategorije");
-        stmt.executeUpdate("DELETE FROM korisnik");
-        stmt.executeUpdate("DELETE FROM komentari");
+        //stmt.executeUpdate("DELETE FROM korisnik");
+        //stmt.executeUpdate("DELETE FROM komentari");
         stmt.executeUpdate("DELETE FROM slikaArtikla");
-        stmt.executeUpdate("DELETE FROM slikaKorisnika");
+        //stmt.executeUpdate("DELETE FROM slikaKorisnika");
         // Regeneriši bazu neće ponovo kreirati tabele jer u .sql datoteci stoji
         // CREATE TABLE IF NOT EXISTS
         // Ali će ponovo napuniti default podacima

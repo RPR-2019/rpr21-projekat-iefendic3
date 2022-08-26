@@ -56,9 +56,9 @@ class LoginControllerTest {
    @Test
     public void testLogin1Valid(FxRobot robot){
         robot.clickOn("#fldKorisnickoIme");
-        robot.write("test1");
+        robot.write("iefendic3");
         robot.clickOn("#fldPassword");
-        robot.write("test1");
+        robot.write("sifra1");
         robot.clickOn("#btnPrijava");
         assertFalse(theStage.isShowing());
         assertTrue(robot.lookup("#lvArtikli").tryQuery().isPresent());
