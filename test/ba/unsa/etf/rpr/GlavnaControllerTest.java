@@ -14,25 +14,25 @@ import org.testfx.api.FxRobot;
 import org.testfx.framework.junit5.ApplicationExtension;
 import org.testfx.framework.junit5.Start;
 
+import java.sql.ResultSet;
+import java.util.ArrayList;
+
 import static javafx.scene.layout.Region.USE_COMPUTED_SIZE;
 import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(ApplicationExtension.class)
 class GlavnaControllerTest {
     Stage theStage;
-    AboutController aboutController;
     GlavnaController glavnaController;
-    Stage stageAbout;
-    Alert alert;
-    RegistracijaController registracijaController;
-    Stage stageRegistracija;
+    KorisnikDAO dao = KorisnikDAO.getInstance();
+
 
     @Start
     public void start (Stage stage) throws Exception {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/glavna.fxml"));
         glavnaController = new GlavnaController();
         loader.setController(glavnaController);
-        glavnaController.setKorisnickoIme("test1");
+        glavnaController.setKorisnickoIme("iefendic3");
         Parent root = loader.load();
         stage.setTitle("IE - Kupoprodaja");
         stage.setScene(new Scene(root, USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
@@ -79,7 +79,7 @@ class GlavnaControllerTest {
     }
 
     @Test
-    public void testObjaviArtikal(FxRobot robot){
+    public void testObjaviArtikal(FxRobot robot) throws Exception{
         robot.clickOn("#btnObjavi");
         robot.lookup("#txtFieldNaslov").tryQuery().isPresent();
 
@@ -87,7 +87,7 @@ class GlavnaControllerTest {
         robot.write("BMW");
 
         robot.clickOn("#choiceKategorije");
-        robot.clickOn("Automobili");
+        robot.clickOn("Vozila");
 
         robot.clickOn("#txtFieldCijena");
         robot.write("150000 KM");
@@ -95,12 +95,21 @@ class GlavnaControllerTest {
         robot.clickOn("#txtFieldLokacija");
         robot.write("Sarajevo");
 
-        robot.clickOn("#txtFieldDeskripcija");
+        robot.clickOn("#txtAreaDeskripcija");
         robot.write("BMW G30");
 
         robot.clickOn("#btnObjavi");
 
         ListView<Artikal> lvArtikli = robot.lookup("#lvArtikli").queryAs(ListView.class);
         assertEquals(2, lvArtikli.getItems().size());
+
+        ResultSet rsArtikli = dao.dajArtikle();
+        ArrayList<Artikal> listaArtikala = new ArrayList<>();
+        while(rsArtikli.next()){
+            Kategorija kategorija = new Kategorija(rsArtikli.getString(2));
+            listaArtikala.add(new Artikal(rsArtikli.getString(1), kategorija, rsArtikli.getString(3),rsArtikli.getString(4),
+                    rsArtikli.getString(5), rsArtikli.getString(6)));
+        }
+        assertEquals(2, listaArtikala.size());
     }
 }

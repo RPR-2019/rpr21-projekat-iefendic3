@@ -7,6 +7,7 @@ import javafx.scene.control.*;
 import javafx.stage.Stage;
 
 import java.net.URL;
+import java.sql.ResultSet;
 import java.time.LocalDate;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -147,16 +148,22 @@ public class RegistracijaController implements Initializable {
     }
 
     public void clickRegistrujSe(ActionEvent actionEvent){
+        Korisnik korisnik1= dao.nadjiKorisnika(fldKorisnicko.getText());
+
         if(!fldIme.getText().isBlank() && !fldPrezime.getText().isBlank() && !datePicker.getValue().toString().isBlank() && !fldKorisnicko.getText().isBlank() && !fldPassword.getText().isBlank()
                 && !fldMjesto.getText().isBlank() && !fldAdresa.getText().isBlank() && !fldBrojTel.getText().isBlank() && ispravno) {
-            if (ispravanPassword == false) {
+
+
+            if (!ispravanPassword) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Greška!");
                 alert.setHeaderText("Password je prekratak!");
                 alert.setContentText("Pokušajte ponovo!");
                 alert.showAndWait();
 
-            } else {
+            }
+
+             if(korisnik1==null){
                 Osoba osoba = new Osoba(fldIme.getText(), fldPrezime.getText(), datePicker.getValue().toString());
                 Korisnik korisnik = new Korisnik(osoba, fldKorisnicko.getText(), fldPassword.getText(), fldMjesto.getText(),fldAdresa.getText(),fldBrojTel.getText());
 
@@ -204,7 +211,13 @@ public class RegistracijaController implements Initializable {
                 }
 
 
-            }
+            } else{
+                 Alert alert = new Alert(Alert.AlertType.ERROR);
+                 alert.setTitle("Greška!");
+                 alert.setHeaderText("Račun već postoji!");
+                 alert.setContentText("Korisnik sa ovim korisnickim imenom već postoji!");
+                 alert.show();
+             }
         }
         else{
                 Alert alert = new Alert(Alert.AlertType.ERROR);
