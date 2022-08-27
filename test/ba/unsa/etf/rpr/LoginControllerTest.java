@@ -74,7 +74,7 @@ class LoginControllerTest {
         robot.write(" ");
         robot.clickOn("#btnPrijava");
         assertTrue(alert.getHeaderText().equals("Greška"));
-        alert.close();
+        robot.clickOn("OK");
     }
 
     @Test
@@ -84,6 +84,7 @@ class LoginControllerTest {
 
 
         assertTrue(robot.lookup("#btnRegistrujSe").tryQuery().isPresent());
+        robot.closeCurrentWindow();
     }
 
 

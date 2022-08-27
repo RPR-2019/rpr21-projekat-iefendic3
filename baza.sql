@@ -69,5 +69,7 @@ INSERT INTO "kategorije" VALUES("Mobilni uređaji");
 INSERT INTO "kategorije" VALUES("Odjeća i obuća");
 INSERT INTO "kategorije" VALUES("Moj dom");
 
+INSERT INTO "korisnik" VALUES("Ibrahim","Efendic","2001-10-26","iefendic3","sifra1","Sarajevo","Bjelave","061377563");
+
 
 
