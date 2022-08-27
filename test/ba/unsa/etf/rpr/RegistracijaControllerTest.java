@@ -6,6 +6,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.DatePicker;
+import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -13,6 +15,9 @@ import org.testfx.api.FxRobot;
 import org.testfx.framework.junit5.ApplicationExtension;
 import org.testfx.framework.junit5.Start;
 
+import java.sql.SQLException;
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.Optional;
 
 import static javafx.scene.layout.Region.USE_COMPUTED_SIZE;
@@ -20,10 +25,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(ApplicationExtension.class)
 class RegistracijaControllerTest {
-    Stage stageLogin;
-    LoginController loginController;
-    GlavnaController glavnaController;
-    Stage stageGlavna;
+    KorisnikDAO dao = KorisnikDAO.getInstance();
     Alert alert1, alert;
     RegistracijaController registracijaController;
     Stage stageRegistracija;
@@ -56,9 +58,13 @@ class RegistracijaControllerTest {
         alert.setTitle("Greška!");
         alert.setHeaderText("Password je prekratak!");
         alert.setContentText("Pokušajte ponovo!");
+        resetujBazu();
 
 
+    }
 
+    public void resetujBazu() throws SQLException {
+        dao.vratiBazuNaDefault();
     }
 
     @Test
@@ -68,7 +74,9 @@ class RegistracijaControllerTest {
         robot.clickOn("#fldPrezime");
         robot.write("Efendic");
         robot.clickOn("#datePicker");
-        robot.write("26.10.2001.");
+        DatePicker datePicker = robot.lookup("#datePicker").queryAs(DatePicker.class);
+        LocalDate date = LocalDate.of(2001,10,26);
+        datePicker.setValue(date);
         robot.clickOn("#fldKorisnicko");
         robot.write("iefendic3");
         robot.clickOn("#fldMjesto");
@@ -77,7 +85,7 @@ class RegistracijaControllerTest {
         robot.write("Bjelave");
         robot.clickOn("#fldBrojTel");
         robot.write("061377563");
-        robot.clickOn("#fldPassword");
+        robot.clickOn("#passwordField");
         robot.write("sifra1");
 
         robot.clickOn("#btnRegistrujSe");
@@ -102,7 +110,10 @@ class RegistracijaControllerTest {
         robot.clickOn("#fldPrezime");
         robot.write("Efendic");
         robot.clickOn("#datePicker");
-        robot.write("26.10.2001.");
+        DatePicker datePicker = robot.lookup("#datePicker").queryAs(DatePicker.class);
+        LocalDate date = LocalDate.of(2001,10,26);
+        datePicker.setValue(date);
+
         robot.clickOn("#fldKorisnicko");
         robot.write("iefendic3");
         robot.clickOn("#fldMjesto");
@@ -111,7 +122,7 @@ class RegistracijaControllerTest {
         robot.write("Bjelave");
         robot.clickOn("#fldBrojTel");
         robot.write("061377563");
-        robot.clickOn("#fldPassword");
+        robot.clickOn("#passwordField");
         robot.write("1");
 
         robot.clickOn("#btnRegistrujSe");

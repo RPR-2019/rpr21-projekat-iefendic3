@@ -7,14 +7,13 @@ import javafx.scene.control.*;
 import javafx.stage.Stage;
 
 import java.net.URL;
-import java.sql.ResultSet;
 import java.time.LocalDate;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class RegistracijaController implements Initializable {
     public TextField fldIme, fldPrezime, fldKorisnicko, fldMjesto, fldAdresa, fldBrojTel;
-    public PasswordField fldPassword;
+    public PasswordField passwordField;
     public DatePicker datePicker;
     private boolean ispravno = false;
     private boolean ispravanPassword = false;
@@ -27,7 +26,7 @@ public class RegistracijaController implements Initializable {
     }
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        fldPassword.textProperty().addListener(
+        passwordField.textProperty().addListener(
                 (obs, oldV, newV)->{
                     progressBar.setProgress((double)newV.length()/10);
                     if(newV.length()<5){
@@ -46,7 +45,8 @@ public class RegistracijaController implements Initializable {
                     }
                 });
 
-        datePicker.setEditable(false);
+        //datePicker.setEditable(false);
+        //System.out.println(LocalDate.now());
 
         datePicker.setValue(LocalDate.now());
 
@@ -132,16 +132,16 @@ public class RegistracijaController implements Initializable {
                 fldBrojTel.getStyleClass().add("ispravno");
             }
         });
-        fldPassword.textProperty().addListener((obs,oldValue,newValue) -> {
+        passwordField.textProperty().addListener((obs, oldValue, newValue) -> {
             if(newValue.length()<5){
                 ispravanPassword = false;
-                fldPassword.getStyleClass().removeAll("ispravno");
-                fldPassword.getStyleClass().add("neispravno");
+                passwordField.getStyleClass().removeAll("ispravno");
+                passwordField.getStyleClass().add("neispravno");
             }
             else{
                 ispravanPassword = true;
-                fldPassword.getStyleClass().removeAll("neispravno");
-                fldPassword.getStyleClass().add("ispravno");
+                passwordField.getStyleClass().removeAll("neispravno");
+                passwordField.getStyleClass().add("ispravno");
             }
         });
 
@@ -150,7 +150,7 @@ public class RegistracijaController implements Initializable {
     public void clickRegistrujSe(ActionEvent actionEvent){
         Korisnik korisnik1= dao.nadjiKorisnika(fldKorisnicko.getText());
 
-        if(!fldIme.getText().isBlank() && !fldPrezime.getText().isBlank() && !datePicker.getValue().toString().isBlank() && !fldKorisnicko.getText().isBlank() && !fldPassword.getText().isBlank()
+        if(!fldIme.getText().isBlank() && !fldPrezime.getText().isBlank() && !datePicker.getValue().toString().isBlank() && !fldKorisnicko.getText().isBlank() && !passwordField.getText().isBlank()
                 && !fldMjesto.getText().isBlank() && !fldAdresa.getText().isBlank() && !fldBrojTel.getText().isBlank() && ispravno) {
 
 
@@ -163,9 +163,9 @@ public class RegistracijaController implements Initializable {
 
             }
 
-             if(korisnik1==null){
+             else if(korisnik1==null){
                 Osoba osoba = new Osoba(fldIme.getText(), fldPrezime.getText(), datePicker.getValue().toString());
-                Korisnik korisnik = new Korisnik(osoba, fldKorisnicko.getText(), fldPassword.getText(), fldMjesto.getText(),fldAdresa.getText(),fldBrojTel.getText());
+                Korisnik korisnik = new Korisnik(osoba, fldKorisnicko.getText(), passwordField.getText(), fldMjesto.getText(),fldAdresa.getText(),fldBrojTel.getText());
 
                 Stage stage = (Stage) btnRegistrujSe.getScene().getWindow();
                 stage.close();

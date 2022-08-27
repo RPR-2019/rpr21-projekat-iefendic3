@@ -60,7 +60,7 @@
              <TextField fx:id="fldMjesto" layoutX="119.0" layoutY="104.0" maxWidth="470.0" prefWidth="100.0" GridPane.halignment="RIGHT" GridPane.rowIndex="4" />
              <TextField fx:id="fldAdresa" layoutX="119.0" layoutY="134.0" maxWidth="470.0" prefWidth="100.0" GridPane.halignment="RIGHT" GridPane.rowIndex="5" />
              <TextField fx:id="fldBrojTel" layoutX="119.0" layoutY="164.0" maxWidth="470.0" prefWidth="100.0" GridPane.halignment="RIGHT" GridPane.rowIndex="6" />
-             <PasswordField fx:id="fldPassword" maxWidth="470.0" prefWidth="470.0" GridPane.halignment="RIGHT" GridPane.rowIndex="7" />
+             <PasswordField fx:id="passwordField" maxWidth="470.0" prefWidth="470.0" GridPane.halignment="RIGHT" GridPane.rowIndex="7" />
             <Label text="Broj telefona:" GridPane.rowIndex="6" />
             <Label text="Prezime:" GridPane.rowIndex="1" />
             <Label text="Korisničko ime:" GridPane.rowIndex="3" />

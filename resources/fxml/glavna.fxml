@@ -125,7 +125,7 @@
                   <Font size="18.0" />
                </font>
             </Label>
-            <Button fx:id="btnObjavi" mnemonicParsing="false" onAction="#clickObjaviArtikal" prefHeight="42.0" prefWidth="154.0" text="Objavite artikal" GridPane.columnIndex="3" GridPane.rowIndex="1" GridPane.valignment="TOP">
+            <Button fx:id="btnObjavaArtikla" mnemonicParsing="false" onAction="#clickObjaviArtikal" prefHeight="42.0" prefWidth="154.0" text="Objavite artikal" GridPane.columnIndex="3" GridPane.rowIndex="1" GridPane.valignment="TOP">
                <GridPane.margin>
                   <Insets right="25.0" />
                </GridPane.margin>

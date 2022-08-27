@@ -44,7 +44,7 @@ public class GlavnaController implements Initializable {
     private String korisnickoIme;
     private String autor;
     public ListView<Kategorija> lvKategorije;
-    public Button btnDodajKategoriju, btnObjavi;
+    public Button btnDodajKategoriju, btnObjavaArtikla;
     public TextField txtFieldKategorija;
     private boolean postoji = false;
     @FXML
@@ -294,7 +294,7 @@ public class GlavnaController implements Initializable {
                 model1.setKorisnik(lvArtikli.getSelectionModel().getSelectedItem().getKorisnik());
 
 
-                Stage stage = (Stage) btnObjavi.getScene().getWindow();
+                Stage stage = (Stage) btnObjavaArtikla.getScene().getWindow();
                 stage.setWidth(USE_COMPUTED_SIZE - 0.0001);
 
                 Parent root = loader.load();
@@ -412,7 +412,7 @@ public class GlavnaController implements Initializable {
         slikaObjava.setFitHeight(80);
         slikaObjava.setPreserveRatio(true);
         //Setting a graphic to the button
-        btnObjavi.setGraphic(slikaObjava);
+        btnObjavaArtikla.setGraphic(slikaObjava);
         slikaLogo.setImage(img1);
         btnSlikaAbout.setGraphic(slikaLogo);
         btnSlikaAbout.setBackground(null);
