@@ -95,9 +95,13 @@ public class ObjavaController implements Initializable {
     }
 
     public void clickObjavi(ActionEvent actionEvent) {
-        if(!txtFieldNaslov.getText().isBlank() && choiceKategorije.getValue() != null && !choiceKategorije.getValue().toString().equals("Odaberi kategoriju") && !txtFieldCijena.getText().isBlank() && !txtFieldLokacija.getText().isBlank()
+        if(!txtFieldNaslov.getText().isBlank() && choiceKategorije.getValue() != null  && !txtFieldCijena.getText().isBlank() && !txtFieldLokacija.getText().isBlank()
         && !txtAreaDeskripcija.getText().isBlank()){
-            Artikal artikal = new Artikal(txtFieldNaslov.getText(),choiceKategorije.getValue(),txtFieldCijena.getText(),txtFieldLokacija.getText(),txtAreaDeskripcija.getText(),korisnickoIme);
+            Kategorija kategorija = new Kategorija();
+            if(choiceKategorije.getValue().toString().equals("Odaberi kategoriju")) kategorija=new Kategorija("/");
+            else
+                kategorija= choiceKategorije.getValue();
+            Artikal artikal = new Artikal(txtFieldNaslov.getText(),kategorija,txtFieldCijena.getText(),txtFieldLokacija.getText(),txtAreaDeskripcija.getText(),korisnickoIme);
             artikli.add(artikal);
             dao.dodajArtikal(artikal);
 

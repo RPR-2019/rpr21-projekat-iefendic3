@@ -354,8 +354,8 @@ public class GlavnaController implements Initializable {
         }
         else if(choice.equals("Cijena (najjeftinije prvo)")){
             lvArtikli.getItems().sort((o1,o2)->{
-                if(o1.getCijena().equals(o2.getCijena())) return 0;
-                if(o1.getCijena().compareTo(o2.getCijena()) > 0)
+                if(Integer.parseInt(o1.getCijena())==Integer.parseInt(o2.getCijena())) return 0;
+                if(Integer.parseInt(o1.getCijena())>Integer.parseInt(o2.getCijena()))
                     return 1;
                 else
                     return -1;
@@ -363,8 +363,8 @@ public class GlavnaController implements Initializable {
         }
         else if(choice.equals("Cijena (najskuplje prvo)")){
             lvArtikli.getItems().sort((o1,o2)->{
-                if(o1.getCijena().equals(o2.getCijena())) return 0;
-                if(o1.getCijena().compareTo(o2.getCijena()) < 0)
+                if(Integer.parseInt(o1.getCijena())==Integer.parseInt(o2.getCijena())) return 0;
+                if(Integer.parseInt(o1.getCijena())<Integer.parseInt(o2.getCijena()))
                     return 1;
                 else
                     return -1;
