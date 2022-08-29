@@ -11,7 +11,7 @@ import java.util.ResourceBundle;
 
 public class KupljeniController implements Initializable {
 
-    private KorisnikDAO dao;
+    private final KorisnikDAO dao;
     private String korisnickoIme;
 
     public KupljeniController(){ dao = KorisnikDAO.getInstance();}

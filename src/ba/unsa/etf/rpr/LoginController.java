@@ -16,7 +16,7 @@ import java.io.IOException;
 import static javafx.scene.layout.Region.USE_COMPUTED_SIZE;
 
 public class LoginController{
-    private KorisnikDAO dao;
+    private final KorisnikDAO dao;
     public TextField fldKorisnickoIme;
     public PasswordField fldPassword;
     public Button btnPrijava;
@@ -58,7 +58,7 @@ public class LoginController{
             glavnaController.setKorisnickoIme(fldKorisnickoIme.getText());
             glavnaController.setAutorKomentara(fldKorisnickoIme.getText());
 
-            if((k.getOsoba().getIme().substring(k.getOsoba().getIme().length() - 1)).equals("a") || ( k.getOsoba().getIme().substring(k.getOsoba().getIme().length() - 1)).equals("k"))
+            if((k.getOsoba().getIme()).endsWith("a") || (k.getOsoba().getIme()).endsWith("k"))
             glavnaController.setLabelaZensko(k.getOsoba().getIme());
             else
                 glavnaController.setLabelaMusko(k.getOsoba().getIme());

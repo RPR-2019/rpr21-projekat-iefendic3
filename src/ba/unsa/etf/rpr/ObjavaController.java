@@ -23,11 +23,11 @@ import java.util.ResourceBundle;
 public class ObjavaController implements Initializable {
     public TextField txtFieldNaslov,txtFieldKategorija,txtFieldCijena, txtFieldLokacija;
     public ChoiceBox<Kategorija> choiceKategorije;
-    private KorisnikDAO dao;
+    private final KorisnikDAO dao;
     private String korisnickoIme;
     public Button btnDodajKategoriju, btnObjavi, btnOdustani;
-    private ArrayList<Kategorija> kategorije = new ArrayList<>();
-    private ArrayList<Artikal> artikli = new ArrayList<>();
+    private final ArrayList<Kategorija> kategorije = new ArrayList<>();
+    private final ArrayList<Artikal> artikli = new ArrayList<>();
     public TextArea txtAreaDeskripcija;
     final FileChooser fc = new FileChooser();
     @FXML

@@ -49,7 +49,7 @@ public class ArtikalController implements Initializable {
     private String autor;
 
     private final DataModel model ;
-    private KorisnikDAO dao = KorisnikDAO.getInstance();
+    private final KorisnikDAO dao = KorisnikDAO.getInstance();
 
     public ArtikalController(DataModel model){
         this.model = model;

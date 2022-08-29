@@ -18,7 +18,7 @@ public class RegistracijaController implements Initializable {
     private boolean ispravno = false;
     private boolean ispravanPassword = false;
     public Button btnRegistrujSe;
-    private KorisnikDAO dao;
+    private final KorisnikDAO dao;
     public ProgressBar progressBar;
 
     public RegistracijaController(){

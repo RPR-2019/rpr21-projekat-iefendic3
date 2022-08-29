@@ -10,7 +10,7 @@ import java.util.ResourceBundle;
 
 
 public class KomentarDetaljiController implements Initializable {
-    private KorisnikDAO dao = KorisnikDAO.getInstance();
+    private final KorisnikDAO dao = KorisnikDAO.getInstance();
     private String korisnickoIme;
     private String autor;
     private final DataModel model ;

@@ -31,7 +31,7 @@ public class ProfilController implements Initializable {
     private String korisnickoIme1;
     private String autor;
     private Korisnik korisnik;
-    private KorisnikDAO dao;
+    private final KorisnikDAO dao;
     final FileChooser fc = new FileChooser();
 
     @FXML

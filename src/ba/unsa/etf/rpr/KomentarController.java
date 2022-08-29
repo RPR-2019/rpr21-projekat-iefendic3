@@ -14,10 +14,10 @@ import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 public class KomentarController implements Initializable {
-    private KorisnikDAO dao;
+    private final KorisnikDAO dao;
     private String korisnickoIme;
     private String autor;
-    private Komentar komentar = new Komentar("","",Recenzija.POZITIVNA,"");
+    private final Komentar komentar = new Komentar("","",Recenzija.POZITIVNA,"");
 
     @FXML
     TextArea txtArea;

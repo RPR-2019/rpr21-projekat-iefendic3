@@ -21,7 +21,7 @@ import java.util.ResourceBundle;
 import static javafx.scene.layout.Region.USE_COMPUTED_SIZE;
 
 public class KomentariController implements Initializable {
-    private KorisnikDAO dao;
+    private final KorisnikDAO dao;
     private String korisnickoIme;
     private String autor;
 

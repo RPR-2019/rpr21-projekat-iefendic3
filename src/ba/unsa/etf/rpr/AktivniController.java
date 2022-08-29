@@ -10,7 +10,7 @@ import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 public class AktivniController implements Initializable {
-    private KorisnikDAO dao;
+    private final KorisnikDAO dao;
     private String korisnickoIme;
 
     public AktivniController(){ dao = KorisnikDAO.getInstance();}

@@ -40,7 +40,7 @@ public class GlavnaController implements Initializable {
 
     public MenuBar menuBar;
     public Label labelDobrodosao;
-    private KorisnikDAO dao;
+    private final KorisnikDAO dao;
     private String korisnickoIme;
     private String autor;
     public ListView<Kategorija> lvKategorije;
@@ -121,7 +121,7 @@ public class GlavnaController implements Initializable {
         Kategorija kategorija = new Kategorija();
         if (txtFieldKategorija.getText() != null) kategorija.setNazivKategorije(txtFieldKategorija.getText());
         for(Kategorija k : lvKategorije.getItems()){
-            if(k.getNazivKategorije().toLowerCase().equals(kategorija.getNazivKategorije().toLowerCase())) postoji = true;
+            if(k.getNazivKategorije().equalsIgnoreCase(kategorija.getNazivKategorije())) postoji = true;
         }
         if (!kategorija.getNazivKategorije().equals("") && !postoji ){
                 lvKategorije.getItems().add(kategorija);
@@ -288,9 +288,9 @@ public class GlavnaController implements Initializable {
 
                 model1.setNaziv(lvArtikli.getSelectionModel().getSelectedItem().toString());
                 model1.setKategorija(lvArtikli.getSelectionModel().getSelectedItem().getKategorija().toString());
-                model1.setCijena(lvArtikli.getSelectionModel().getSelectedItem().getCijena().toString());
-                model1.setLokacija(lvArtikli.getSelectionModel().getSelectedItem().getLokacija().toString());
-                model1.setDeskripcija(lvArtikli.getSelectionModel().getSelectedItem().getDeskripcija().toString());
+                model1.setCijena(lvArtikli.getSelectionModel().getSelectedItem().getCijena());
+                model1.setLokacija(lvArtikli.getSelectionModel().getSelectedItem().getLokacija());
+                model1.setDeskripcija(lvArtikli.getSelectionModel().getSelectedItem().getDeskripcija());
                 model1.setKorisnik(lvArtikli.getSelectionModel().getSelectedItem().getKorisnik());
 
 
