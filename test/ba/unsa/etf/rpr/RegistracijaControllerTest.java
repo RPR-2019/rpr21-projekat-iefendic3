@@ -7,7 +7,6 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.DatePicker;
-import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -17,11 +16,10 @@ import org.testfx.framework.junit5.Start;
 
 import java.sql.SQLException;
 import java.time.LocalDate;
-import java.util.Date;
-import java.util.Optional;
 
 import static javafx.scene.layout.Region.USE_COMPUTED_SIZE;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @ExtendWith(ApplicationExtension.class)
 class RegistracijaControllerTest {

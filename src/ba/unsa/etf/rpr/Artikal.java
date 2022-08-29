@@ -1,7 +1,5 @@
 package ba.unsa.etf.rpr;
 
-import java.util.ArrayList;
-
 public class Artikal {
     private String naziv;
     private Kategorija kategorija;

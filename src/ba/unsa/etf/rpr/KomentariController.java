@@ -137,7 +137,7 @@ public class KomentariController implements Initializable {
                 throw new IncorrectArticleException("Niste odabrali validan komentar!");
             }
         } catch (IncorrectArticleException e){
-            System.out.println(e);
+            e.printStackTrace();
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setHeaderText("Greška!");
             alert.setContentText("Kliknuli ste na nepostojeći komentar!");

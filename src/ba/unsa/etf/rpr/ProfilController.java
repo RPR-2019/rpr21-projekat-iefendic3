@@ -15,7 +15,6 @@ import javafx.stage.Stage;
 
 import java.io.*;
 import java.net.URL;
-import java.sql.Blob;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
@@ -143,8 +142,7 @@ public class ProfilController implements Initializable {
         labelaAdresa.setText(labelaAdresa.getText()+" "+korisnik.getAdresa());
         labelaBrojTel.setText(labelaBrojTel.getText()+" "+korisnik.getBrojTelefona());
 
-        System.out.println(autor);
-        System.out.println(korisnickoIme);
+
         if(autor!=null){
             if(!autor.equals(korisnickoIme)){
                 btnSlikaProfila.setDisable(true);

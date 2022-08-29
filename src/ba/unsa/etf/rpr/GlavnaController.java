@@ -62,7 +62,7 @@ public class GlavnaController implements Initializable {
 
     public void setArtikal(Artikal artikal){
         //lvArtikli.getItems().remove(artikal);
-        System.out.println(artikal.getNaziv());
+
         lvArtikli.getItems().clear();
     }
 
@@ -76,7 +76,7 @@ public class GlavnaController implements Initializable {
 
             }
         } catch (SQLException e){
-            System.out.println(e);
+            e.printStackTrace();
         }
     }
 
@@ -313,7 +313,7 @@ public class GlavnaController implements Initializable {
 
                     }
                 } catch (SQLException e){
-                    System.out.println(e);
+                    e.printStackTrace();
                 }
                 lvArtikli.getItems().addAll(words);
 
@@ -323,7 +323,7 @@ public class GlavnaController implements Initializable {
                 throw new IncorrectArticleException("Niste odabrali validan artikal!");
             }
         } catch (IncorrectArticleException e){
-            System.out.println(e);
+            e.printStackTrace();
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setHeaderText("Greška!");
             alert.setContentText("Kliknuli ste na nepostojeći artikal!");
