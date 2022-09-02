@@ -32,6 +32,7 @@ public class ProfilController implements Initializable {
     private Korisnik korisnik;
     private final KorisnikDAO dao;
     final FileChooser fc = new FileChooser();
+    ResourceBundle bundle = ResourceBundle.getBundle("Translation");
 
     @FXML
     ImageView slikaProfila;
@@ -46,7 +47,7 @@ public class ProfilController implements Initializable {
 
     public void clickKupljeniArtikli(ActionEvent actionEvent) throws IOException{
         Stage primaryStage = new Stage();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/kupljeni.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/kupljeni.fxml"),bundle);
         KupljeniController controller = new KupljeniController();
         loader.setController(controller);
         controller.setKorisnickoIme(korisnik);
@@ -59,7 +60,7 @@ public class ProfilController implements Initializable {
     }
     public void clickProdaniArtikli(ActionEvent actionEvent) throws IOException{
         Stage primaryStage = new Stage();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/prodani.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/prodani.fxml"),bundle);
         ProdaniController controller = new ProdaniController();
         loader.setController(controller);
         controller.setKorisnickoIme(korisnik);
@@ -72,7 +73,7 @@ public class ProfilController implements Initializable {
     }
     public void clickAktivniArtikli(ActionEvent actionEvent) throws IOException{
         Stage primaryStage = new Stage();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/aktivni.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/aktivni.fxml"),bundle);
         AktivniController controller = new AktivniController();
         loader.setController(controller);
         controller.setKorisnickoIme(korisnik);
@@ -88,7 +89,7 @@ public class ProfilController implements Initializable {
 
     public void clickKomentari(ActionEvent actionEvent) throws IOException{
         Stage primaryStage = new Stage();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/komentari.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/komentari.fxml"),bundle);
         KomentariController controller = new KomentariController();
         loader.setController(controller);
         controller.setKorisnickoIme(korisnik);

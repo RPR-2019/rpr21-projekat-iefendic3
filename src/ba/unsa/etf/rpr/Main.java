@@ -7,12 +7,15 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
+import java.util.ResourceBundle;
+
 import static javafx.scene.layout.Region.USE_COMPUTED_SIZE;
 
 public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception{
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/login.fxml"));
+        ResourceBundle bundle = ResourceBundle.getBundle("Translation");
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/login.fxml"),bundle);
         loader.setController(new LoginController());
         Parent root = loader.load();
         primaryStage.getIcons().add(new Image("/img/logo-no-bg.png"));

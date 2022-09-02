@@ -53,6 +53,7 @@ public class GlavnaController implements Initializable {
     public ListView<Artikal> lvArtikli = new ListView<Artikal>();
     public ArrayList<Artikal> words = new ArrayList<>();
     private Artikal artikalZaBrisanje ;
+    ResourceBundle bundle = ResourceBundle.getBundle("Translation");
 
     @FXML
     private ChoiceBox<String> filterChoice;
@@ -106,10 +107,10 @@ public class GlavnaController implements Initializable {
     public GlavnaController(){dao = KorisnikDAO.getInstance();}
 
     public void setLabelaZensko(String string){
-        labelDobrodosao.setText(labelDobrodosao.getText()+"Dobrodošao/la, "+string);
+        labelDobrodosao.setText(labelDobrodosao.getText()+string);
     }
     public void setLabelaMusko(String string){
-        labelDobrodosao.setText(labelDobrodosao.getText()+"Dobrodošao/la, "+string+"e");
+        labelDobrodosao.setText(labelDobrodosao.getText()+string);
     }
 
     public void setArtikli(ArrayList<Artikal> artikli){
@@ -142,7 +143,7 @@ public class GlavnaController implements Initializable {
     public void clickObjaviArtikal(ActionEvent actionEvent) throws IOException {
         Stage primaryStage = new Stage();
 
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/objava.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/objava.fxml"),bundle);
         loader.setController(new ObjavaController());
         Parent root=loader.load();
         ObjavaController objavaController=loader.getController();
@@ -222,7 +223,7 @@ public class GlavnaController implements Initializable {
         stage.close();
 
         Stage primaryStage = new Stage();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/login.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/login.fxml"),bundle);
         loader.setController(new LoginController());
         Parent root = loader.load();
         primaryStage.getIcons().add(new Image("/img/logo-no-bg.png"));
@@ -233,7 +234,7 @@ public class GlavnaController implements Initializable {
     }
     public void clickProfil(ActionEvent actionEvent) throws IOException {
         Stage primaryStage=new Stage();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/profil.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/profil.fxml"),bundle);
         loader.setController(new ProfilController());
         Parent root=loader.load();
         ProfilController profilController=loader.getController();
@@ -257,7 +258,7 @@ public class GlavnaController implements Initializable {
 
     public void clickMenuAbout(ActionEvent actionEvent) throws IOException {
         Stage primaryStage = new Stage();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/about.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/about.fxml"),bundle);
         loader.setController(new AboutController());
         Parent root = loader.load();
         primaryStage.getIcons().add(new Image("/img/logo-no-bg.png"));
@@ -279,7 +280,7 @@ public class GlavnaController implements Initializable {
 
                 DataModel model1 = new DataModel();
                 Stage primaryStage = new Stage();
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/artikal.fxml"));
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/artikal.fxml"),bundle);
                 ArtikalController controller = new ArtikalController(model1);
                 loader.setController(controller);
 

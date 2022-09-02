@@ -49,7 +49,7 @@
                 </Menu>
               </menus>
             </MenuBar>
-            <Label fx:id="labelDobrodosao" text="">
+            <Label fx:id="labelDobrodosao" text="%main.welcome">
                <font>
                   <Font size="18.0" />
                </font>
@@ -69,9 +69,9 @@
                               <Insets />
                            </HBox.margin>
                         </Separator>
-                        <Hyperlink fx:id="btnProfil" onAction="#clickProfil" text="Profil" />
+                        <Hyperlink fx:id="btnProfil" onAction="#clickProfil" text="%main.profile" />
                         <Separator orientation="VERTICAL" prefHeight="200.0" />
-                        <Hyperlink fx:id="btnOdjava" onAction="#clickLogOut" text="Odjava" />
+                        <Hyperlink fx:id="btnOdjava" onAction="#clickLogOut" text="%main.logout" />
                         <Separator orientation="VERTICAL" prefHeight="200.0" />
                      </children>
                      <BorderPane.margin>
@@ -111,21 +111,21 @@
         </rowConstraints>
          <children>
             <ListView fx:id="lvKategorije" prefHeight="200.0" prefWidth="158.0" GridPane.rowIndex="1" GridPane.rowSpan="3" />
-            <Label text="Kategorije artikala:" GridPane.columnSpan="2">
+            <Label text="%main.categories" GridPane.columnSpan="2">
                <font>
                   <Font size="18.0" />
                </font>
             </Label>
-            <Button fx:id="btnDodajKategoriju" mnemonicParsing="false" onAction="#clickDodajKategoriju" text="Dodaj" GridPane.halignment="RIGHT" GridPane.rowIndex="4" GridPane.valignment="TOP" />
-            <TextField fx:id="txtFieldKategorija" maxHeight="26.0" maxWidth="120.0" prefHeight="26.0" prefWidth="88.0" promptText="Unesite kategoriju" GridPane.columnSpan="2" GridPane.rowIndex="4" GridPane.valignment="TOP" />
-            <Label fx:id="labelGreska" text="Kategorija već postoji!" textFill="RED" GridPane.columnSpan="2" GridPane.rowIndex="4" GridPane.valignment="BOTTOM" />
+            <Button fx:id="btnDodajKategoriju" mnemonicParsing="false" onAction="#clickDodajKategoriju" text="%add" GridPane.halignment="RIGHT" GridPane.rowIndex="4" GridPane.valignment="TOP" />
+            <TextField fx:id="txtFieldKategorija" maxHeight="26.0" maxWidth="120.0" prefHeight="26.0" prefWidth="88.0" promptText="%main.add.categories" GridPane.columnSpan="2" GridPane.rowIndex="4" GridPane.valignment="TOP" />
+            <Label fx:id="labelGreska" text="%category.exists" textFill="RED" GridPane.columnSpan="2" GridPane.rowIndex="4" GridPane.valignment="BOTTOM" />
             <ListView fx:id="lvArtikli" layoutX="10.0" layoutY="35.0" onMouseClicked="#handleMouseClick" prefHeight="200.0" prefWidth="163.0" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="1" GridPane.rowSpan="3" />
-            <Label layoutX="10.0" layoutY="7.0" text="Artikli:" GridPane.columnIndex="1">
+            <Label layoutX="10.0" layoutY="7.0" text="%main.articles" GridPane.columnIndex="1">
                <font>
                   <Font size="18.0" />
                </font>
             </Label>
-            <Button fx:id="btnObjavaArtikla" mnemonicParsing="false" onAction="#clickObjaviArtikal" prefHeight="42.0" prefWidth="154.0" text="Objavite artikal" GridPane.columnIndex="3" GridPane.rowIndex="1" GridPane.valignment="TOP">
+            <Button fx:id="btnObjavaArtikla" mnemonicParsing="false" onAction="#clickObjaviArtikal" prefHeight="42.0" prefWidth="154.0" text="%main.publish.article" GridPane.columnIndex="3" GridPane.rowIndex="1" GridPane.valignment="TOP">
                <GridPane.margin>
                   <Insets right="25.0" />
                </GridPane.margin>

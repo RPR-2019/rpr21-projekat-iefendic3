@@ -92,7 +92,8 @@ public class ArtikalController implements Initializable {
     }
     public void clickProfil(ActionEvent actionEvent) throws IOException {
         Stage primaryStage=new Stage();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/profil.fxml"));
+        ResourceBundle bundle = ResourceBundle.getBundle("Translation");
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/profil.fxml"),bundle);
         loader.setController(new ProfilController());
         Parent root=loader.load();
         ProfilController profilController=loader.getController();

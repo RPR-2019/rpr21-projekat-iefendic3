@@ -56,7 +56,8 @@ public class KomentariController implements Initializable {
 
     public void clickDodajKomentar(ActionEvent actionEvent) throws IOException {
         Stage primaryStage = new Stage();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/komentar.fxml"));
+        ResourceBundle bundle = ResourceBundle.getBundle("Translation");
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/komentar.fxml"),bundle);
         KomentarController controller = new KomentarController();
         loader.setController(controller);
         controller.setKorisnickoIme(korisnickoIme);
@@ -112,7 +113,8 @@ public class KomentariController implements Initializable {
             if (lvKomentari.getSelectionModel().getSelectedItem() != null) {
                 DataModel model1 = new DataModel();
                 Stage primaryStage = new Stage();
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/komentar-detalji.fxml"));
+                ResourceBundle bundle = ResourceBundle.getBundle("Translation");
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/komentar-detalji.fxml"),bundle);
                 KomentarDetaljiController controller = new KomentarDetaljiController(model1);
                 loader.setController(controller);
 
