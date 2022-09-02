@@ -17,6 +17,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import net.sf.jasperreports.engine.JRException;
 
 import java.io.IOException;
 import java.net.URL;
@@ -136,6 +137,7 @@ public class GlavnaController implements Initializable {
             pause.play();
         }
     }
+
 
     public void clickObjaviArtikal(ActionEvent actionEvent) throws IOException {
         Stage primaryStage = new Stage();

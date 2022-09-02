@@ -50,6 +50,10 @@ public class KorisnikDAO {
         }
     }
 
+    public Connection getConnection(){
+        return connection;
+    }
+
     public void vratiBazuNaDefault() throws SQLException {
         Statement stmt = connection.createStatement();
         stmt.executeUpdate("DELETE FROM artikli");
