@@ -16,7 +16,7 @@
         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
     </rowConstraints>
     <children>
-        <Label text="Komentari:">
+        <Label text="%comments">
             <font>
                 <Font size="24.0" />
             </font>
@@ -29,7 +29,7 @@
                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
             </GridPane.margin>
         </ListView>
-      <Button fx:id="dodajKomentarBtn" mnemonicParsing="false" onAction="#clickDodajKomentar" prefHeight="43.0" prefWidth="127.0" text="Dodaj komentar" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="2">
+      <Button fx:id="dodajKomentarBtn" mnemonicParsing="false" onAction="#clickDodajKomentar" prefHeight="43.0" prefWidth="127.0" text="%add.comment" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="2">
          <GridPane.margin>
             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
          </GridPane.margin></Button>
