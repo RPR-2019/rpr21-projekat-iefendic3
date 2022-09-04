@@ -16,7 +16,7 @@
         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
     </rowConstraints>
     <children>
-        <Label text="Aktivni artikli:">
+        <Label text="%active.articles">
             <font>
                 <Font size="24.0" />
             </font>
