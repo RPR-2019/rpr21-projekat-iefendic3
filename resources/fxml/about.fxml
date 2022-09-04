@@ -21,7 +21,7 @@
     </rowConstraints>
     <children>
         <ImageView fx:id="imageView" fitHeight="580.0" fitWidth="704.0" pickOnBounds="true" preserveRatio="true" GridPane.columnSpan="3" GridPane.halignment="CENTER" GridPane.rowSpan="5" />
-        <Label text="Verzija aplikacije: 1.0.0" GridPane.valignment="TOP">
+        <Label text="%app.version" GridPane.valignment="TOP">
             <font>
                 <Font size="18.0" />
             </font>
@@ -29,7 +29,7 @@
                 <Insets left="5.0" top="5.0" />
             </padding>
         </Label>
-        <Label text="Github repozitorij: https://github.com/RPR-2019/rpr21-projekat-iefendic3" GridPane.columnSpan="3" GridPane.rowSpan="4" GridPane.valignment="CENTER">
+        <Label text="%github.repo" GridPane.columnSpan="3" GridPane.rowSpan="4" GridPane.valignment="CENTER">
             <GridPane.margin>
                 <Insets left="5.0" top="5.0" />
             </GridPane.margin>
@@ -37,14 +37,14 @@
                 <Font size="18.0" />
             </font>
         </Label>
-        <Label text="Autor: Ibrahim Efendić" GridPane.rowSpan="4" GridPane.valignment="BOTTOM">
+        <Label text="%app.author" GridPane.rowSpan="4" GridPane.valignment="BOTTOM">
             <font>
                 <Font size="18.0" />
             </font>
             <GridPane.margin>
                 <Insets left="5.0" />
             </GridPane.margin></Label>
-      <Button fx:id="btnStampaj" mnemonicParsing="false" onAction="#stampajKorisnike" text="Stampaj korisnike" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="4" GridPane.valignment="BOTTOM">
+      <Button fx:id="btnStampaj" mnemonicParsing="false" onAction="#stampajKorisnike" text="%print.users" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="4" GridPane.valignment="BOTTOM">
          <GridPane.margin>
             <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
          </GridPane.margin>
