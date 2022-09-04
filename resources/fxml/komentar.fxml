@@ -23,7 +23,7 @@
       <RowConstraints maxHeight="550.0" minHeight="10.0" prefHeight="328.4" vgrow="SOMETIMES" />
     </rowConstraints>
     <children>
-      <Label text="Objavi komentar">
+      <Label text="%comment.publish">
          <GridPane.margin>
             <Insets left="10.0" top="40.0" />
          </GridPane.margin>
@@ -35,7 +35,7 @@
          <children>
             <HBox prefHeight="50.0" prefWidth="200.0">
                <children>
-                  <Label text="Komentar:">
+                  <Label text="%comment">
                      <font>
                         <Font size="18.0" />
                      </font>
@@ -55,7 +55,7 @@
             </HBox>
             <HBox prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <Label text="Recenzija:">
+                  <Label text="%critique">
                      <HBox.margin>
                         <Insets left="10.0" top="10.0" />
                      </HBox.margin>
@@ -65,19 +65,19 @@
                   </Label>
                   <ButtonBar maxHeight="50.0" minHeight="50.0" prefHeight="50.0">
                      <buttons>
-                        <RadioButton fx:id="radioPozitivna" mnemonicParsing="false" text="Pozitivna">
+                        <RadioButton fx:id="radioPozitivna" mnemonicParsing="false" text="%positive">
                            <toggleGroup>
                               <ToggleGroup fx:id="Recenzija" />
                            </toggleGroup></RadioButton>
-                        <RadioButton fx:id="radioNegativna" mnemonicParsing="false" text="Negativna" toggleGroup="$Recenzija" />
+                        <RadioButton fx:id="radioNegativna" mnemonicParsing="false" text="%negative" toggleGroup="$Recenzija" />
                      </buttons>
                   </ButtonBar>
                </children></HBox>
          </children></VBox>
         <ButtonBar maxHeight="50.0" maxWidth="199.0" prefHeight="50.0" prefWidth="142.0" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="3" GridPane.valignment="BOTTOM">
             <buttons>
-                <Button fx:id="btnObjavi" defaultButton="true" mnemonicParsing="false" onAction="#clickObjaviKomentar" text="Objavi" />
-                <Button fx:id="btnOdustani" mnemonicParsing="false" text="Odustani" />
+                <Button fx:id="btnObjavi" defaultButton="true" mnemonicParsing="false" onAction="#clickObjaviKomentar" text="%publish" />
+                <Button fx:id="btnOdustani" mnemonicParsing="false" text="%cancel" />
             </buttons>
             <GridPane.margin>
                 <Insets right="10.0" />

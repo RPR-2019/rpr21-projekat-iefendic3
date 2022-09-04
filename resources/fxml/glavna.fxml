@@ -19,7 +19,6 @@
               <menus>
                 <Menu text="_Options">
                   <items>
-                        <MenuItem mnemonicParsing="false" text="Language" />
                         <MenuItem fx:id="menuLogOut" onAction="#clickLogOut" text="_Log out">
                            <accelerator>
                               <KeyCodeCombination alt="DOWN" code="L" control="UP" meta="UP" shift="UP" shortcut="UP" />
