@@ -20,7 +20,7 @@
       <RowConstraints maxHeight="289.39999237060545" minHeight="10.0" prefHeight="84.60000000000002" vgrow="SOMETIMES" />
   </rowConstraints>
    <children>
-      <Label text="%register">
+      <Label text="%registration">
          <padding>
             <Insets left="10.0" />
          </padding>
