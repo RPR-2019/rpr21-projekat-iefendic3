@@ -25,7 +25,7 @@
                   <ImageView fx:id="slikaProfila" fitHeight="95.0" fitWidth="185.0" pickOnBounds="true" preserveRatio="true" />
                </children>
             </HBox>
-            <Hyperlink fx:id="btnSlikaProfila" onAction="#clickBtn" text="Slika profila" />
+            <Hyperlink fx:id="btnSlikaProfila" onAction="#clickBtn" text="%profile.picture" />
          </children>
          <GridPane.margin>
             <Insets left="10.0" />
@@ -33,32 +33,32 @@
       </VBox>
       <VBox GridPane.rowIndex="2">
          <children>
-            <Label fx:id="labelaIme" text="Ime:">
+            <Label fx:id="labelaIme" text="%name">
                <font>
                   <Font size="18.0" />
                </font>
             </Label>
-            <Label fx:id="labelaPrezime" text="Prezime:">
+            <Label fx:id="labelaPrezime" text="%surname">
                <font>
                   <Font size="18.0" />
                </font>
             </Label>
-            <Label fx:id="labelaDatum" text="Datum rođenja:">
+            <Label fx:id="labelaDatum" text="%birthdate">
                <font>
                   <Font size="18.0" />
                </font>
             </Label>
-            <Label fx:id="labelaMjesto" text="Mjesto stanovanja:">
+            <Label fx:id="labelaMjesto" text="%place">
                <font>
                   <Font size="18.0" />
                </font>
             </Label>
-            <Label fx:id="labelaAdresa" text="Adresa stanovanja:">
+            <Label fx:id="labelaAdresa" text="%address">
                <font>
                   <Font size="18.0" />
                </font>
             </Label>
-            <Label fx:id="labelaBrojTel" text="Broj telefona:">
+            <Label fx:id="labelaBrojTel" text="%number">
                <font>
                   <Font size="18.0" />
                </font>
@@ -68,9 +68,9 @@
             <Insets left="10.0" />
          </GridPane.margin>
       </VBox>
-      <Button fx:id="kupljeniBtn" mnemonicParsing="false" onAction="#clickKupljeniArtikli" prefHeight="56.0" prefWidth="202.0" text="Kupljeni artikli" GridPane.columnIndex="1" GridPane.halignment="CENTER" />
-      <Button fx:id="prodaniBtn" layoutX="359.0" layoutY="132.0" mnemonicParsing="false" onAction="#clickProdaniArtikli" prefHeight="56.0" prefWidth="202.0" text="Prodani artikli" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
-      <Button fx:id="aktivniBtn" layoutX="359.0" layoutY="233.0" mnemonicParsing="false" onAction="#clickAktivniArtikli" prefHeight="56.0" prefWidth="202.0" text="Aktivni artikli" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
-      <Button fx:id="komentariBtn" layoutX="359.0" layoutY="233.0" mnemonicParsing="false" onAction="#clickKomentari" prefHeight="56.0" prefWidth="202.0" text="Komentari" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
+      <Button fx:id="kupljeniBtn" mnemonicParsing="false" onAction="#clickKupljeniArtikli" prefHeight="56.0" prefWidth="202.0" text="%bought.articles" GridPane.columnIndex="1" GridPane.halignment="CENTER" />
+      <Button fx:id="prodaniBtn" layoutX="359.0" layoutY="132.0" mnemonicParsing="false" onAction="#clickProdaniArtikli" prefHeight="56.0" prefWidth="202.0" text="%sold.articles" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+      <Button fx:id="aktivniBtn" layoutX="359.0" layoutY="233.0" mnemonicParsing="false" onAction="#clickAktivniArtikli" prefHeight="56.0" prefWidth="202.0" text="%active.articles" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
+      <Button fx:id="komentariBtn" layoutX="359.0" layoutY="233.0" mnemonicParsing="false" onAction="#clickKomentari" prefHeight="56.0" prefWidth="202.0" text="%comments" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
    </children>
 </GridPane>
