@@ -23,12 +23,12 @@
       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
     </rowConstraints>
    <children>
-       <Label text="Naziv: " GridPane.rowIndex="0" />
-       <Label text="Kategorija: " GridPane.rowIndex="1" />
-       <Label text="Cijena: " GridPane.rowIndex="2" />
-       <Label text="Lokacija: " GridPane.rowIndex="3" />
-       <Label text="Deskripcija: " GridPane.rowIndex="4" />
-       <Label text="Objavio korisnik: " GridPane.rowIndex="5" />
+       <Label text="%article.name" GridPane.rowIndex="0" />
+       <Label text="%article.category" GridPane.rowIndex="1" />
+       <Label text="%article.price" GridPane.rowIndex="2" />
+       <Label text="%article.location" GridPane.rowIndex="3" />
+       <Label text="%article.description" GridPane.rowIndex="4" />
+       <Label text="%article.author" GridPane.rowIndex="5" />
        <Label fx:id="korisnik" text="" GridPane.columnIndex="1" GridPane.rowIndex="5" />
 
       <Label fx:id="naziv" text="Label" GridPane.columnIndex="1" GridPane.columnSpan="6" GridPane.rowIndex="0" />
@@ -37,8 +37,8 @@
       <Label fx:id="lokacija" text="Label" GridPane.columnIndex="1" GridPane.columnSpan="6" GridPane.rowIndex="3" />
       <ImageView fx:id="slikaArtikla" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.rowIndex="1" />
       <Label fx:id="deskripcija" text="Label" GridPane.columnIndex="1" GridPane.columnSpan="6" GridPane.rowIndex="4" />
-      <Button fx:id="kupiBtn" mnemonicParsing="false" onAction="#clickKupi" prefHeight="26.0" prefWidth="90.0" text="Kupi" GridPane.columnIndex="5" GridPane.rowIndex="5" />
-      <Button fx:id="obrisiBtn" mnemonicParsing="false" onAction="#clickObrisi" prefHeight="26.0" prefWidth="90.0" text="Obrisi" GridPane.columnIndex="4" GridPane.rowIndex="5" />
-      <Button fx:id="profilBtn" layoutX="410.0" layoutY="368.0" mnemonicParsing="false" onAction="#clickProfil" prefHeight="26.0" prefWidth="90.0" text="Profil" GridPane.columnIndex="2" GridPane.rowIndex="5" />
+      <Button fx:id="kupiBtn" mnemonicParsing="false" onAction="#clickKupi" prefHeight="26.0" prefWidth="90.0" text="%article.buy" GridPane.columnIndex="5" GridPane.rowIndex="5" />
+      <Button fx:id="obrisiBtn" mnemonicParsing="false" onAction="#clickObrisi" prefHeight="26.0" prefWidth="90.0" text="%article.delete" GridPane.columnIndex="4" GridPane.rowIndex="5" />
+      <Button fx:id="profilBtn" layoutX="410.0" layoutY="368.0" mnemonicParsing="false" onAction="#clickProfil" prefHeight="26.0" prefWidth="90.0" text="%main.profile" GridPane.columnIndex="2" GridPane.rowIndex="5" />
    </children>
 </GridPane>
