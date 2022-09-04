@@ -23,7 +23,7 @@
     <RowConstraints maxHeight="550.0" minHeight="10.0" prefHeight="328.4" vgrow="SOMETIMES" />
   </rowConstraints>
    <children>
-      <Label text="Objava artikla">
+      <Label text="%article.publish">
          <font>
             <Font size="18.0" />
          </font>
@@ -35,7 +35,7 @@
          <children>
             <HBox prefHeight="48.0" prefWidth="300.0" spacing="10.0">
                <children>
-                  <Label text="Naslov i kategorija:">
+                  <Label text="%article.name.category">
                      <font>
                         <Font size="16.0" />
                      </font>
@@ -46,8 +46,8 @@
             </HBox>
             <HBox spacing="5.0">
                <children>
-                  <TextField fx:id="txtFieldKategorija" prefHeight="26.0" prefWidth="176.0" promptText="Unesite novu kategoriju" />
-                  <Button fx:id="btnDodajKategoriju" mnemonicParsing="false" onAction="#clickDodajKategoriju" text="Dodaj" />
+                  <TextField fx:id="txtFieldKategorija" prefHeight="26.0" prefWidth="176.0" promptText="%main.add.categories" />
+                  <Button fx:id="btnDodajKategoriju" mnemonicParsing="false" onAction="#clickDodajKategoriju" text="%add" />
                </children>
                <VBox.margin>
                   <Insets left="350.0" top="10.0" />
@@ -55,7 +55,7 @@
             </HBox>
             <HBox prefHeight="28.0" prefWidth="590.0">
                <children>
-                  <Label text="Cijena artikla:">
+                  <Label text="%article.price">
                      <font>
                         <Font size="16.0" />
                      </font>
@@ -75,7 +75,7 @@
                   <Insets top="10.0" />
                </VBox.margin>
                <children>
-                  <Label text="Lokacija:">
+                  <Label text="%article.location">
                      <font>
                         <Font size="16.0" />
                      </font>
@@ -89,7 +89,7 @@
             </HBox>
             <HBox prefHeight="23.0" prefWidth="590.0">
                <children>
-                  <Label text="Detaljna deskripcija artikla:">
+                  <Label text="%article.description">
                      <font>
                         <Font size="16.0" />
                      </font>
@@ -106,7 +106,7 @@
             </HBox>
             <HBox prefHeight="88.0" prefWidth="590.0">
                <children>
-                  <Hyperlink fx:id="btnSlikaProfila" onAction="#clickBtn" text="Slika artikla" />
+                  <Hyperlink fx:id="btnSlikaProfila" onAction="#clickBtn" text="%article.picture" />
                   <ImageView fx:id="slikaArtikla" fitHeight="150.0" fitWidth="481.0" pickOnBounds="true" preserveRatio="true" />
                </children>
                <VBox.margin>
@@ -120,8 +120,8 @@
       </VBox>
       <ButtonBar maxHeight="50.0" maxWidth="199.0" prefHeight="50.0" prefWidth="142.0" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="2" GridPane.valignment="BOTTOM">
          <buttons>
-            <Button fx:id="btnObjavi" defaultButton="true" mnemonicParsing="false" onAction="#clickObjavi" text="Objavi" />
-            <Button fx:id="btnOdustani" mnemonicParsing="false" onAction="#clickOdustani" text="Odustani" />
+            <Button fx:id="btnObjavi" defaultButton="true" mnemonicParsing="false" onAction="#clickObjavi" text="%publish" />
+            <Button fx:id="btnOdustani" mnemonicParsing="false" onAction="#clickOdustani" text="%cancel" />
          </buttons>
          <GridPane.margin>
             <Insets right="10.0" />
