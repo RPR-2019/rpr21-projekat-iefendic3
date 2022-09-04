@@ -5,15 +5,15 @@ import java.io.FileNotFoundException;
 import java.sql.*;
 import java.util.Scanner;
 
-public class KorisnikDAO {
-    private static KorisnikDAO instance = null;
+public class UserDAO {
+    private static UserDAO instance = null;
     private Connection connection;
     private PreparedStatement dajKorisnikeUpit,dodajKorisnikaUpit, nadjiKorisnikaUpit, nadjiPasswordKorisnikaUpit, dodajSlikuKorisnikaUpit,
     dajSlikuKorisnikaUpit, obrisiSlikuKorisnikaUpit, dodajKategorijuUpit, dajKategorijeUpit, dodajArtikalUpit, dajArtikleUpit, obrisiArtikalUpit, dodajKupljeniArtikalUpit,
             dajKupljeneArtikleZaKorisnikaUpit, dajProdaneArtikleZaKorisnikaUpit, dodajProdaniArtikal, dajArtikleKorisnikaUpit,
     dodajKomentarUpit, dajKomentareKorisnikaUpit,dodajSlikuArtiklaUpit,dajSlikuArtiklaUpit;
 
-    private KorisnikDAO() {
+    private UserDAO() {
         String url = "jdbc:sqlite:baza.db";
         try {
             connection = DriverManager.getConnection(url);
@@ -71,8 +71,8 @@ public class KorisnikDAO {
     }
 
 
-    public static KorisnikDAO getInstance() {
-        if (instance == null) instance = new KorisnikDAO();
+    public static UserDAO getInstance() {
+        if (instance == null) instance = new UserDAO();
         return instance;
     }
 
@@ -97,7 +97,7 @@ public class KorisnikDAO {
         }
     }
 
-    public void dodajKupljeniArtikal(Artikal artikal){
+    public void dodajKupljeniArtikal(Article artikal){
         try{
             dodajKupljeniArtikalUpit.setString(1,artikal.getNaziv());
             dodajKupljeniArtikalUpit.setString(2,artikal.getKategorija().getNazivKategorije());
@@ -111,18 +111,18 @@ public class KorisnikDAO {
             e.printStackTrace();
         }
     }
-    public void dodajKomentar(Komentar komentar){
+    public void dodajKomentar(Comment comment){
         try{
-            dodajKomentarUpit.setString(1,komentar.getKorisnickoIme());
-            dodajKomentarUpit.setString(2,komentar.getTekstKomentara());
-            dodajKomentarUpit.setString(3,komentar.getRecenzija().toString());
-            dodajKomentarUpit.setString(4,komentar.getAutor());
+            dodajKomentarUpit.setString(1, comment.getKorisnickoIme());
+            dodajKomentarUpit.setString(2, comment.getTekstKomentara());
+            dodajKomentarUpit.setString(3, comment.getRecenzija().toString());
+            dodajKomentarUpit.setString(4, comment.getAutor());
             dodajKomentarUpit.execute();
         } catch (SQLException e){
             e.printStackTrace();
         }
     }
-    public void dodajProdaniArtikal(Artikal artikal){
+    public void dodajProdaniArtikal(Article artikal){
         try{
             dodajProdaniArtikal.setString(1,artikal.getNaziv());
             dodajProdaniArtikal.setString(2,artikal.getKategorija().getNazivKategorije());
@@ -136,31 +136,31 @@ public class KorisnikDAO {
             e.printStackTrace();
         }
     }
-    public void dodajKorisnika(Korisnik korisnik){
+    public void dodajKorisnika(User user){
         try{
-            dodajKorisnikaUpit.setString(1,korisnik.getOsoba().getIme());
-            dodajKorisnikaUpit.setString(2,korisnik.getOsoba().getPrezime());
-            dodajKorisnikaUpit.setString(3,korisnik.getOsoba().getDatumRodjenja());
-            dodajKorisnikaUpit.setString(4,korisnik.getKorisnickoIme());
-            dodajKorisnikaUpit.setString(5,korisnik.getPassword());
-            dodajKorisnikaUpit.setString(6,korisnik.getMjesto());
-            dodajKorisnikaUpit.setString(7,korisnik.getAdresa());
-            dodajKorisnikaUpit.setString(8,korisnik.getBrojTelefona());
+            dodajKorisnikaUpit.setString(1, user.getOsoba().getIme());
+            dodajKorisnikaUpit.setString(2, user.getOsoba().getPrezime());
+            dodajKorisnikaUpit.setString(3, user.getOsoba().getDatumRodjenja());
+            dodajKorisnikaUpit.setString(4, user.getKorisnickoIme());
+            dodajKorisnikaUpit.setString(5, user.getPassword());
+            dodajKorisnikaUpit.setString(6, user.getMjesto());
+            dodajKorisnikaUpit.setString(7, user.getAdresa());
+            dodajKorisnikaUpit.setString(8, user.getBrojTelefona());
 
             dodajKorisnikaUpit.execute();
         } catch (SQLException e){
             e.printStackTrace();
         }
     }
-    public void dodajKategoriju(Kategorija kategorija){
+    public void dodajKategoriju(Category category){
         try{
-            dodajKategorijuUpit.setString(1,kategorija.getNazivKategorije());
+            dodajKategorijuUpit.setString(1, category.getNazivKategorije());
             dodajKategorijuUpit.execute();
         } catch (SQLException e){
             e.printStackTrace();
         }
     }
-    public void dodajArtikal(Artikal artikal){
+    public void dodajArtikal(Article artikal){
         try{
             dodajArtikalUpit.setString(1,artikal.getNaziv());
             dodajArtikalUpit.setString(2,artikal.getKategorija().getNazivKategorije());
@@ -189,7 +189,7 @@ public class KorisnikDAO {
         }
     }
 
-    public void dodajSlikuArtikla(Artikal artikal, FileInputStream inputStream, int duzina){
+    public void dodajSlikuArtikla(Article artikal, FileInputStream inputStream, int duzina){
         try{
             dodajSlikuArtiklaUpit.setString(1,artikal.getNaziv());
             dodajSlikuArtiklaUpit.setString(2,artikal.getKategorija().getNazivKategorije());
@@ -203,7 +203,7 @@ public class KorisnikDAO {
             e.printStackTrace();
         }
     }
-    public ResultSet dajSlikuArtikla(Artikal artikal){
+    public ResultSet dajSlikuArtikla(Article artikal){
 
         try {
             dajSlikuArtiklaUpit.setString(1,artikal.getNaziv());
@@ -292,13 +292,13 @@ public class KorisnikDAO {
         return null;
     }
 
-    public Korisnik nadjiKorisnika(String korisnickoIme){
+    public User nadjiKorisnika(String korisnickoIme){
         try{
             nadjiKorisnikaUpit.setString(1,korisnickoIme);
             ResultSet rs = nadjiKorisnikaUpit.executeQuery();
             if(rs.next()){
-                Korisnik k = new Korisnik();
-                Osoba o = new Osoba(rs.getString(1),rs.getString(2),rs.getString(3)); //Ime prezime datum
+                User k = new User();
+                Person o = new Person(rs.getString(1),rs.getString(2),rs.getString(3)); //Ime prezime datum
                 k.setOsoba(o);
                 k.setPassword(rs.getString(5));
                 k.setMjesto(rs.getString(6));
@@ -313,13 +313,13 @@ public class KorisnikDAO {
         }
         return null;
     }
-    public Korisnik nadjiPasswordKorisnika(String password){
+    public User nadjiPasswordKorisnika(String password){
         try{
             nadjiPasswordKorisnikaUpit.setString(1,password);
             ResultSet rs = nadjiPasswordKorisnikaUpit.executeQuery();
             if(rs.next()){
-                Korisnik k = new Korisnik();
-                Osoba o = new Osoba(rs.getString(1),rs.getString(2),rs.getString(3)); //Ime prezime datum
+                User k = new User();
+                Person o = new Person(rs.getString(1),rs.getString(2),rs.getString(3)); //Ime prezime datum
                 k.setOsoba(o);
                 k.setPassword(password);
                 k.setMjesto(rs.getString(6));

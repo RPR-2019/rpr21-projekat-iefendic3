@@ -16,23 +16,25 @@ import org.testfx.framework.junit5.Start;
 
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.ResourceBundle;
 
 import static javafx.scene.layout.Region.USE_COMPUTED_SIZE;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @ExtendWith(ApplicationExtension.class)
-class RegistracijaControllerTest {
-    KorisnikDAO dao = KorisnikDAO.getInstance();
+class RegistrationControllerTest {
+    UserDAO dao = UserDAO.getInstance();
     Alert alert1, alert;
-    RegistracijaController registracijaController;
+    RegistrationController registrationController;
     Stage stageRegistracija;
     ButtonType accept, cancel,ok;
     @Start
     public void start(Stage stage) throws Exception{
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/registracija.fxml"));
-        registracijaController = new RegistracijaController();
-        loader.setController(registracijaController);
+        ResourceBundle bundle = ResourceBundle.getBundle("Translation");
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/registracija.fxml"),bundle);
+        registrationController = new RegistrationController();
+        loader.setController(registrationController);
         Parent root = loader.load();
         stage.setTitle("Registracija");
         stage.setScene(new Scene(root, USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));

@@ -1,13 +1,13 @@
 package ba.unsa.etf.rpr;
 
-public class Kategorija {
+public class Category {
     String nazivKategorije;
 
-    public Kategorija() {
+    public Category() {
         this.nazivKategorije="";
     }
 
-    public Kategorija(String nazivKategorije) {
+    public Category(String nazivKategorije) {
         this.nazivKategorije = nazivKategorije;
     }
 

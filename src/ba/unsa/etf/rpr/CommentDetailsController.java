@@ -9,8 +9,8 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 
-public class KomentarDetaljiController implements Initializable {
-    private final KorisnikDAO dao = KorisnikDAO.getInstance();
+public class CommentDetailsController implements Initializable {
+    private final UserDAO dao = UserDAO.getInstance();
     private String korisnickoIme;
     private String autor;
     private final DataModel model ;
@@ -21,11 +21,11 @@ public class KomentarDetaljiController implements Initializable {
     @FXML
     Label autorKomentara;
 
-    public KomentarDetaljiController(DataModel model){
+    public CommentDetailsController(DataModel model){
         this.model = model;
     }
-    public void setKorisnickoIme(Korisnik korisnik) {
-        korisnickoIme = korisnik.getKorisnickoIme();
+    public void setKorisnickoIme(User user) {
+        korisnickoIme = user.getKorisnickoIme();
     }
     public void setAutor(String korisnik) {
         autor = korisnik;

@@ -13,9 +13,9 @@ import java.util.ResourceBundle;
 public class AboutController implements Initializable {
     @FXML
     ImageView imageView;
-    private final KorisnikDAO dao;
+    private final UserDAO dao;
 
-    public AboutController(){dao = KorisnikDAO.getInstance();}
+    public AboutController(){dao = UserDAO.getInstance();}
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {

@@ -20,25 +20,25 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
-public class ObjavaController implements Initializable {
+public class PublishController implements Initializable {
     public TextField txtFieldNaslov,txtFieldKategorija,txtFieldCijena, txtFieldLokacija;
-    public ChoiceBox<Kategorija> choiceKategorije;
-    private final KorisnikDAO dao;
+    public ChoiceBox<Category> choiceKategorije;
+    private final UserDAO dao;
     private String korisnickoIme;
     public Button btnDodajKategoriju, btnObjavi, btnOdustani;
-    private final ArrayList<Kategorija> kategorije = new ArrayList<>();
-    private final ArrayList<Artikal> artikli = new ArrayList<>();
+    private final ArrayList<Category> kategorije = new ArrayList<>();
+    private final ArrayList<Article> artikli = new ArrayList<>();
     public TextArea txtAreaDeskripcija;
     final FileChooser fc = new FileChooser();
     @FXML
     ImageView slikaArtikla;
-    ProfilController profilController = new ProfilController();
+    ProfileController profileController = new ProfileController();
 
-    public ObjavaController() {dao=KorisnikDAO.getInstance();}
+    public PublishController() {dao= UserDAO.getInstance();}
 
 
-    public void setKorisnickoIme(Korisnik korisnik) {
-        korisnickoIme = korisnik.getKorisnickoIme();
+    public void setKorisnickoIme(User user) {
+        korisnickoIme = user.getKorisnickoIme();
     }
 
 
@@ -48,8 +48,8 @@ public class ObjavaController implements Initializable {
         btnOdustani.getStyleClass().add("crvenoDugme");
         txtFieldKategorija.setVisible(false);
         btnDodajKategoriju.setVisible(false);
-        Kategorija odaberi = new Kategorija("Odaberi kategoriju");
-        Kategorija dodaj = new Kategorija("Dodaj novu kategoriju");
+        Category odaberi = new Category("Odaberi kategoriju");
+        Category dodaj = new Category("Dodaj novu kategoriju");
 
         choiceKategorije.getItems().add(dodaj);
         choiceKategorije.getItems().add(odaberi);
@@ -57,7 +57,7 @@ public class ObjavaController implements Initializable {
         try {
             ResultSet rs = dao.dajKategorije();
             while (rs.next()) {
-                choiceKategorije.getItems().add(new Kategorija(rs.getString(1)));
+                choiceKategorije.getItems().add(new Category(rs.getString(1)));
             }
         } catch (SQLException e){
             e.printStackTrace();
@@ -80,15 +80,15 @@ public class ObjavaController implements Initializable {
     }
 
     public void clickDodajKategoriju(ActionEvent actionEvent) {
-        Kategorija k = new Kategorija(txtFieldKategorija.getText());
+        Category k = new Category(txtFieldKategorija.getText());
         if(!txtFieldKategorija.getText().isBlank() && !choiceKategorije.getItems().contains(k)){
             choiceKategorije.getItems().add(k);
             //dao.dodajKategoriju(new Kategorija(txtFieldKategorija.getText()));
             txtFieldKategorija.setText("");
             kategorije.add(k);
         }
-        for(Kategorija ka : kategorije){
-            dao.dodajKategoriju(new Kategorija(ka.getNazivKategorije()));
+        for(Category ka : kategorije){
+            dao.dodajKategoriju(new Category(ka.getNazivKategorije()));
         }
         Stage stage = (Stage) btnObjavi.getScene().getWindow();
         stage.setUserData(kategorije);
@@ -97,11 +97,11 @@ public class ObjavaController implements Initializable {
     public void clickObjavi(ActionEvent actionEvent) {
         if(!txtFieldNaslov.getText().isBlank() && choiceKategorije.getValue() != null  && !txtFieldCijena.getText().isBlank() && !txtFieldLokacija.getText().isBlank()
         && !txtAreaDeskripcija.getText().isBlank()){
-            Kategorija kategorija = new Kategorija();
-            if(choiceKategorije.getValue().toString().equals("Odaberi kategoriju")) kategorija=new Kategorija("/");
+            Category category = new Category();
+            if(choiceKategorije.getValue().toString().equals("Odaberi kategoriju")) category =new Category("/");
             else
-                kategorija= choiceKategorije.getValue();
-            Artikal artikal = new Artikal(txtFieldNaslov.getText(),kategorija,txtFieldCijena.getText(),txtFieldLokacija.getText(),txtAreaDeskripcija.getText(),korisnickoIme);
+                category = choiceKategorije.getValue();
+            Article artikal = new Article(txtFieldNaslov.getText(), category,txtFieldCijena.getText(),txtFieldLokacija.getText(),txtAreaDeskripcija.getText(),korisnickoIme);
             artikli.add(artikal);
             dao.dodajArtikal(artikal);
 
@@ -134,7 +134,7 @@ public class ObjavaController implements Initializable {
         fc.getExtensionFilters().add(new FileChooser.ExtensionFilter("Image Files","*.*"));
 
         File file = fc.showOpenDialog(null);
-        Artikal artikal = new Artikal(txtFieldNaslov.getText(),choiceKategorije.getValue(),txtFieldCijena.getText(),txtFieldLokacija.getText(),
+        Article artikal = new Article(txtFieldNaslov.getText(),choiceKategorije.getValue(),txtFieldCijena.getText(),txtFieldLokacija.getText(),
                 txtAreaDeskripcija.getText(),korisnickoIme);
 
         if(file != null){

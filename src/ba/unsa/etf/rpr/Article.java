@@ -1,19 +1,19 @@
 package ba.unsa.etf.rpr;
 
-public class Artikal {
+public class Article {
     private String naziv;
-    private Kategorija kategorija;
+    private Category category;
     private String cijena;
     private String lokacija;
     private String deskripcija;
     private String korisnik;
 
-    public Artikal() {
+    public Article() {
     }
 
-    public Artikal(String naziv, Kategorija kategorija, String cijena, String lokacija, String deskripcija, String korisnik) {
+    public Article(String naziv, Category category, String cijena, String lokacija, String deskripcija, String korisnik) {
         this.naziv = naziv;
-        this.kategorija = kategorija;
+        this.category = category;
         this.cijena = cijena;
         this.lokacija = lokacija;
         this.deskripcija = deskripcija;
@@ -36,12 +36,12 @@ public class Artikal {
         this.naziv = naziv;
     }
 
-    public Kategorija getKategorija() {
-        return kategorija;
+    public Category getKategorija() {
+        return category;
     }
 
-    public void setKategorija(Kategorija kategorija) {
-        this.kategorija = kategorija;
+    public void setKategorija(Category category) {
+        this.category = category;
     }
 
     public String getCijena() {

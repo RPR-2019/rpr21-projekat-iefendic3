@@ -18,25 +18,27 @@ import org.testfx.framework.junit5.Start;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.ResourceBundle;
 
 import static javafx.scene.layout.Region.USE_COMPUTED_SIZE;
 import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(ApplicationExtension.class)
-class GlavnaControllerTest {
+class MainControllerTest {
     Stage theStage;
-    GlavnaController glavnaController;
-    KorisnikDAO dao = KorisnikDAO.getInstance();
+    ba.unsa.etf.rpr.MainController mainController;
+    UserDAO dao = UserDAO.getInstance();
 
 
     @Start
     public void start (Stage stage) throws Exception {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/glavna.fxml"));
-        glavnaController = new GlavnaController();
-        loader.setController(glavnaController);
+        ResourceBundle bundle = ResourceBundle.getBundle("Translation");
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/glavna.fxml"),bundle);
+        mainController = new ba.unsa.etf.rpr.MainController();
+        loader.setController(mainController);
 
-        glavnaController.setKorisnickoIme("test1");
-        glavnaController.setAutorKomentara("test1");
+        mainController.setKorisnickoIme("test1");
+        mainController.setAutorKomentara("test1");
         Parent root = loader.load();
         stage.setTitle("IE - Kupoprodaja");
         stage.setScene(new Scene(root, USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
@@ -98,7 +100,7 @@ class GlavnaControllerTest {
         robot.write("BMW");
 
         robot.clickOn("#choiceKategorije");
-        ChoiceBox<Kategorija> comboBox = robot.lookup("#choiceKategorije").queryAs(ChoiceBox.class);
+        ChoiceBox<Category> comboBox = robot.lookup("#choiceKategorije").queryAs(ChoiceBox.class);
         robot.lookup(comboBox.getItems().get(2).getNazivKategorije()).tryQuery().isPresent();
         robot.clickOn(comboBox.getItems().get(2).getNazivKategorije());
 
@@ -113,14 +115,14 @@ class GlavnaControllerTest {
 
         robot.clickOn("#btnObjavi");
 
-        ListView<Artikal> lvArtikli = robot.lookup("#lvArtikli").queryAs(ListView.class);
+        ListView<Article> lvArtikli = robot.lookup("#lvArtikli").queryAs(ListView.class);
         assertEquals(5, lvArtikli.getItems().size());
 
         ResultSet rsArtikli = dao.dajArtikle();
-        ArrayList<Artikal> listaArtikala = new ArrayList<>();
+        ArrayList<Article> listaArtikala = new ArrayList<>();
         while(rsArtikli.next()){
-            Kategorija kategorija = new Kategorija(rsArtikli.getString(2));
-            listaArtikala.add(new Artikal(rsArtikli.getString(1), kategorija, rsArtikli.getString(3),rsArtikli.getString(4),
+            Category category = new Category(rsArtikli.getString(2));
+            listaArtikala.add(new Article(rsArtikli.getString(1), category, rsArtikli.getString(3),rsArtikli.getString(4),
                     rsArtikli.getString(5), rsArtikli.getString(6)));
         }
         assertEquals(5, listaArtikala.size());
@@ -128,7 +130,7 @@ class GlavnaControllerTest {
 
     @Test
     public void test10OtvoriArtikal(FxRobot robot){
-        ListView<Artikal> lvArtikli = robot.lookup("#lvArtikli").queryAs(ListView.class);
+        ListView<Article> lvArtikli = robot.lookup("#lvArtikli").queryAs(ListView.class);
         robot.clickOn(lvArtikli.getItems().get(0).getNaziv());
         assertTrue(robot.lookup("#kupiBtn").tryQuery().isPresent());
 
@@ -138,7 +140,7 @@ class GlavnaControllerTest {
 
     @Test
     public void test1KupiArtikal(FxRobot robot){
-        ListView<Artikal> lvArtikli = robot.lookup("#lvArtikli").queryAs(ListView.class);
+        ListView<Article> lvArtikli = robot.lookup("#lvArtikli").queryAs(ListView.class);
         robot.clickOn(lvArtikli.getItems().get(0).getNaziv());
         robot.lookup("#kupiBtn").tryQuery().isPresent();
         robot.clickOn("#kupiBtn");
@@ -147,18 +149,18 @@ class GlavnaControllerTest {
         robot.clickOn("#btnProfil");
         robot.lookup("#kupljeniBtn").tryQuery().isPresent();
         robot.clickOn("#kupljeniBtn");
-        ListView<Artikal> kupljeni = robot.lookup("#lvKupljeni").queryAs(ListView.class);
+        ListView<Article> kupljeni = robot.lookup("#lvKupljeni").queryAs(ListView.class);
         assertEquals(1,kupljeni.getItems().size());
     }
     @Test
     public void test77ObrisiArtikal(FxRobot robot){
-        ListView<Artikal> lvArtikli = robot.lookup("#lvArtikli").queryAs(ListView.class);
+        ListView<Article> lvArtikli = robot.lookup("#lvArtikli").queryAs(ListView.class);
         int velicinaPrije = lvArtikli.getItems().size();
         robot.lookup(lvArtikli.getItems().get(1).getNaziv()).tryQuery().isPresent();
         robot.clickOn(lvArtikli.getItems().get(1).getNaziv());
         robot.lookup("#obrisiBtn").tryQuery().isPresent();
         robot.clickOn("#obrisiBtn");
-        ListView<Artikal> lvArtikliPoslije = robot.lookup("#lvArtikli").queryAs(ListView.class);
+        ListView<Article> lvArtikliPoslije = robot.lookup("#lvArtikli").queryAs(ListView.class);
 
         assertEquals(lvArtikliPoslije.getItems().size(),3);
     }
@@ -171,25 +173,25 @@ class GlavnaControllerTest {
 
 
         ResultSet rsKategorije = dao.dajKategorije();
-        ArrayList<Kategorija> listaKategorija = new ArrayList<>();
+        ArrayList<Category> listaCategory = new ArrayList<>();
         while(rsKategorije.next()){
 
-            listaKategorija.add(new Kategorija(rsKategorije.getString(1)));
+            listaCategory.add(new Category(rsKategorije.getString(1)));
         }
-        assertEquals(8, listaKategorija.size());
+        assertEquals(8, listaCategory.size());
     }
 
     @Test
     public void test6Search(FxRobot robot){
         robot.clickOn("#searchBar");
         robot.write("Stan");
-        ListView<Artikal> lvArtikli = robot.lookup("#lvArtikli").queryAs(ListView.class);
+        ListView<Article> lvArtikli = robot.lookup("#lvArtikli").queryAs(ListView.class);
         assertEquals(lvArtikli.getItems().size(),1);
     }
 
     @Test
     public void test7Filter(FxRobot robot){
-        ListView<Artikal> lvArtikli = robot.lookup("#lvArtikli").queryAs(ListView.class);
+        ListView<Article> lvArtikli = robot.lookup("#lvArtikli").queryAs(ListView.class);
         robot.clickOn("#filterChoice");
         robot.clickOn("Naziv (a-z)");
 
@@ -219,7 +221,7 @@ class GlavnaControllerTest {
 
     @Test
     public void test2DodajKomentar(FxRobot robot){
-        ListView<Artikal> lvArtikli = robot.lookup("#lvArtikli").queryAs(ListView.class);
+        ListView<Article> lvArtikli = robot.lookup("#lvArtikli").queryAs(ListView.class);
         robot.clickOn(lvArtikli.getItems().get(0).getNaziv());
         robot.lookup("#profilBtn");
         robot.clickOn("#profilBtn");
@@ -233,7 +235,7 @@ class GlavnaControllerTest {
         robot.clickOn("#radioPozitivna");
         robot.clickOn("#btnObjavi");
 
-        ListView<Komentar> lvKomentari = robot.lookup("#lvKomentari").queryAs(ListView.class);
+        ListView<Comment> lvKomentari = robot.lookup("#lvKomentari").queryAs(ListView.class);
         assertEquals(1,lvKomentari.getItems().size());
 
         robot.clickOn(lvKomentari.getItems().get(0).getTekstKomentara());
@@ -255,7 +257,7 @@ class GlavnaControllerTest {
         robot.clickOn("#aktivniBtn");
 
 
-        ListView<Komentar> lvAktivni = robot.lookup("#lvAktivni").queryAs(ListView.class);
+        ListView<Comment> lvAktivni = robot.lookup("#lvAktivni").queryAs(ListView.class);
         assertEquals(1,lvAktivni.getItems().size());
     }
 }

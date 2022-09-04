@@ -10,11 +10,11 @@ import javafx.stage.Stage;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class KomentarController implements Initializable {
-    private final KorisnikDAO dao;
+public class CommentController implements Initializable {
+    private final UserDAO dao;
     private String korisnickoIme;
     private String autor;
-    private final Komentar komentar = new Komentar("","",Recenzija.POZITIVNA,"");
+    private final Comment comment = new Comment("","", Critique.POZITIVNA,"");
 
     @FXML
     TextArea txtArea;
@@ -23,7 +23,7 @@ public class KomentarController implements Initializable {
     @FXML
     RadioButton radioNegativna;
 
-    public KomentarController(){ dao = KorisnikDAO.getInstance();}
+    public CommentController(){ dao = UserDAO.getInstance();}
 
     public void setKorisnickoIme(String korisnik) {
         korisnickoIme = korisnik;
@@ -40,18 +40,18 @@ public class KomentarController implements Initializable {
     }
 
     public void clickObjaviKomentar(ActionEvent actionEvent){
-        komentar.setKorisnickoIme(korisnickoIme);
+        comment.setKorisnickoIme(korisnickoIme);
         if(txtArea.getText()!=null && (radioPozitivna.isSelected() || radioNegativna.isSelected())){
 
-            komentar.setTekstKomentara(txtArea.getText());
+            comment.setTekstKomentara(txtArea.getText());
             if(radioPozitivna.isSelected()){
-                komentar.setRecenzija(Recenzija.POZITIVNA);
+                comment.setRecenzija(Critique.POZITIVNA);
             }
             else if(radioNegativna.isSelected()){
-                komentar.setRecenzija(Recenzija.NEGATIVNA);
+                comment.setRecenzija(Critique.NEGATIVNA);
             }
-            komentar.setAutor(autor);
-            dao.dodajKomentar(komentar);
+            comment.setAutor(autor);
+            dao.dodajKomentar(comment);
             Stage stage = (Stage) radioPozitivna.getScene().getWindow();
             stage.close();
         }

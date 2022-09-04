@@ -1,12 +1,12 @@
 package ba.unsa.etf.rpr;
 
-public class Korisnik {
-    private Osoba osoba;
+public class User {
+    private Person person;
     private String korisnickoIme;
     private String password, mjesto, adresa, brojTelefona;
 
-    public Korisnik(Osoba osoba, String korisnickoIme, String password, String mjesto, String adresa, String brojTelefona) {
-        this.osoba = osoba;
+    public User(Person person, String korisnickoIme, String password, String mjesto, String adresa, String brojTelefona) {
+        this.person = person;
         this.korisnickoIme = korisnickoIme;
         this.password = password;
         this.mjesto = mjesto;
@@ -14,8 +14,8 @@ public class Korisnik {
         this.brojTelefona = brojTelefona;
     }
 
-    public Korisnik() {
-        this.osoba = new Osoba("","","");
+    public User() {
+        this.person = new Person("","","");
         this.korisnickoIme="";
         this.password="";
         this.mjesto = "";
@@ -47,12 +47,12 @@ public class Korisnik {
         this.brojTelefona = brojTelefona;
     }
 
-    public Osoba getOsoba() {
-        return osoba;
+    public Person getOsoba() {
+        return person;
     }
 
-    public void setOsoba(Osoba osoba) {
-        this.osoba = osoba;
+    public void setOsoba(Person person) {
+        this.person = person;
     }
 
     public String getKorisnickoIme() {

@@ -2,12 +2,12 @@ package ba.unsa.etf.rpr;
 
 import java.time.LocalDate;
 
-public class Osoba {
+public class Person {
     private String ime;
     private String prezime;
     private String datumRodjenja;
 
-    public Osoba(String ime, String prezime, String datumRodjenja) {
+    public Person(String ime, String prezime, String datumRodjenja) {
         this.ime = ime;
         this.prezime = prezime;
         this.datumRodjenja = datumRodjenja;

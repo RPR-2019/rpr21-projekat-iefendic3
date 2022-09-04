@@ -23,11 +23,11 @@ import java.util.ResourceBundle;
 
 import static javafx.scene.layout.Region.USE_COMPUTED_SIZE;
 
-public class ArtikalController implements Initializable {
+public class ArticleController implements Initializable {
     @FXML
     Label naziv;
     @FXML
-    Label kategorija;
+    Label category;
     @FXML
     Label cijena;
     @FXML
@@ -49,13 +49,13 @@ public class ArtikalController implements Initializable {
     private String autor;
 
     private final DataModel model ;
-    private final KorisnikDAO dao = KorisnikDAO.getInstance();
+    private final UserDAO dao = UserDAO.getInstance();
 
-    public ArtikalController(DataModel model){
+    public ArticleController(DataModel model){
         this.model = model;
     }
-    public void setKorisnickoIme(Korisnik korisnik) {
-        korisnickoIme = korisnik.getKorisnickoIme();
+    public void setKorisnickoIme(User user) {
+        korisnickoIme = user.getKorisnickoIme();
     }
     public void setAutor(String korisnik) {
         autor = korisnik;
@@ -70,9 +70,9 @@ public class ArtikalController implements Initializable {
         alert.show();
         dao.obrisiArtikal(naziv.getText(),deskripcija.getText());
 
-        Kategorija kategorija1 = new Kategorija(kategorija.getText());
-        Artikal kupljeniArtikal = new Artikal(naziv.getText(),kategorija1,cijena.getText(),lokacija.getText(),deskripcija.getText(),korisnickoIme);
-        Artikal prodaniArtikal = new Artikal(naziv.getText(),kategorija1,cijena.getText(),lokacija.getText(),deskripcija.getText(),korisnik.getText());
+        Category category1 = new Category(category.getText());
+        Article kupljeniArtikal = new Article(naziv.getText(), category1,cijena.getText(),lokacija.getText(),deskripcija.getText(),korisnickoIme);
+        Article prodaniArtikal = new Article(naziv.getText(), category1,cijena.getText(),lokacija.getText(),deskripcija.getText(),korisnik.getText());
         dao.dodajKupljeniArtikal(kupljeniArtikal);
         dao.dodajProdaniArtikal(prodaniArtikal);
 
@@ -81,9 +81,9 @@ public class ArtikalController implements Initializable {
     }
 
     public void clickObrisi(ActionEvent actionEvent){
-        Kategorija kategorija1 = new Kategorija(kategorija.getText());
-        Artikal artikal = new Artikal(naziv.getText(),kategorija1,cijena.getText(),lokacija.getText(),deskripcija.getText(),korisnickoIme);
-        GlavnaController glavnaController = new GlavnaController();
+        Category category1 = new Category(category.getText());
+        Article artikal = new Article(naziv.getText(), category1,cijena.getText(),lokacija.getText(),deskripcija.getText(),korisnickoIme);
+        MainController glavnaController = new MainController();
 
 
         dao.obrisiArtikal(naziv.getText(),deskripcija.getText());
@@ -94,12 +94,12 @@ public class ArtikalController implements Initializable {
         Stage primaryStage=new Stage();
         ResourceBundle bundle = ResourceBundle.getBundle("Translation");
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/profil.fxml"),bundle);
-        loader.setController(new ProfilController());
+        loader.setController(new ProfileController());
         Parent root=loader.load();
-        ProfilController profilController=loader.getController();
+        ProfileController profileController =loader.getController();
 
-        Korisnik k = dao.nadjiKorisnika(korisnik.getText());
-        profilController.setKorisnik(k,autor);
+        User k = dao.nadjiKorisnika(korisnik.getText());
+        profileController.setKorisnik(k,autor);
         //profilController.setAutor(autor);
 
         primaryStage.getIcons().add(new Image("/img/logo-no-bg.png"));
@@ -112,15 +112,15 @@ public class ArtikalController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle){
         naziv.textProperty().bind(model.nazivProperty());
-        kategorija.textProperty().bind(model.kategorijaProperty());
+        category.textProperty().bind(model.kategorijaProperty());
         cijena.textProperty().bind(model.cijenaProperty());
         lokacija.textProperty().bind(model.lokacijaProperty());
         deskripcija.textProperty().bind(model.deskripcijaProperty());
         korisnik.textProperty().bind(model.korisnikProperty());
 
 
-        Kategorija kategorija1 = new Kategorija(kategorija.getText());
-        Artikal artikal = new Artikal(naziv.getText(),kategorija1,cijena.getText(),
+        Category category1 = new Category(category.getText());
+        Article artikal = new Article(naziv.getText(), category1,cijena.getText(),
                 lokacija.getText(),deskripcija.getText(),korisnik.getText());
         ResultSet rs = dao.dajSlikuArtikla(artikal);
 

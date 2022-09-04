@@ -11,18 +11,18 @@ import java.time.LocalDate;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
-public class RegistracijaController implements Initializable {
+public class RegistrationController implements Initializable {
     public TextField fldIme, fldPrezime, fldKorisnicko, fldMjesto, fldAdresa, fldBrojTel;
     public PasswordField passwordField;
     public DatePicker datePicker;
     private boolean ispravno = false;
     private boolean ispravanPassword = false;
     public Button btnRegistrujSe;
-    private final KorisnikDAO dao;
+    private final UserDAO dao;
     public ProgressBar progressBar;
 
-    public RegistracijaController(){
-        dao = KorisnikDAO.getInstance();
+    public RegistrationController(){
+        dao = UserDAO.getInstance();
     }
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -148,7 +148,7 @@ public class RegistracijaController implements Initializable {
     }
 
     public void clickRegistrujSe(ActionEvent actionEvent){
-        Korisnik korisnik1= dao.nadjiKorisnika(fldKorisnicko.getText());
+        User user1 = dao.nadjiKorisnika(fldKorisnicko.getText());
 
         if(!fldIme.getText().isBlank() && !fldPrezime.getText().isBlank() && !datePicker.getValue().toString().isBlank() && !fldKorisnicko.getText().isBlank() && !passwordField.getText().isBlank()
                 && !fldMjesto.getText().isBlank() && !fldAdresa.getText().isBlank() && !fldBrojTel.getText().isBlank() && ispravno) {
@@ -163,9 +163,9 @@ public class RegistracijaController implements Initializable {
 
             }
 
-             else if(korisnik1==null){
-                Osoba osoba = new Osoba(fldIme.getText(), fldPrezime.getText(), datePicker.getValue().toString());
-                Korisnik korisnik = new Korisnik(osoba, fldKorisnicko.getText(), passwordField.getText(), fldMjesto.getText(),fldAdresa.getText(),fldBrojTel.getText());
+             else if(user1 ==null){
+                Person person = new Person(fldIme.getText(), fldPrezime.getText(), datePicker.getValue().toString());
+                User user = new User(person, fldKorisnicko.getText(), passwordField.getText(), fldMjesto.getText(),fldAdresa.getText(),fldBrojTel.getText());
 
                 Stage stage = (Stage) btnRegistrujSe.getScene().getWindow();
                 stage.close();
@@ -194,7 +194,7 @@ public class RegistracijaController implements Initializable {
                     alert1.close();
                 } else if (result.get() == accept) {
                     //oke button is pressed
-                    dao.dodajKorisnika(korisnik);
+                    dao.dodajKorisnika(user);
                     Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
                     alert.setTitle("Registracija uspješna!");
                     alert.setHeaderText("Uspješno ste se registrovali!");

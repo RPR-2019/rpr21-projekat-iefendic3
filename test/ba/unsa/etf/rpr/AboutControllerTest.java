@@ -1,5 +1,4 @@
 package ba.unsa.etf.rpr;
-
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -12,21 +11,24 @@ import org.testfx.api.FxRobot;
 import org.testfx.framework.junit5.ApplicationExtension;
 import org.testfx.framework.junit5.Start;
 
+import java.util.ResourceBundle;
+
 import static javafx.scene.layout.Region.USE_COMPUTED_SIZE;
 import static org.junit.jupiter.api.Assertions.*;
 @ExtendWith(ApplicationExtension.class)
 class AboutControllerTest {
     Stage theStage;
     AboutController ctrl;
-    GlavnaController glavnaController;
+    MainController mainController;
     Stage stageGlavna;
     Alert alert;
-    RegistracijaController registracijaController;
+    RegistrationController registrationController;
     Stage stageRegistracija;
 
     @Start
     public void start (Stage stage) throws Exception {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/about.fxml"));
+        ResourceBundle bundle = ResourceBundle.getBundle("Translation");
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/about.fxml"),bundle);
         ctrl = new AboutController();
         loader.setController(ctrl);
         Parent root = loader.load();

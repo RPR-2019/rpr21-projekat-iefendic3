@@ -22,15 +22,15 @@ import java.util.ResourceBundle;
 import static javafx.scene.layout.Region.USE_COMPUTED_SIZE;
 
 
-public class ProfilController implements Initializable {
+public class ProfileController implements Initializable {
 
 
     public Label  labelaIme, labelaPrezime, labelaDatum, labelaMjesto, labelaAdresa, labelaBrojTel;
     private String korisnickoIme;
     private String korisnickoIme1;
     private String autor;
-    private Korisnik korisnik;
-    private final KorisnikDAO dao;
+    private User user;
+    private final UserDAO dao;
     final FileChooser fc = new FileChooser();
     ResourceBundle bundle = ResourceBundle.getBundle("Translation");
 
@@ -39,7 +39,7 @@ public class ProfilController implements Initializable {
     @FXML
     Hyperlink btnSlikaProfila;
 
-    public ProfilController(){ dao = KorisnikDAO.getInstance();}
+    public ProfileController(){ dao = UserDAO.getInstance();}
 
     public void setKorisnickoIme(String korisnickoIme){
         korisnickoIme1=korisnickoIme;
@@ -48,9 +48,9 @@ public class ProfilController implements Initializable {
     public void clickKupljeniArtikli(ActionEvent actionEvent) throws IOException{
         Stage primaryStage = new Stage();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/kupljeni.fxml"),bundle);
-        KupljeniController controller = new KupljeniController();
+        BoughtArticlesController controller = new BoughtArticlesController();
         loader.setController(controller);
-        controller.setKorisnickoIme(korisnik);
+        controller.setKorisnickoIme(user);
         Parent root = loader.load();
         primaryStage.getIcons().add(new Image("/img/logo-no-bg.png"));
         primaryStage.setTitle("Kupljeni artikli");
@@ -61,9 +61,9 @@ public class ProfilController implements Initializable {
     public void clickProdaniArtikli(ActionEvent actionEvent) throws IOException{
         Stage primaryStage = new Stage();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/prodani.fxml"),bundle);
-        ProdaniController controller = new ProdaniController();
+        SoldArticlesController controller = new SoldArticlesController();
         loader.setController(controller);
-        controller.setKorisnickoIme(korisnik);
+        controller.setKorisnickoIme(user);
         Parent root = loader.load();
         primaryStage.getIcons().add(new Image("/img/logo-no-bg.png"));
         primaryStage.setTitle("Prodani artikli");
@@ -74,9 +74,9 @@ public class ProfilController implements Initializable {
     public void clickAktivniArtikli(ActionEvent actionEvent) throws IOException{
         Stage primaryStage = new Stage();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/aktivni.fxml"),bundle);
-        AktivniController controller = new AktivniController();
+        ActiveArticlesController controller = new ActiveArticlesController();
         loader.setController(controller);
-        controller.setKorisnickoIme(korisnik);
+        controller.setKorisnickoIme(user);
         Parent root = loader.load();
         primaryStage.getIcons().add(new Image("/img/logo-no-bg.png"));
         primaryStage.setTitle("Aktivni artikli");
@@ -90,9 +90,9 @@ public class ProfilController implements Initializable {
     public void clickKomentari(ActionEvent actionEvent) throws IOException{
         Stage primaryStage = new Stage();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/komentari.fxml"),bundle);
-        KomentariController controller = new KomentariController();
+        CommentsController controller = new CommentsController();
         loader.setController(controller);
-        controller.setKorisnickoIme(korisnik);
+        controller.setKorisnickoIme(user);
         controller.setAutor(autor);
 
         Parent root = loader.load();
@@ -132,16 +132,16 @@ public class ProfilController implements Initializable {
     }
 
 
-    public void setKorisnik(Korisnik korisnik, String autor1) throws IOException{
+    public void setKorisnik(User user, String autor1) throws IOException{
         this.autor = autor1;
-        this.korisnik = korisnik;
-        korisnickoIme = korisnik.getKorisnickoIme();
-        labelaIme.setText(labelaIme.getText()+" "+korisnik.getOsoba().getIme());
-        labelaPrezime.setText(labelaPrezime.getText()+" "+korisnik.getOsoba().getPrezime());
-        labelaDatum.setText(labelaDatum.getText()+" "+korisnik.getOsoba().dajDatum());
-        labelaMjesto.setText(labelaMjesto.getText()+" "+korisnik.getMjesto());
-        labelaAdresa.setText(labelaAdresa.getText()+" "+korisnik.getAdresa());
-        labelaBrojTel.setText(labelaBrojTel.getText()+" "+korisnik.getBrojTelefona());
+        this.user = user;
+        korisnickoIme = user.getKorisnickoIme();
+        labelaIme.setText(labelaIme.getText()+" "+ user.getOsoba().getIme());
+        labelaPrezime.setText(labelaPrezime.getText()+" "+ user.getOsoba().getPrezime());
+        labelaDatum.setText(labelaDatum.getText()+" "+ user.getOsoba().dajDatum());
+        labelaMjesto.setText(labelaMjesto.getText()+" "+ user.getMjesto());
+        labelaAdresa.setText(labelaAdresa.getText()+" "+ user.getAdresa());
+        labelaBrojTel.setText(labelaBrojTel.getText()+" "+ user.getBrojTelefona());
 
 
         if(autor!=null){

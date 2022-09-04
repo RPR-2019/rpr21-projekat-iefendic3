@@ -17,7 +17,6 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-import net.sf.jasperreports.engine.JRException;
 
 import java.io.IOException;
 import java.net.URL;
@@ -32,7 +31,7 @@ import java.util.stream.Collectors;
 import static javafx.scene.layout.Region.USE_COMPUTED_SIZE;
 
 
-public class GlavnaController implements Initializable {
+public class MainController implements Initializable {
 
     @FXML
     public TextField searchBar;
@@ -41,18 +40,18 @@ public class GlavnaController implements Initializable {
 
     public MenuBar menuBar;
     public Label labelDobrodosao;
-    private final KorisnikDAO dao;
+    private final UserDAO dao;
     private String korisnickoIme;
     private String autor;
-    public ListView<Kategorija> lvKategorije;
+    public ListView<Category> lvKategorije;
     public Button btnDodajKategoriju, btnObjavaArtikla;
     public TextField txtFieldKategorija;
     private boolean postoji = false;
     @FXML
     public Label labelGreska;
-    public ListView<Artikal> lvArtikli = new ListView<Artikal>();
-    public ArrayList<Artikal> words = new ArrayList<>();
-    private Artikal artikalZaBrisanje ;
+    public ListView<Article> lvArtikli = new ListView<Article>();
+    public ArrayList<Article> words = new ArrayList<>();
+    private Article artikalZaBrisanje ;
     ResourceBundle bundle = ResourceBundle.getBundle("Translation");
 
     @FXML
@@ -62,7 +61,7 @@ public class GlavnaController implements Initializable {
 
 
 
-    public void setArtikal(Artikal artikal){
+    public void setArtikal(Article artikal){
         //lvArtikli.getItems().remove(artikal);
 
         lvArtikli.getItems().clear();
@@ -72,8 +71,8 @@ public class GlavnaController implements Initializable {
         try {
             ResultSet rs = dao.dajArtikle();
             while (rs.next()) {
-                Kategorija kategorija = new Kategorija(rs.getString(2));
-                words.add(new Artikal(rs.getString(1), kategorija, rs.getString(3),rs.getString(4),
+                Category category = new Category(rs.getString(2));
+                words.add(new Article(rs.getString(1), category, rs.getString(3),rs.getString(4),
                        rs.getString(5), rs.getString(6)));
 
             }
@@ -89,7 +88,7 @@ public class GlavnaController implements Initializable {
         lvArtikli.getItems().addAll(searchList(searchBar.getText(),words));
     }
 
-    private List<Artikal> searchList(String searchWords, List<Artikal> listOfStrings){
+    private List<Article> searchList(String searchWords, List<Article> listOfStrings){
         List<String> searchWordsArray = Arrays.asList(searchWords.trim().split(" "));
         return listOfStrings.stream().filter(input -> {
             return searchWordsArray.stream().allMatch(word ->
@@ -104,7 +103,7 @@ public class GlavnaController implements Initializable {
         this.autor=korisnickoIme;
     }
 
-    public GlavnaController(){dao = KorisnikDAO.getInstance();}
+    public MainController(){dao = UserDAO.getInstance();}
 
     public void setLabelaZensko(String string){
         labelDobrodosao.setText(labelDobrodosao.getText()+string);
@@ -113,22 +112,22 @@ public class GlavnaController implements Initializable {
         labelDobrodosao.setText(labelDobrodosao.getText()+string);
     }
 
-    public void setArtikli(ArrayList<Artikal> artikli){
-        ObservableList<Artikal> observableList = FXCollections.observableList(artikli);
+    public void setArtikli(ArrayList<Article> artikli){
+        ObservableList<Article> observableList = FXCollections.observableList(artikli);
         lvArtikli.setItems(observableList);
     }
 
     public void clickDodajKategoriju(ActionEvent actionEvent) {
         postoji = false;
-        Kategorija kategorija = new Kategorija();
-        if (txtFieldKategorija.getText() != null) kategorija.setNazivKategorije(txtFieldKategorija.getText());
-        for(Kategorija k : lvKategorije.getItems()){
-            if(k.getNazivKategorije().equalsIgnoreCase(kategorija.getNazivKategorije())) postoji = true;
+        Category category = new Category();
+        if (txtFieldKategorija.getText() != null) category.setNazivKategorije(txtFieldKategorija.getText());
+        for(Category k : lvKategorije.getItems()){
+            if(k.getNazivKategorije().equalsIgnoreCase(category.getNazivKategorije())) postoji = true;
         }
-        if (!kategorija.getNazivKategorije().equals("") && !postoji ){
-                lvKategorije.getItems().add(kategorija);
+        if (!category.getNazivKategorije().equals("") && !postoji ){
+                lvKategorije.getItems().add(category);
                 txtFieldKategorija.setText("");
-                dao.dodajKategoriju(kategorija);
+                dao.dodajKategoriju(category);
         }
         else {
             labelGreska.setVisible(true);
@@ -144,12 +143,12 @@ public class GlavnaController implements Initializable {
         Stage primaryStage = new Stage();
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/objava.fxml"),bundle);
-        loader.setController(new ObjavaController());
+        loader.setController(new PublishController());
         Parent root=loader.load();
-        ObjavaController objavaController=loader.getController();
+        PublishController publishController =loader.getController();
 
-        Korisnik korisnik = dao.nadjiKorisnika(korisnickoIme);
-        objavaController.setKorisnickoIme(korisnik);
+        User user = dao.nadjiKorisnika(korisnickoIme);
+        publishController.setKorisnickoIme(user);
 
 
 
@@ -161,20 +160,20 @@ public class GlavnaController implements Initializable {
 
         if(primaryStage.getUserData() != null) {
 
-            ArrayList<Kategorija> kategorije = (ArrayList<Kategorija>) primaryStage.getUserData();
-            for (Kategorija k : kategorije) {
+            ArrayList<Category> kategorije = (ArrayList<Category>) primaryStage.getUserData();
+            for (Category k : kategorije) {
                 lvKategorije.getItems().add(k);
             }
 
         }
         try {
             ResultSet rsArtikli = dao.dajArtikle();
-            Artikal zadnjiArtikal = new Artikal();
+            Article zadnjiArtikal = new Article();
             //Zadnji element
             while(rsArtikli.next()){
-                Kategorija kategorija1 = new Kategorija(rsArtikli.getString(2));
+                Category category1 = new Category(rsArtikli.getString(2));
                 zadnjiArtikal.setNaziv(rsArtikli.getString(1));
-                zadnjiArtikal.setKategorija(kategorija1);
+                zadnjiArtikal.setKategorija(category1);
                 zadnjiArtikal.setCijena(rsArtikli.getString(3));
                 zadnjiArtikal.setLokacija(rsArtikli.getString(4));
                 zadnjiArtikal.setDeskripcija(rsArtikli.getString(5));
@@ -235,14 +234,14 @@ public class GlavnaController implements Initializable {
     public void clickProfil(ActionEvent actionEvent) throws IOException {
         Stage primaryStage=new Stage();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/profil.fxml"),bundle);
-        loader.setController(new ProfilController());
+        loader.setController(new ProfileController());
         Parent root=loader.load();
-        ProfilController profilController=loader.getController();
+        ProfileController profileController =loader.getController();
 
-        Korisnik k = dao.nadjiKorisnika(korisnickoIme);
-        profilController.setKorisnik(k,autor);
-        profilController.setAutor(autor);
-        profilController.setKorisnickoIme(korisnickoIme);
+        User k = dao.nadjiKorisnika(korisnickoIme);
+        profileController.setKorisnik(k,autor);
+        profileController.setAutor(autor);
+        profileController.setKorisnickoIme(korisnickoIme);
 
 
         primaryStage.getIcons().add(new Image("/img/logo-no-bg.png"));
@@ -281,12 +280,12 @@ public class GlavnaController implements Initializable {
                 DataModel model1 = new DataModel();
                 Stage primaryStage = new Stage();
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/artikal.fxml"),bundle);
-                ArtikalController controller = new ArtikalController(model1);
+                ArticleController controller = new ArticleController(model1);
                 loader.setController(controller);
 
 
-                Korisnik korisnik = dao.nadjiKorisnika(korisnickoIme);
-                controller.setKorisnickoIme(korisnik);
+                User user = dao.nadjiKorisnika(korisnickoIme);
+                controller.setKorisnickoIme(user);
                 controller.setAutor(autor);
 
                 model1.setNaziv(lvArtikli.getSelectionModel().getSelectedItem().toString());
@@ -310,8 +309,8 @@ public class GlavnaController implements Initializable {
                 try {
                     ResultSet rs = dao.dajArtikle();
                     while (rs.next()) {
-                        Kategorija kategorija = new Kategorija(rs.getString(2));
-                        words.add(new Artikal(rs.getString(1), kategorija, rs.getString(3),rs.getString(4),
+                        Category category = new Category(rs.getString(2));
+                        words.add(new Article(rs.getString(1), category, rs.getString(3),rs.getString(4),
                                 rs.getString(5), rs.getString(6)));
 
                     }
@@ -426,7 +425,7 @@ public class GlavnaController implements Initializable {
             ResultSet rsArtikli = dao.dajArtikle();
             ResultSet rs = dao.dajKategorije();
             while (rs.next()) {
-                lvKategorije.getItems().add(new Kategorija(rs.getString(1)));
+                lvKategorije.getItems().add(new Category(rs.getString(1)));
             }
            /* while(rsArtikli.next()){
                 Kategorija kategorija = new Kategorija(rsArtikli.getString(2));

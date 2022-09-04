@@ -20,33 +20,33 @@ import java.util.ResourceBundle;
 
 import static javafx.scene.layout.Region.USE_COMPUTED_SIZE;
 
-public class KomentariController implements Initializable {
-    private final KorisnikDAO dao;
+public class CommentsController implements Initializable {
+    private final UserDAO dao;
     private String korisnickoIme;
     private String autor;
 
-    public KomentariController(){ dao = KorisnikDAO.getInstance();}
+    public CommentsController(){ dao = UserDAO.getInstance();}
 
-    public void setKorisnickoIme(Korisnik korisnik) {
-        korisnickoIme = korisnik.getKorisnickoIme();
+    public void setKorisnickoIme(User user) {
+        korisnickoIme = user.getKorisnickoIme();
     }
     public void setAutor(String korisnik) {
         autor = korisnik;
     }
 
     @FXML
-    ListView<Komentar> lvKomentari;
+    ListView<Comment> lvKomentari;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         ResultSet rs = dao.dajKomentareKorisnika(korisnickoIme);
-        Recenzija recenzija;
+        Critique critique;
         try {
             while (rs.next()){
-                if(rs.getString(3).equals("Pozitivno")) recenzija = Recenzija.POZITIVNA;
+                if(rs.getString(3).equals("Pozitivno")) critique = Critique.POZITIVNA;
                 else
-                    recenzija = Recenzija.NEGATIVNA;
-                lvKomentari.getItems().add(new Komentar(rs.getString(1),rs.getString(2),recenzija,rs.getString(4)));
+                    critique = Critique.NEGATIVNA;
+                lvKomentari.getItems().add(new Comment(rs.getString(1),rs.getString(2), critique,rs.getString(4)));
             }
 
         } catch(SQLException e){
@@ -58,7 +58,7 @@ public class KomentariController implements Initializable {
         Stage primaryStage = new Stage();
         ResourceBundle bundle = ResourceBundle.getBundle("Translation");
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/komentar.fxml"),bundle);
-        KomentarController controller = new KomentarController();
+        CommentController controller = new CommentController();
         loader.setController(controller);
         controller.setKorisnickoIme(korisnickoIme);
         controller.setAutorKomentara(autor);
@@ -72,32 +72,32 @@ public class KomentariController implements Initializable {
 
         try {
             ResultSet rsKomentari = dao.dajKomentareKorisnika(korisnickoIme);
-            Komentar zadnjiKomentar = new Komentar();
-            Recenzija recenzija;
+            Comment zadnjiComment = new Comment();
+            Critique critique;
             //Zadnji element
             while(rsKomentari.next()){
-                if(rsKomentari.getString(3).equals("Pozitivno")) recenzija = Recenzija.POZITIVNA;
+                if(rsKomentari.getString(3).equals("Pozitivno")) critique = Critique.POZITIVNA;
                 else
-                    recenzija = Recenzija.NEGATIVNA;
-                zadnjiKomentar.setKorisnickoIme(rsKomentari.getString(1));
-                zadnjiKomentar.setTekstKomentara(rsKomentari.getString(2));
-                zadnjiKomentar.setRecenzija(recenzija);
-                zadnjiKomentar.setAutor(rsKomentari.getString(4));
+                    critique = Critique.NEGATIVNA;
+                zadnjiComment.setKorisnickoIme(rsKomentari.getString(1));
+                zadnjiComment.setTekstKomentara(rsKomentari.getString(2));
+                zadnjiComment.setRecenzija(critique);
+                zadnjiComment.setAutor(rsKomentari.getString(4));
             }
 
             boolean tmp = false;
             for(int i = 0; i<lvKomentari.getItems().size();i++){
-                if(lvKomentari.getItems().get(i).getKorisnickoIme().equals(zadnjiKomentar.getKorisnickoIme())
-                        && lvKomentari.getItems().get(i).getTekstKomentara().equals(zadnjiKomentar.getTekstKomentara())
-                        && lvKomentari.getItems().get(i).getRecenzija().toString().equals(zadnjiKomentar.getRecenzija().toString())
-                        && lvKomentari.getItems().get(i).getAutor().equals(zadnjiKomentar.getAutor())
+                if(lvKomentari.getItems().get(i).getKorisnickoIme().equals(zadnjiComment.getKorisnickoIme())
+                        && lvKomentari.getItems().get(i).getTekstKomentara().equals(zadnjiComment.getTekstKomentara())
+                        && lvKomentari.getItems().get(i).getRecenzija().toString().equals(zadnjiComment.getRecenzija().toString())
+                        && lvKomentari.getItems().get(i).getAutor().equals(zadnjiComment.getAutor())
                 ) {
                     tmp=true;
                 }
             }
             if(!tmp) {
 
-                lvKomentari.getItems().add(zadnjiKomentar);
+                lvKomentari.getItems().add(zadnjiComment);
             }
 
 
@@ -115,11 +115,11 @@ public class KomentariController implements Initializable {
                 Stage primaryStage = new Stage();
                 ResourceBundle bundle = ResourceBundle.getBundle("Translation");
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/komentar-detalji.fxml"),bundle);
-                KomentarDetaljiController controller = new KomentarDetaljiController(model1);
+                CommentDetailsController controller = new CommentDetailsController(model1);
                 loader.setController(controller);
 
-                Korisnik korisnik = dao.nadjiKorisnika(korisnickoIme);
-                controller.setKorisnickoIme(korisnik);
+                User user = dao.nadjiKorisnika(korisnickoIme);
+                controller.setKorisnickoIme(user);
                 controller.setAutor(autor);
 
                 model1.setTekstKomentara(lvKomentari.getSelectionModel().getSelectedItem().toString());

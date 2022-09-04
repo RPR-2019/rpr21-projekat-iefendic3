@@ -1,22 +1,22 @@
 package ba.unsa.etf.rpr;
 
-public class Komentar {
+public class Comment {
     private String korisnickoIme;
     private String tekstKomentara;
-    private Recenzija recenzija;
+    private Critique critique;
     private String autor;
 
-    public Komentar(String korisnickoIme, String tekstKomentara, Recenzija recenzija, String autor) {
+    public Comment(String korisnickoIme, String tekstKomentara, Critique critique, String autor) {
         this.korisnickoIme = korisnickoIme;
         this.tekstKomentara = tekstKomentara;
-        this.recenzija = recenzija;
+        this.critique = critique;
         this.autor = autor;
     }
 
-    public Komentar() {
+    public Comment() {
         this.korisnickoIme="";
         this.tekstKomentara="";
-        this.recenzija=Recenzija.POZITIVNA;
+        this.critique = Critique.POZITIVNA;
         this.autor="";
     }
 
@@ -44,12 +44,12 @@ public class Komentar {
         this.tekstKomentara = tekstKomentara;
     }
 
-    public Recenzija getRecenzija() {
-        return recenzija;
+    public Critique getRecenzija() {
+        return critique;
     }
 
-    public void setRecenzija(Recenzija recenzija) {
-        this.recenzija = recenzija;
+    public void setRecenzija(Critique critique) {
+        this.critique = critique;
     }
 
     @Override

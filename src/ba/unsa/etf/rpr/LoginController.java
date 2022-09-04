@@ -18,11 +18,11 @@ import java.util.ResourceBundle;
 import static javafx.scene.layout.Region.USE_COMPUTED_SIZE;
 
 public class LoginController{
-    private final KorisnikDAO dao;
+    private final UserDAO dao;
     public TextField fldKorisnickoIme;
     public PasswordField fldPassword;
     public Button btnPrijava;
-    public LoginController(){ dao = KorisnikDAO.getInstance();}
+    public LoginController(){ dao = UserDAO.getInstance();}
 
     public String getKorisnickoIme (){
 
@@ -41,8 +41,8 @@ public class LoginController{
         Stage secondaryStage = new Stage();
         ResourceBundle bundle = ResourceBundle.getBundle("Translation");
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/registracija.fxml"), bundle);
-        RegistracijaController registracijaController = new RegistracijaController();
-        loader.setController(registracijaController);
+        RegistrationController registrationController = new RegistrationController();
+        loader.setController(registrationController);
         Parent root = loader.load();
         secondaryStage.getIcons().add(new Image("/img/logo-no-bg.png"));
         secondaryStage.setTitle("Registracija");
@@ -54,7 +54,7 @@ public class LoginController{
     public void clickPrijava(ActionEvent actionEvent) throws IOException {
         if(dao.nadjiKorisnika(fldKorisnickoIme.getText()) != null && dao.nadjiPasswordKorisnika(fldPassword.getText()) != null) {
 
-            Korisnik k = dao.nadjiKorisnika(fldKorisnickoIme.getText());
+            User k = dao.nadjiKorisnika(fldKorisnickoIme.getText());
 
             Stage stage = (Stage) btnPrijava.getScene().getWindow();
             stage.close();
@@ -62,9 +62,9 @@ public class LoginController{
             ResourceBundle bundle = ResourceBundle.getBundle("Translation");
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/glavna.fxml"),bundle);
 
-            loader.setController(new GlavnaController());
+            loader.setController(new MainController());
             Parent root = loader.load();
-            GlavnaController glavnaController = loader.getController();
+            MainController glavnaController = loader.getController();
             glavnaController.setKorisnickoIme(fldKorisnickoIme.getText());
             glavnaController.setAutorKomentara(fldKorisnickoIme.getText());
 

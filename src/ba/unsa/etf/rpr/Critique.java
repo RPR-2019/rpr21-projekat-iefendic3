@@ -1,11 +1,11 @@
 package ba.unsa.etf.rpr;
 
-public enum Recenzija {
+public enum Critique {
     POZITIVNA("Pozitivno"), NEGATIVNA("Negativno");
 
     private final String recenzija;
 
-    Recenzija(String recenzija){
+    Critique(String recenzija){
         this.recenzija = recenzija;
     }
 

@@ -16,44 +16,44 @@
 
 	<parameter name = "reportsDirPath" class = "java.lang.String"/>
 	<queryString language="SQL">
-		<![CDATA[SELECT * FROM korisnik;
+		<![CDATA[SELECT * FROM user;
 SELECT * FROM kategorije;
 SELECT * FROM artikli;]]>
 	</queryString>
 	<field name="ime" class="java.lang.Object">
 		<property name="com.jaspersoft.studio.field.name" value="ime"/>
 		<property name="com.jaspersoft.studio.field.label" value="ime"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="korisnik"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="user"/>
 	</field>
 	<field name="prezime" class="java.lang.Object">
 		<property name="com.jaspersoft.studio.field.name" value="prezime"/>
 		<property name="com.jaspersoft.studio.field.label" value="prezime"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="korisnik"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="user"/>
 	</field>
 	<field name="datum_rodjenja" class="java.lang.Object">
 		<property name="com.jaspersoft.studio.field.name" value="datum_rodjenja"/>
 		<property name="com.jaspersoft.studio.field.label" value="datum_rodjenja"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="korisnik"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="user"/>
 	</field>
 	<field name="korisnicko_ime" class="java.lang.Object">
 		<property name="com.jaspersoft.studio.field.name" value="korisnicko_ime"/>
 		<property name="com.jaspersoft.studio.field.label" value="korisnicko_ime"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="korisnik"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="user"/>
 	</field>
 	<field name="mjesto" class="java.lang.Object">
 		<property name="com.jaspersoft.studio.field.name" value="mjesto"/>
 		<property name="com.jaspersoft.studio.field.label" value="mjesto"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="korisnik"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="user"/>
 	</field>
 	<field name="adresa" class="java.lang.Object">
 		<property name="com.jaspersoft.studio.field.name" value="adresa"/>
 		<property name="com.jaspersoft.studio.field.label" value="adresa"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="korisnik"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="user"/>
 	</field>
 	<field name="broj_telefona" class="java.lang.Object">
 		<property name="com.jaspersoft.studio.field.name" value="broj_telefona"/>
 		<property name="com.jaspersoft.studio.field.label" value="broj_telefona"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="korisnik"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="user"/>
 	</field>
 	<group name="Group1">
 		<groupExpression><![CDATA[$F{ime}]]></groupExpression>
