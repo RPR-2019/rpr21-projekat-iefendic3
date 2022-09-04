@@ -19,7 +19,7 @@
     <children>
         <VBox prefHeight="211.0" prefWidth="283.0" GridPane.rowIndex="1" GridPane.rowSpan="2">
             <children>
-                <Label fx:id="labelaKomentar" text="Komentar:">
+                <Label fx:id="labelaKomentar" text="%comment">
                     <font>
                         <Font size="18.0" />
                     </font>
@@ -27,7 +27,7 @@
             <TextArea fx:id="tekstKomentara" editable="false" prefHeight="225.0" prefWidth="315.0" />
             <HBox prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <Label text="Recenzija:">
+                  <Label text="%critique">
                      <font>
                         <Font size="18.0" />
                      </font>
@@ -44,7 +44,7 @@
             </HBox>
             <HBox prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <Label text="Autor komentara:">
+                  <Label text="%article.author">
                      <font>
                         <Font size="18.0" />
                      </font>
