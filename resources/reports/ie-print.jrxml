@@ -16,7 +16,7 @@
 
 	<parameter name = "reportsDirPath" class = "java.lang.String"/>
 	<queryString language="SQL">
-		<![CDATA[SELECT * FROM user;
+		<![CDATA[SELECT * FROM korisnik;
 SELECT * FROM kategorije;
 SELECT * FROM artikli;]]>
 	</queryString>
